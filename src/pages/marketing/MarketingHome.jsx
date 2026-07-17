@@ -1,3 +1,4 @@
+// src/pages/marketing/MarketingHome.jsx
 import { Link } from "react-router-dom";
 import { CheckCircle2, Heart, Shield, Compass, Sparkles } from "lucide-react";
 import { SALES_CONTENT } from "@/data/salesPageContent.js";
@@ -29,13 +30,13 @@ export default function MarketingHome() {
                 </li>
               ))}
             </ul>
-            <div className="flex gap-3">
-              <Link to="/courses-catalog" className="rounded-full bg-gold-500 text-covenant-900 font-bold px-6 py-3 hover:bg-gold-400 transition-colors shadow-lg">
+            <div className="flex gap-3 flex-wrap">
+              <a href="https://covenantmarriagehelp.com/#courses" className="rounded-full bg-gold-500 text-covenant-900 font-bold px-6 py-3 hover:bg-gold-400 transition-colors shadow-lg">
                 Explore the Course
-              </Link>
-              <Link to="/about" className="rounded-full border border-white/30 text-white font-medium px-6 py-3 hover:bg-white/10 transition-colors">
+              </a>
+              <a href="https://covenantmarriagehelp.com/#book" className="rounded-full border border-white/30 text-white font-medium px-6 py-3 hover:bg-white/10 transition-colors">
                 Get Marriage Help
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -53,12 +54,12 @@ export default function MarketingHome() {
                 </li>
               ))}
             </ul>
-            <Link
-              to={`/courses/${FEATURED.id}`}
+            <a
+              href="https://covenantmarriagehelp.com/course-covenant-marriage-foundation.html"
               className="w-full block text-center rounded-full bg-gold-500 text-covenant-900 font-bold py-3.5 hover:bg-gold-400 transition-colors shadow-lg"
             >
               Enrol Now — £{FEATURED.price}
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -82,10 +83,10 @@ export default function MarketingHome() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: Compass, key: "pre-marital-masterclass", tone: "text-covenant-500" },
-              { icon: Heart, key: "covenant-marriage-foundation", tone: "text-gold-600" },
-              { icon: Shield, key: "marriage-crisis-survival-guide", tone: "text-covenant-700" },
-            ].map(({ icon: Icon, key, tone }) => {
+              { icon: Compass, key: "pre-marital-masterclass", tone: "text-covenant-500", link: "course-pre-marital-masterclass.html" },
+              { icon: Heart, key: "covenant-marriage-foundation", tone: "text-gold-600", link: "course-covenant-marriage-foundation.html" },
+              { icon: Shield, key: "marriage-crisis-survival-guide", tone: "text-covenant-700", link: "course-marriage-crisis-survival-guide.html" },
+            ].map(({ icon: Icon, key, tone, link }) => {
               const c = SALES_CONTENT[key];
               return (
                 <div key={key} className="bg-white rounded-2xl border border-covenant-100 p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -95,12 +96,12 @@ export default function MarketingHome() {
                   </h3>
                   <p className="text-covenant-500 text-sm mb-6">{c.subtitle}</p>
                   <p className="font-serif text-2xl font-bold text-gold-600 mb-4">£{c.price}</p>
-                  <Link
-                    to={`/courses/${c.id}`}
+                  <a
+                    href={`https://covenantmarriagehelp.com/${link}`}
                     className="inline-block rounded-full bg-covenant-600 text-white text-sm font-semibold px-5 py-2.5 hover:bg-covenant-700 transition-colors"
                   >
                     View the Course
-                  </Link>
+                  </a>
                 </div>
               );
             })}
@@ -119,12 +120,12 @@ export default function MarketingHome() {
         <p className="text-covenant-600 text-lg leading-relaxed mb-8">
           But because growth is possible wherever there is humility, willingness, truth, prayer, and God's grace.
         </p>
-        <Link
-          to="/courses-catalog"
+        <a
+          href="https://covenantmarriagehelp.com/#courses"
           className="rounded-full bg-covenant-600 text-white font-bold px-8 py-3.5 hover:bg-covenant-700 transition-colors inline-block"
         >
           Start With the Course
-        </Link>
+        </a>
       </section>
     </div>
   );

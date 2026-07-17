@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import Button from "@/components/ui/Button.jsx";
-import { Card } from "@/components/ui/Card.jsx";
+// src/pages/Home.jsx
 import { Heart, Shield, Compass } from "lucide-react";
+import { Card } from "@/components/ui/Card.jsx";
+import Button from "@/components/ui/Button.jsx";
 
 export default function Home() {
   return (
@@ -14,9 +14,9 @@ export default function Home() {
           Christ-centred courses for couples preparing for marriage, rebuilding after
           crisis, and strengthening covenant for the long term.
         </p>
-        <Link to="/courses">
+        <a href="https://covenantmarriagehelp.com/#courses">
           <Button size="lg" variant="accent">Explore Courses</Button>
-        </Link>
+        </a>
       </section>
 
       <section className="grid md:grid-cols-3 gap-6">
@@ -28,6 +28,9 @@ export default function Home() {
           <p className="text-brand-500 text-sm">
             Discernment and preparation for engaged and seriously dating couples.
           </p>
+          <a href="https://covenantmarriagehelp.com/course-pre-marital-masterclass.html" className="inline-block mt-3 text-sm font-semibold text-accent-600 hover:text-accent-700">
+            Learn More →
+          </a>
         </Card>
         <Card>
           <Heart className="text-accent-500 mb-3" size={28} />
@@ -37,6 +40,9 @@ export default function Home() {
           <p className="text-brand-500 text-sm">
             Building a strong biblical foundation for lifelong marriage.
           </p>
+          <a href="https://covenantmarriagehelp.com/course-covenant-marriage-foundation.html" className="inline-block mt-3 text-sm font-semibold text-accent-600 hover:text-accent-700">
+            Learn More →
+          </a>
         </Card>
         <Card>
           <Shield className="text-accent-500 mb-3" size={28} />
@@ -46,6 +52,9 @@ export default function Home() {
           <p className="text-brand-500 text-sm">
             Stabilisation and restoration for marriages in serious distress.
           </p>
+          <a href="https://covenantmarriagehelp.com/course-marriage-crisis-survival-guide.html" className="inline-block mt-3 text-sm font-semibold text-accent-600 hover:text-accent-700">
+            Learn More →
+          </a>
         </Card>
       </section>
     </div>
