@@ -1,0 +1,357 @@
+{
+  "id": "pre-marital-masterclass",
+  "title": "Pre-Marital Masterclass",
+  "subtitle": "Prepare for Marriage, Not Just the Wedding",
+  "description": "A premium Christian course for engaged and seriously dating couples who want to build a wise, honest, and Christ-centred foundation before saying 'I do.'",
+  "price": 147,
+  "currency": "GBP",
+  "instructor": "Reverend Sam Adeyemi",
+  "bonuses": [
+    "Marriage Readiness Assessment",
+    "Relationship Red Flags and Wisdom Signs Guide",
+    "Family Background Reflection Worksheet",
+    "Money, Sex, and Power Conversation Guide",
+    "Communication and Conflict Style Profile",
+    "Shared Vision Statement Template",
+    "First-Year Marriage Preparation Plan",
+    "Facilitator / Pastor Notes"
+  ],
+  "modules": [
+    {
+      "moduleId": "module-1",
+      "moduleTitle": "Are You Ready for Marriage?",
+      "moduleTheme": "Discernment Before Commitment",
+      "welcomeText": "Welcome to Module 1. Desire for marriage is not the same as readiness for marriage. This module helps you honestly assess your spiritual, emotional, relational, and practical readiness.",
+      "memoryStatement": "I pursue readiness, not just desire, before I say 'I do.'",
+      "teachingNotes": [
+        "Wanting marriage and being ready for marriage are two different things.",
+        "Readiness includes maturity, teachability, honesty, and responsibility.",
+        "Marriage magnifies what is already present in each person \u2014 it doesn't fix it.",
+        "Unresolved issues do not disappear at the altar; they usually intensify."
+      ],
+      "keyScriptures": [
+        "Proverbs 24:27",
+        "Luke 14:28-30",
+        "1 Corinthians 13:11"
+      ],
+      "personalReflection": [
+        "Rate your emotional, spiritual, and practical readiness for marriage (1-10) and explain.",
+        "What might be a red flag we're overlooking?",
+        "What does true readiness look like for each of us right now?"
+      ],
+      "coupleDiscussion": [
+        "What area of readiness feels strongest for each of us right now?",
+        "What area feels weakest, and how could we grow in it before marriage?",
+        "What is a 'red flag' versus a 'normal difference' in our relationship?"
+      ],
+      "coupleExercise": "Each of you writes an honest self-assessment of your own readiness (not your partner's) across four areas: spiritual, emotional, relational, practical. Share and discuss without defensiveness.",
+      "prayerFocus": "Lord, give us honest eyes to see our own readiness clearly, not just our desire to marry.",
+      "weeklyActionStep": "This week, identify one area of personal readiness you will work on individually before the wedding.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Marriage Readiness Assessment",
+          "worksheetInstructions": "A guided evaluation covering maturity, healing, spirituality, communication, and responsibility.",
+          "worksheetFields": [
+            "Rate your emotional, spiritual, and practical readiness for marriage (1-10) and explain.",
+            "What might be a red flag we're overlooking?",
+            "What does true readiness look like for each of us right now?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-2",
+      "moduleTitle": "Choosing Wisely",
+      "moduleTheme": "Love, Discernment, and Covenant Decision-Making",
+      "welcomeText": "Welcome to Module 2. Not every strong connection is a wise covenant match. This module helps you distinguish between emotional attachment and wise relational choice.",
+      "memoryStatement": "I let wisdom, not just emotion, guide this covenant decision.",
+      "teachingNotes": [
+        "Love should not silence discernment.",
+        "Character matters more than charm in the long run.",
+        "Peace and wisdom, not just excitement, should guide serious decisions.",
+        "Consistency over time reveals more truth than words in the moment."
+      ],
+      "keyScriptures": [
+        "Proverbs 4:7",
+        "1 Corinthians 13:4-7",
+        "Galatians 5:22-23"
+      ],
+      "personalReflection": [
+        "What draws us together most: attraction, character, or conviction?",
+        "What warning sign, if any, have we noticed but not addressed?",
+        "What does choosing wisely (not just emotionally) look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What character qualities matter most to each of us in a spouse?",
+        "Have we noticed any patterns of inconsistency in each other's words vs actions?",
+        "What would it look like to make this decision with both love and discernment?"
+      ],
+      "coupleExercise": "Each of you separately lists 5 character qualities you see consistently (not occasionally) in your partner. Compare lists and discuss what patterns you notice, positive or concerning.",
+      "prayerFocus": "Lord, give us discernment alongside our love. Help us see clearly, not just feel deeply.",
+      "weeklyActionStep": "This week, have an honest conversation about any warning sign either of you has been hesitant to raise.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Relationship Discernment Review",
+          "worksheetInstructions": "A practical discernment sheet for serious dating or engaged couples.",
+          "worksheetFields": [
+            "What draws us together most: attraction, character, or conviction?",
+            "What warning sign, if any, have we noticed but not addressed?",
+            "What does choosing wisely (not just emotionally) look like for us?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-3",
+      "moduleTitle": "Family Backgrounds and Baggage",
+      "moduleTheme": "What You Are Bringing Into Marriage",
+      "welcomeText": "Welcome to Module 3. Nobody enters marriage empty-handed. This module helps you understand how family systems, past wounds, and learned patterns shape your future marriage.",
+      "memoryStatement": "I bring awareness, not just baggage, into this marriage.",
+      "teachingNotes": [
+        "Family patterns often become marriage patterns unless consciously addressed.",
+        "Baggage ignored becomes baggage repeated.",
+        "Healing and awareness matter before covenant, not just after conflict arises.",
+        "Understanding your partner's family story builds empathy and realistic expectations."
+      ],
+      "keyScriptures": [
+        "Exodus 20:5-6",
+        "2 Corinthians 5:17",
+        "Ephesians 4:22-24"
+      ],
+      "personalReflection": [
+        "What family pattern from your upbringing might show up in our marriage?",
+        "What baggage do you recognise you're bringing in?",
+        "How can we support each other in healing before marriage?"
+      ],
+      "coupleDiscussion": [
+        "What did conflict, affection, and communication look like in each of our childhood homes?",
+        "What family expectations or loyalties might affect our marriage?",
+        "What is one family pattern we want to intentionally not repeat?"
+      ],
+      "coupleExercise": "Each of you draws a simple 'family map' listing key patterns (communication style, conflict style, roles, faith practices) from your family of origin. Share and discuss what you want to keep or change.",
+      "prayerFocus": "Lord, help us bring awareness and healing into our marriage, not just unexamined family patterns.",
+      "weeklyActionStep": "This week, ask your parents or a trusted family member one question about their own marriage journey.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Family Background Reflection Worksheet",
+          "worksheetInstructions": "Helps couples surface baggage and inherited patterns before marriage.",
+          "worksheetFields": [
+            "What family pattern from your upbringing might show up in our marriage?",
+            "What baggage do you recognise you're bringing in?",
+            "How can we support each other in healing before marriage?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-4",
+      "moduleTitle": "Money, Sex, and Power",
+      "moduleTheme": "The Conversations Couples Often Avoid",
+      "welcomeText": "Welcome to Module 4. What is avoided before marriage often becomes conflict inside marriage. This module helps you have honest conversations about money, intimacy, and power.",
+      "memoryStatement": "We discuss what matters now, so we're not surprised later.",
+      "teachingNotes": [
+        "Money reveals values more than it reveals math.",
+        "Intimacy requires honour, clarity, and honest expectations before marriage.",
+        "Power must be understood through servanthood, not control.",
+        "Avoided topics before marriage usually resurface, often at a worse time."
+      ],
+      "keyScriptures": [
+        "Proverbs 21:5",
+        "1 Corinthians 7:3-5",
+        "Mark 10:42-45"
+      ],
+      "personalReflection": [
+        "What is our biggest unresolved conversation about money, sex, or power?",
+        "What expectation do you have that we haven't discussed?",
+        "What is one honest conversation we need to have this week?"
+      ],
+      "coupleDiscussion": [
+        "What are our individual attitudes toward saving, spending, and debt?",
+        "What expectations do we each have about intimacy in marriage?",
+        "How do we each understand leadership and decision-making in marriage?"
+      ],
+      "coupleExercise": "Set aside 30 uninterrupted minutes to discuss finances honestly: income, debt, saving habits, and financial goals. Write down 3 agreements you land on together.",
+      "prayerFocus": "Lord, give us courage to be honest about hard topics now, before the wedding day.",
+      "weeklyActionStep": "This week, have the money conversation you've been avoiding, using this module's framework.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Money, Sex, and Power Conversation Guide",
+          "worksheetInstructions": "A guided workbook for difficult but necessary discussions.",
+          "worksheetFields": [
+            "What is our biggest unresolved conversation about money, sex, or power?",
+            "What expectation do you have that we haven't discussed?",
+            "What is one honest conversation we need to have this week?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-5",
+      "moduleTitle": "Communication Styles",
+      "moduleTheme": "How You Speak, Listen, and Handle Tension",
+      "welcomeText": "Welcome to Module 5. Communication patterns established before marriage usually continue after marriage. This module helps you understand how you each speak, listen, and handle tension.",
+      "memoryStatement": "I will learn your communication language, not assume it matches mine.",
+      "teachingNotes": [
+        "Tone often matters more than the actual words spoken.",
+        "Listening well is one of the clearest expressions of love.",
+        "Unresolved communication weaknesses become future marital conflict if unaddressed now.",
+        "Everyone has communication triggers that are worth understanding early."
+      ],
+      "keyScriptures": [
+        "James 1:19",
+        "Proverbs 18:13",
+        "Ephesians 4:15"
+      ],
+      "personalReflection": [
+        "How would you describe your communication style?",
+        "What tends to trigger misunderstanding between us?",
+        "What is one way we can listen better to each other?"
+      ],
+      "coupleDiscussion": [
+        "Do you process feelings out loud or need quiet time first? And your partner?",
+        "What's a recent moment we communicated really well? What made it work?",
+        "What's one thing you wish I understood about how you communicate?"
+      ],
+      "coupleExercise": "Practice a 10-minute 'no interrupting' conversation: one person shares a feeling or concern uninterrupted for 3 minutes, the other reflects back what they heard before responding.",
+      "prayerFocus": "Lord, help us listen as well as we speak, and understand each other's communication needs.",
+      "weeklyActionStep": "This week, notice one moment of miscommunication and revisit it together with curiosity, not blame.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Communication and Conflict Style Profile",
+          "worksheetInstructions": "A tool to identify relational tendencies before marriage.",
+          "worksheetFields": [
+            "How would you describe your communication style?",
+            "What tends to trigger misunderstanding between us?",
+            "What is one way we can listen better to each other?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-6",
+      "moduleTitle": "Conflict, Forgiveness, and Repair",
+      "moduleTheme": "What Happens When Things Go Wrong?",
+      "welcomeText": "Welcome to Module 6. Every marriage will face conflict. This module helps you assess how you handle disagreement before covenant increases the stakes.",
+      "memoryStatement": "How we repair matters more than whether we ever disagree.",
+      "teachingNotes": [
+        "Unhealthy conflict patterns should not be ignored during courtship \u2014 they tend to intensify in marriage.",
+        "Forgiveness and repair are essential to long-term covenant health.",
+        "The way a couple fights reveals as much as the way they love.",
+        "Escalation and withdrawal are both common but unhelpful conflict patterns."
+      ],
+      "keyScriptures": [
+        "Ephesians 4:31-32",
+        "Matthew 5:23-24",
+        "Proverbs 15:18"
+      ],
+      "personalReflection": [
+        "How do you typically respond in conflict (withdraw, escalate, appease)?",
+        "What conflict pattern concerns you most?",
+        "What would healthy repair look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What did our last real disagreement look like, and how did we handle it?",
+        "What helps each of us calm down and re-engage after tension?",
+        "What would a fair, healthy 'repair process' look like for us going forward?"
+      ],
+      "coupleExercise": "Recall your most recent disagreement. Each of you shares what you needed in that moment and one thing you'd do differently. Agree on one repair ritual for future conflicts.",
+      "prayerFocus": "Lord, teach us to fight fair and repair quickly, choosing reconciliation over winning.",
+      "weeklyActionStep": "This week, agree on a simple 'time-out and return' signal to use when a conversation gets too heated.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Conflict and Repair Readiness Review",
+          "worksheetInstructions": "A review of how each partner handles disagreement before covenant increases the stakes.",
+          "worksheetFields": [
+            "How do you typically respond in conflict (withdraw, escalate, appease)?",
+            "What conflict pattern concerns you most?",
+            "What would healthy repair look like for us?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-7",
+      "moduleTitle": "Spiritual Unity, Vision, and Calling",
+      "moduleTheme": "Are You Building in the Same Direction?",
+      "welcomeText": "Welcome to Module 7. Marriage is more than emotional closeness \u2014 it requires spiritual alignment and shared direction. This module helps you evaluate unity in faith, vision, and calling.",
+      "memoryStatement": "We build our marriage in the same spiritual direction, on purpose.",
+      "teachingNotes": [
+        "Shared faith should affect real decisions, not just be a background belief.",
+        "Misalignment in vision and calling creates strain later if unaddressed now.",
+        "Spiritual maturity and pace matter as much as shared beliefs.",
+        "Prayer and church life are tangible markers of spiritual unity."
+      ],
+      "keyScriptures": [
+        "Amos 3:3",
+        "2 Corinthians 6:14",
+        "Joshua 24:15"
+      ],
+      "personalReflection": [
+        "How aligned are we spiritually right now (1-10)?",
+        "What shared vision do we have for faith, calling, and family?",
+        "What is one area of spiritual misalignment we need to address?"
+      ],
+      "coupleDiscussion": [
+        "What does our current prayer and church life look like individually and together?",
+        "What is our shared vision for faith in our future household?",
+        "Where do we sense calling or purpose overlapping, and where does it differ?"
+      ],
+      "coupleExercise": "Each of you writes a short paragraph describing your personal sense of calling and spiritual priorities. Share them and identify one shared vision statement you both agree on.",
+      "prayerFocus": "Lord, unite us in faith, vision, and calling. Help us walk in the same spiritual direction.",
+      "weeklyActionStep": "This week, attend a church service or spend a devotional time together intentionally as a couple.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Shared Vision Statement Template",
+          "worksheetInstructions": "A structured page for spiritual, relational, and family vision.",
+          "worksheetFields": [
+            "How aligned are we spiritually right now (1-10)?",
+            "What shared vision do we have for faith, calling, and family?",
+            "What is one area of spiritual misalignment we need to address?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-8",
+      "moduleTitle": "Setting Your Marriage Up to Win",
+      "moduleTheme": "Building the Foundation Before the Wedding",
+      "welcomeText": "Welcome to Module 8, the final module. Weddings are events, but marriages are structures. This module helps you create a concrete preparation plan that strengthens your future marriage, not just the ceremony.",
+      "memoryStatement": "We prepare for the marriage, not just the wedding day.",
+      "teachingNotes": [
+        "Wise couples prepare intentionally rather than assuming things will simply work out.",
+        "Strong beginnings reduce avoidable pain later in marriage.",
+        "A foundation should be built deliberately before the covenant begins.",
+        "Pre-marital habits practiced now often become marital habits later."
+      ],
+      "keyScriptures": [
+        "Proverbs 24:3-4",
+        "Luke 6:47-48",
+        "Psalm 127:1"
+      ],
+      "personalReflection": [
+        "What are 3 practical steps to prepare for our first year of marriage?",
+        "What boundaries or rhythms do we want to set now?",
+        "What does 'setting our marriage up to win' look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What practical habits (finances, communication, prayer) do we want to establish before the wedding?",
+        "What boundaries do we want in place around family, friends, or work once married?",
+        "What is one thing we can start practicing now that will help our first year?"
+      ],
+      "coupleExercise": "Together, draft a simple 'First-Year Marriage Blueprint' outlining 3-5 practical commitments (e.g. weekly check-ins, shared budget review, prayer time) you'll begin practicing now, before the wedding.",
+      "prayerFocus": "Lord, help us build wisely and intentionally, laying a foundation strong enough for the years ahead.",
+      "weeklyActionStep": "This week, begin practicing one of your First-Year Blueprint commitments together, even before the wedding.",
+      "worksheets": [
+        {
+          "worksheetTitle": "First-Year Marriage Preparation Plan",
+          "worksheetInstructions": "A worksheet focused on the first 12 months after the wedding.",
+          "worksheetFields": [
+            "What are 3 practical steps to prepare for our first year of marriage?",
+            "What boundaries or rhythms do we want to set now?",
+            "What does 'setting our marriage up to win' look like for us?"
+          ]
+        }
+      ]
+    }
+  ]
+}

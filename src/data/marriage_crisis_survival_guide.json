@@ -1,0 +1,444 @@
+{
+  "id": "marriage-crisis-survival-guide",
+  "title": "Marriage Crisis Survival Guide",
+  "subtitle": "Stop the Damage. Start Rebuilding.",
+  "description": "A premium Christian restoration course designed to help couples stop further damage, understand what went wrong, rebuild communication and trust, and move toward wise, structured restoration.",
+  "price": 147,
+  "currency": "GBP",
+  "instructor": "Reverend Sam Adeyemi",
+  "safetyNote": "This course is a pastoral and educational resource for marriages in distress. It is not a substitute for specialist support in situations involving domestic abuse, coercive control, active addiction crisis, severe mental health instability, suicidal risk, or other safeguarding concerns. Where those issues are present, wise pastoral and professional support should be sought as a priority.",
+  "bonuses": [
+    "Marriage Crisis Assessment",
+    "72-Hour Stabilisation Worksheet",
+    "Safe Conversation Script Pack",
+    "Apology and Forgiveness Worksheets",
+    "Trust Rebuilding Tracker",
+    "Intimacy After Hurt Reflection Guide",
+    "7-Day Prayer Restart Guide",
+    "Marriage Protection Plan Template",
+    "Facilitator / Pastor Notes",
+    "Safety and Escalation Note"
+  ],
+  "modules": [
+    {
+      "moduleId": "module-1",
+      "moduleTitle": "How Did We Get Here?",
+      "moduleTheme": "Diagnosing What Went Wrong",
+      "welcomeText": "Welcome to Module 1. Crises rarely begin where they explode. This module helps you stop guessing and honestly identify the patterns, decisions, wounds, and pressures that led to this crisis.",
+      "memoryStatement": "I will face the truth of how we got here, not just the pain of where we are.",
+      "teachingNotes": [
+        "Small cracks become major fractures when ignored over time.",
+        "Patterns matter more than any single isolated argument.",
+        "Both personal and relational factors must be examined honestly, without blame-shifting.",
+        "Diagnosis must precede repair \u2014 you cannot fix what you haven't named."
+      ],
+      "keyScriptures": [
+        "Proverbs 4:23",
+        "Hosea 4:6",
+        "James 1:5"
+      ],
+      "personalReflection": [
+        "What do you believe is the real root of our current crisis?",
+        "What pattern has been ignored the longest?",
+        "What is one honest truth we need to name today?"
+      ],
+      "coupleDiscussion": [
+        "When do you first remember feeling something was wrong between us?",
+        "What personal contribution can each of us honestly own, without blaming the other?",
+        "What is the deepest damage point we need to acknowledge?"
+      ],
+      "coupleExercise": "Separately, each of you writes a brief timeline of key moments that led to this crisis. Share timelines gently, listening without defending, to build a shared 'Marriage Crisis Map.'",
+      "prayerFocus": "Lord, give us courage to see the truth clearly, and grace to face it without despair.",
+      "weeklyActionStep": "This week, commit to naming one honest truth about the crisis without blame or excuse.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Marriage Crisis Assessment",
+          "worksheetInstructions": "A guided self-evaluation to identify the deepest current damage points.",
+          "worksheetFields": [
+            "What do you believe is the real root of our current crisis?",
+            "What pattern has been ignored the longest?",
+            "What is one honest truth we need to name today?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-2",
+      "moduleTitle": "Stopping the Bleeding",
+      "moduleTheme": "Immediate Stabilisation for a Marriage in Distress",
+      "welcomeText": "Welcome to Module 2. You cannot heal while still injuring. This module helps you stop the patterns that are actively worsening the crisis and rebuild basic emotional safety.",
+      "memoryStatement": "We stop the damage first, then we begin to rebuild.",
+      "teachingNotes": [
+        "Stabilisation must come before full restoration.",
+        "Some conversations, habits, and reactions must stop immediately, without exception.",
+        "Emotional safety must be rebuilt before deep repair work can happen.",
+        "A short-term crisis covenant can protect the relationship while deeper healing begins."
+      ],
+      "keyScriptures": [
+        "Ephesians 4:26-27",
+        "Proverbs 15:1",
+        "1 Corinthians 13:4-5"
+      ],
+      "personalReflection": [
+        "What behaviour do we each need to stop immediately?",
+        "What does a 72-hour stabilisation agreement look like for us?",
+        "What boundary will help create safety right now?"
+      ],
+      "coupleDiscussion": [
+        "What specific behaviours (shouting, stonewalling, threats, contempt) need to stop right now?",
+        "What would help each of us feel physically and emotionally safer this week?",
+        "What is one immediate boundary we both agree to hold?"
+      ],
+      "coupleExercise": "Together, write a 'Stop-the-Bleeding Agreement' \u2014 a short list of behaviours you both commit to stopping immediately (e.g. no yelling, no threats to leave, no silent treatment beyond 24 hours).",
+      "prayerFocus": "Lord, help us stop hurting each other further. Give us the discipline to hold this stabilisation agreement.",
+      "weeklyActionStep": "This week, follow your 72-Hour Stabilisation Plan and check in daily on how it's going.",
+      "worksheets": [
+        {
+          "worksheetTitle": "72-Hour Stabilisation Worksheet",
+          "worksheetInstructions": "A short-term emergency worksheet for couples in active distress.",
+          "worksheetFields": [
+            "What behaviour do we each need to stop immediately?",
+            "What does a 72-hour stabilisation agreement look like for us?",
+            "What boundary will help create safety right now?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-3",
+      "moduleTitle": "Facing the Truth Without Destroying Each Other",
+      "moduleTheme": "Rebuilding Safe Communication",
+      "welcomeText": "Welcome to Module 3. Not every conversation is safe just because it is honest. This module helps you talk again without causing more damage, rebuilding a framework for safer dialogue.",
+      "memoryStatement": "I will speak truth in a way that heals, not one that wounds further.",
+      "teachingNotes": [
+        "Truth without grace can deepen injury rather than bring healing.",
+        "Silence is not peace \u2014 unaddressed pain festers beneath the surface.",
+        "Safety in conversation is built through tone, pace, humility, and genuine listening.",
+        "Learning to say hard things without violence is a skill that can be practiced."
+      ],
+      "keyScriptures": [
+        "Proverbs 25:11",
+        "Ephesians 4:15",
+        "Colossians 3:12-13"
+      ],
+      "personalReflection": [
+        "What makes a conversation feel unsafe for you?",
+        "What tone or approach helps you feel heard?",
+        "What is one hard truth we need to say with more grace?"
+      ],
+      "coupleDiscussion": [
+        "What does a 'safe conversation' look and feel like for each of us?",
+        "What has caused conversations to become unsafe or hostile in the past?",
+        "What is one difficult topic we need to revisit, but more gently this time?"
+      ],
+      "coupleExercise": "Using the Safe Conversation Framework, choose one smaller, less charged topic first. Practice speaking for 2 minutes uninterrupted while your spouse only listens and reflects back what they heard.",
+      "prayerFocus": "Lord, help us speak truth in love. Give us humility and gentleness as we learn to talk again.",
+      "weeklyActionStep": "This week, attempt one short, guided repair conversation using the Safe Conversation Framework.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Safe Conversation Script Pack",
+          "worksheetInstructions": "Step-by-step guided language for fragile conversations.",
+          "worksheetFields": [
+            "What makes a conversation feel unsafe for you?",
+            "What tone or approach helps you feel heard?",
+            "What is one hard truth we need to say with more grace?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-4",
+      "moduleTitle": "The Apology and Forgiveness Framework",
+      "moduleTheme": "Releasing the Weight Without Denying the Wound",
+      "welcomeText": "Welcome to Module 4. Forgiveness is not pretending the hurt was small. This module helps you understand real apology and biblical forgiveness \u2014 deep, honest, and non-performative.",
+      "memoryStatement": "Genuine apology and real forgiveness are both acts of courage, not weakness.",
+      "teachingNotes": [
+        "A genuine apology takes responsibility without qualification or excuse.",
+        "Forgiveness and trust are related, but they are not identical \u2014 one can begin before the other is fully restored.",
+        "Bitterness poisons what pain has already wounded, if left unaddressed.",
+        "Forgiveness can be immediate in spirit while trust rebuilding remains a gradual process."
+      ],
+      "keyScriptures": [
+        "Colossians 3:13",
+        "Matthew 6:14-15",
+        "Ephesians 4:32"
+      ],
+      "personalReflection": [
+        "What does a genuine apology (not a performance) sound like from you?",
+        "What do you need to hear to begin releasing this hurt?",
+        "What is one step toward forgiveness you can take this week?"
+      ],
+      "coupleDiscussion": [
+        "What has an apology from each other looked like in the past \u2014 genuine or performative?",
+        "What do you need to hear in an apology to feel it is sincere?",
+        "What would it look like to begin forgiving, even while trust is still rebuilding?"
+      ],
+      "coupleExercise": "Each of you writes a genuine, specific apology (not a general one) for one thing you take responsibility for. Read them aloud to each other without interruption or rebuttal.",
+      "prayerFocus": "Lord, help us apologise honestly and forgive genuinely, even while the healing process continues.",
+      "weeklyActionStep": "This week, offer one specific, non-defensive apology using the framework from this module.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Apology and Forgiveness Worksheets",
+          "worksheetInstructions": "Tools for naming hurt, taking responsibility, and beginning repair.",
+          "worksheetFields": [
+            "What does a genuine apology (not a performance) sound like from you?",
+            "What do you need to hear to begin releasing this hurt?",
+            "What is one step toward forgiveness you can take this week?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-5",
+      "moduleTitle": "Rebuilding Trust Step by Step",
+      "moduleTheme": "From Suspicion and Damage to Consistency and Safety",
+      "welcomeText": "Welcome to Module 5. Trust does not return because someone says sorry. This module helps you understand how trust is actually rebuilt after it has been weakened or broken.",
+      "memoryStatement": "Trust is rebuilt slowly, through consistency, not demanded instantly through words.",
+      "teachingNotes": [
+        "Trust is rebuilt through truth, transparency, humility, and repeated consistency over time.",
+        "Urgency must not replace process \u2014 rushing trust rebuilding usually backfires.",
+        "The hurt spouse needs safety and patience, not pressure to 'just trust again.'",
+        "Transparency and follow-through are the practical building blocks of restored credibility."
+      ],
+      "keyScriptures": [
+        "Luke 16:10",
+        "Proverbs 20:6",
+        "Galatians 6:9"
+      ],
+      "personalReflection": [
+        "What would help you begin trusting again, even slightly?",
+        "What consistent action would rebuild credibility?",
+        "What is a realistic first step on our trust rebuilding roadmap?"
+      ],
+      "coupleDiscussion": [
+        "What does trust actually look like in action for each of us, not just in words?",
+        "What specific, consistent behaviours would help rebuild trust over time?",
+        "How can the hurt spouse express what they need without feeling like they're demanding perfection?"
+      ],
+      "coupleExercise": "Together, build a 'Trust Rebuilding Roadmap' \u2014 3 specific, measurable, consistent actions the offending spouse commits to over the next 30 days, with a simple weekly check-in.",
+      "prayerFocus": "Lord, give us patience for this slow process. Help trust be rebuilt through truth and consistency, not just promises.",
+      "weeklyActionStep": "This week, follow through on one small trust-building commitment and note it on your Trust Rebuilding Tracker.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Trust Rebuilding Tracker",
+          "worksheetInstructions": "A weekly tool for progress, transparency, and consistency.",
+          "worksheetFields": [
+            "What would help you begin trusting again, even slightly?",
+            "What consistent action would rebuild credibility?",
+            "What is a realistic first step on our trust rebuilding roadmap?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-6",
+      "moduleTitle": "Intimacy After Hurt",
+      "moduleTheme": "Rebuilding Emotional and Physical Closeness Carefully",
+      "welcomeText": "Welcome to Module 6. Intimacy cannot thrive where safety is weak. This module helps you understand how crisis affects intimacy and how to rebuild closeness without pressure, denial, or confusion.",
+      "memoryStatement": "We rebuild closeness carefully, with patience, not pressure.",
+      "teachingNotes": [
+        "Emotional closeness often has to be restored before physical intimacy feels natural again.",
+        "Tenderness matters more than performance in the process of reconnecting.",
+        "Reconnection must be careful, honest, and mutual \u2014 never one-sided or forced.",
+        "It's normal and appropriate to seek extra support if intimacy struggles feel too difficult to navigate alone."
+      ],
+      "keyScriptures": [
+        "Song of Songs 8:6-7",
+        "1 Corinthians 7:3-5",
+        "1 Peter 3:7"
+      ],
+      "personalReflection": [
+        "How has this crisis affected our closeness?",
+        "What do you need to feel emotionally safe again?",
+        "What is one small step toward reconnecting intimacy?"
+      ],
+      "coupleDiscussion": [
+        "What has changed about how close we feel to each other since the crisis?",
+        "What would help each of us feel emotionally safe enough to reconnect?",
+        "What pace feels right for rebuilding physical intimacy, without pressure?"
+      ],
+      "coupleExercise": "Create an 'Intimacy Recovery Plan' together: agree on one small, low-pressure way to reconnect emotionally this week (e.g. a walk, a shared meal without distractions) before addressing physical intimacy.",
+      "prayerFocus": "Lord, help us rebuild closeness with tenderness and patience, honouring each other's pace and safety.",
+      "weeklyActionStep": "This week, take one small step from your Intimacy Recovery Plan, without rushing or pressuring each other.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Intimacy After Hurt Reflection Guide",
+          "worksheetInstructions": "A private and couple-based worksheet for rebuilding closeness carefully.",
+          "worksheetFields": [
+            "How has this crisis affected our closeness?",
+            "What do you need to feel emotionally safe again?",
+            "What is one small step toward reconnecting intimacy?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-7",
+      "moduleTitle": "Breaking the Crisis Cycle",
+      "moduleTheme": "Identifying the Patterns That Keep Returning",
+      "welcomeText": "Welcome to Module 7. The same argument often returns because the deeper pattern remains untouched. This module helps you stop repeating the same destructive loop in different forms.",
+      "memoryStatement": "We interrupt the cycle by responding differently, not just reacting the same way.",
+      "teachingNotes": [
+        "Crisis patterns become familiar and self-reinforcing if they are never interrupted.",
+        "Healing requires new responses, not old reactions dressed in spiritual language.",
+        "Triggers, escalation patterns, and withdrawal patterns can all be identified and named.",
+        "Recognising early warning signs allows a couple to intervene before a cycle fully escalates."
+      ],
+      "keyScriptures": [
+        "Romans 12:2",
+        "Ephesians 4:22-24",
+        "Galatians 5:16-17"
+      ],
+      "personalReflection": [
+        "What pattern keeps repeating in our biggest arguments?",
+        "What usually triggers the cycle?",
+        "What new response could interrupt it next time?"
+      ],
+      "coupleDiscussion": [
+        "What does our most common repeating argument usually look like from start to finish?",
+        "What are the early warning signs we could learn to recognise sooner?",
+        "What is one new way we could respond differently next time this pattern starts?"
+      ],
+      "coupleExercise": "Map your most common conflict cycle together: trigger \u2192 escalation \u2192 typical outcome. Then identify one specific point in the cycle where you'll commit to responding differently next time.",
+      "prayerFocus": "Lord, help us see our patterns clearly and give us strength to respond differently, not just react.",
+      "weeklyActionStep": "This week, notice the moment your cycle typically begins, and try one new response instead of the usual reaction.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Crisis Pattern Tracker & Cycle-Breaking Plan",
+          "worksheetInstructions": "A tool for identifying repeating cycles and planning new responses.",
+          "worksheetFields": [
+            "What pattern keeps repeating in our biggest arguments?",
+            "What usually triggers the cycle?",
+            "What new response could interrupt it next time?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-8",
+      "moduleTitle": "Rebuilding Spiritual Unity",
+      "moduleTheme": "Praying Together Again in a Fragile Season",
+      "welcomeText": "Welcome to Module 8. Many distressed couples stop praying together long before they realise what has been lost. This module helps you reintroduce prayer and spiritual agreement into your marriage.",
+      "memoryStatement": "Even a small, sincere prayer can begin major restoration.",
+      "teachingNotes": [
+        "Prayer is often resisted in crisis because it is deeply exposing and vulnerable.",
+        "Shared prayer softens pride and invites God actively into the repair process.",
+        "Simple, short prayer rhythms are more sustainable than pressure to 'pray perfectly.'",
+        "Restarting spiritual unity doesn't require dramatic gestures \u2014 small and consistent is enough."
+      ],
+      "keyScriptures": [
+        "James 5:16",
+        "Matthew 18:19-20",
+        "Psalm 34:18"
+      ],
+      "personalReflection": [
+        "Why did we stop praying together, honestly?",
+        "What would make restarting feel less awkward?",
+        "What is one simple prayer we can pray together this week?"
+      ],
+      "coupleDiscussion": [
+        "What has made praying together feel difficult or exposing during this crisis?",
+        "What is a low-pressure way we could begin praying together again?",
+        "What do we most need to pray for right now, individually and together?"
+      ],
+      "coupleExercise": "Commit to a '7-Day Prayer Restart': each night, pray together for just 2-3 minutes, even if it feels awkward at first. Keep it simple \u2014 gratitude, honesty, and a request for help.",
+      "prayerFocus": "Lord, soften our hearts toward each other and toward You. Help us find our way back to praying together.",
+      "weeklyActionStep": "This week, complete at least 4 of the 7 days on your Prayer Restart Plan, even briefly.",
+      "worksheets": [
+        {
+          "worksheetTitle": "7-Day Prayer Restart Guide",
+          "worksheetInstructions": "Short daily guided prayers for couples in crisis.",
+          "worksheetFields": [
+            "Why did we stop praying together, honestly?",
+            "What would make restarting feel less awkward?",
+            "What is one simple prayer we can pray together this week?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-9",
+      "moduleTitle": "Protecting Your Marriage Going Forward",
+      "moduleTheme": "Building a Crisis Prevention and Protection Plan",
+      "welcomeText": "Welcome to Module 9. Restored marriages still need protection. This module helps you move from emergency thinking to long-term intentionality, guarding what has been painfully rebuilt.",
+      "memoryStatement": "What we've rebuilt is worth protecting, deliberately and consistently.",
+      "teachingNotes": [
+        "What is not guarded can be lost again, even after real progress.",
+        "Strong marriages are maintained through ongoing effort, not merely rescued once.",
+        "Regular 'deposits' of care, attention, and honesty keep a marriage healthy long-term.",
+        "Boundaries around time, communication, and outside influences protect restored progress."
+      ],
+      "keyScriptures": [
+        "Proverbs 4:23",
+        "Nehemiah 4:9",
+        "1 Thessalonians 5:11"
+      ],
+      "personalReflection": [
+        "What habit would help protect our marriage going forward?",
+        "What boundary do we need going forward (time, communication, outside influence)?",
+        "What does our 90-day restoration rhythm look like?"
+      ],
+      "coupleDiscussion": [
+        "What ongoing habits will help us maintain the progress we've made?",
+        "What boundaries (with time, technology, other people) do we need to protect our marriage?",
+        "What would a monthly marriage check-in look like for us going forward?"
+      ],
+      "coupleExercise": "Build a 'Marriage Protection Plan': list 3 ongoing habits (e.g. monthly review, weekly date, daily check-in) and 2 boundaries you'll maintain for the next 90 days to protect your progress.",
+      "prayerFocus": "Lord, help us guard what You have helped us rebuild. Give us discipline for the long road ahead.",
+      "weeklyActionStep": "This week, schedule your first monthly marriage review date on the calendar.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Marriage Protection Plan Template",
+          "worksheetInstructions": "A forward-looking plan for guarding restored ground.",
+          "worksheetFields": [
+            "What habit would help protect our marriage going forward?",
+            "What boundary do we need going forward (time, communication, outside influence)?",
+            "What does our 90-day restoration rhythm look like?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-10",
+      "moduleTitle": "When to Seek More Help",
+      "moduleTheme": "Wise Escalation, Support, and Ongoing Care",
+      "welcomeText": "Welcome to Module 10, the final module. Seeking help is not failure. This module helps you discern when the crisis is beyond what self-guided repair can handle alone, and how to find the right support.",
+      "memoryStatement": "Seeking wise help is strength, not surrender.",
+      "teachingNotes": [
+        "Some marriages need more than good intentions and course material alone.",
+        "Wise outside help can protect and accelerate what still can be restored.",
+        "Recognising abuse, addiction, severe distress, or crisis-level breakdown requires honesty, not denial.",
+        "Building a support plan without shame is a sign of maturity, not weakness."
+      ],
+      "keyScriptures": [
+        "Ecclesiastes 4:9-10",
+        "Proverbs 11:14",
+        "Galatians 6:2"
+      ],
+      "personalReflection": [
+        "Are there any safety concerns (abuse, addiction, mental health risk) present?",
+        "What kind of outside help might we need \u2014 pastoral, counselling, medical?",
+        "What is our next concrete step for support?"
+      ],
+      "coupleDiscussion": [
+        "Are there any signs suggesting we need more than self-guided work right now?",
+        "What has held us back from seeking outside help so far?",
+        "What is one specific next step we can take toward getting appropriate support?"
+      ],
+      "coupleExercise": "Together, complete the Help-Seeking Decision Guide honestly. If any safety concerns are present (abuse, addiction, coercive control, suicidal risk), commit to contacting a pastor or professional this week, without delay.",
+      "prayerFocus": "Lord, give us humility to seek help where we need it, and courage to take the next step, whatever that looks like.",
+      "weeklyActionStep": "This week, take one concrete action from your Next-Step Support Plan \u2014 a call, a booked session, or a conversation with a pastor.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Next-Step Support Plan & Safety/Escalation Note",
+          "worksheetInstructions": "A clear pastoral note and decision guide on when immediate specialised help is needed.",
+          "worksheetFields": [
+            "Are there any safety concerns (abuse, addiction, mental health risk) present?",
+            "What kind of outside help might we need \u2014 pastoral, counselling, medical?",
+            "What is our next concrete step for support?"
+          ]
+        }
+      ]
+    }
+  ]
+}

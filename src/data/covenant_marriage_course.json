@@ -1,0 +1,441 @@
+{
+  "id": "covenant-marriage-foundation",
+  "title": "The Covenant Marriage Foundation",
+  "subtitle": "Build a Christ-Centred Marriage",
+  "description": "A premium 10-module Christian marriage course by Reverend Sam Adeyemi. Biblical teaching, workbook, worksheets and guided exercises. Build a stronger marriage.",
+  "price": 97,
+  "currency": "GBP",
+  "instructor": "Reverend Sam Adeyemi",
+  "bonuses": [
+    "30 Couple Conversation Starters",
+    "30-Day Couple Growth Challenge",
+    "Monthly Marriage Review Template",
+    "Marriage Covenant Declaration",
+    "Completion Certificate",
+    "Marriage Health Review",
+    "Shared Prayer Request Pages",
+    "Welcome Workbook Letter"
+  ],
+  "modules": [
+    {
+      "moduleId": "module-1",
+      "moduleTitle": "God's Design for Marriage",
+      "moduleTheme": "Covenant, Not Convenience",
+      "welcomeText": "Welcome to Module 1. Marriage is God's design, God's covenant, and must be built God's way. This module lays the foundation for everything else you will learn in this course.",
+      "memoryStatement": "Marriage is a covenant I build with intention, not an arrangement I drift into.",
+      "teachingNotes": [
+        "Marriage was God's idea before it was ours, and understanding His design changes how we build.",
+        "Desire for marriage is not the same as readiness to build it well.",
+        "A covenant is a binding commitment before God, different from a convenient arrangement that can be walked away from.",
+        "Whatever foundation you lay now will determine how much weight your marriage can hold later."
+      ],
+      "keyScriptures": [
+        "Genesis 2:24",
+        "Malachi 2:14-15",
+        "Ecclesiastes 4:9-12"
+      ],
+      "personalReflection": [
+        "How would you define covenant marriage in your own words?",
+        "What does 'building God's way' look like for us practically?",
+        "What is one belief about marriage I need to unlearn?"
+      ],
+      "coupleDiscussion": [
+        "Where did each of us learn our view of marriage growing up?",
+        "In what ways have we treated our marriage as convenient rather than covenantal?",
+        "What would it look like for us to intentionally build on God's foundation this year?"
+      ],
+      "coupleExercise": "Together, write a one-paragraph 'Marriage Covenant Statement' describing what kind of marriage you are committing to build. Read it aloud to each other, then sign and date it.",
+      "prayerFocus": "Lord, help us build our marriage on Your foundation, not our assumptions. Give us wisdom to see marriage as covenant, not convenience.",
+      "weeklyActionStep": "This week, discuss one area where you've been treating marriage casually and commit to one intentional change.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Foundation Reflection Worksheet",
+          "worksheetInstructions": "Couples articulate a shared definition of covenant marriage.",
+          "worksheetFields": [
+            "How would you define covenant marriage in your own words?",
+            "What does 'building God's way' look like for us practically?",
+            "What is one belief about marriage we need to unlearn?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-2",
+      "moduleTitle": "Understanding Your Spouse",
+      "moduleTheme": "From Assumption to Empathy",
+      "welcomeText": "Welcome to Module 2. Love grows deeper when understanding grows deeper. This module helps you move from assumption to genuine empathy, listening with depth and responding with wisdom and honour.",
+      "memoryStatement": "I choose to understand my spouse deeply, not just love them generally.",
+      "teachingNotes": [
+        "Understanding is a daily choice, not a one-time achievement.",
+        "Assumptions quietly damage intimacy because they replace curiosity with certainty.",
+        "Listening well is one of the most practical expressions of love.",
+        "Honouring your spouse means valuing their perspective even when it differs from yours."
+      ],
+      "keyScriptures": [
+        "Philippians 2:3-4",
+        "James 1:19",
+        "1 Peter 3:7"
+      ],
+      "personalReflection": [
+        "What is one thing about your spouse you often assume rather than ask about?",
+        "How does your spouse best feel understood?",
+        "Write one thing you appreciate about how your spouse thinks or feels."
+      ],
+      "coupleDiscussion": [
+        "What is something about each other we're still learning after all this time?",
+        "When do you feel most understood by me, and when do you feel least understood?",
+        "What is one question you wish I asked you more often?"
+      ],
+      "coupleExercise": "Take turns asking each other: 'What is something on your mind lately that I haven't asked about?' Practice listening without interrupting or problem-solving for five minutes each.",
+      "prayerFocus": "Lord, give us patience and curiosity toward each other. Help us listen with our hearts, not just our ears.",
+      "weeklyActionStep": "This week, ask your spouse one new, curious question each day instead of assuming you already know the answer.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Understanding Your Spouse Worksheet",
+          "worksheetInstructions": "Couples complete a Spouse Understanding Profile.",
+          "worksheetFields": [
+            "What is one thing about your spouse you often assume rather than ask about?",
+            "How does your spouse best feel understood?",
+            "Write one thing you appreciate about how your spouse thinks or feels."
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-3",
+      "moduleTitle": "Communication That Heals",
+      "moduleTheme": "Words That Build, Not Break",
+      "welcomeText": "Welcome to Module 3. Healthy marriages are strengthened by words that bring clarity, grace, truth, and healing. This module helps you identify damaging communication patterns and replace them with biblical habits.",
+      "memoryStatement": "My words will build my marriage, not tear it down.",
+      "teachingNotes": [
+        "Communication patterns formed early in a relationship tend to persist unless intentionally changed.",
+        "Tone often carries more weight than the words themselves.",
+        "Truth spoken without grace can wound just as much as a lie.",
+        "Healing conversations require both honesty and gentleness."
+      ],
+      "keyScriptures": [
+        "Ephesians 4:29",
+        "Proverbs 15:1",
+        "Colossians 4:6"
+      ],
+      "personalReflection": [
+        "What communication pattern most often hurts us?",
+        "What is a healthier way we could say the same thing?",
+        "What is one commitment we'll make to communicate better this week?"
+      ],
+      "coupleDiscussion": [
+        "What tone or phrase from each other tends to trigger defensiveness?",
+        "When have we communicated really well together, and what made that possible?",
+        "What is one communication habit we want to build together?"
+      ],
+      "coupleExercise": "Practice the 'Say It Softer' exercise: each of you shares one recent frustration, but rephrase it using only gentle, non-blaming language. Notice how the response changes.",
+      "prayerFocus": "Lord, season our words with grace. Help us speak truth in a way that heals rather than harms.",
+      "weeklyActionStep": "This week, before responding in a hard conversation, pause and ask: 'Will this heal or wound?'",
+      "worksheets": [
+        {
+          "worksheetTitle": "Communication Patterns Worksheet",
+          "worksheetInstructions": "Couples build a Healthy Communication Plan.",
+          "worksheetFields": [
+            "What communication pattern most often hurts us?",
+            "What is a healthier way we could say the same thing?",
+            "What is one commitment we'll make to communicate better this week?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-4",
+      "moduleTitle": "Managing Conflict Biblically",
+      "moduleTheme": "From Damage to Repair",
+      "welcomeText": "Welcome to Module 4. Conflict does not have to destroy a marriage. This module helps you understand why conflict happens, recognise your conflict style, and develop biblical habits for resolution and repair.",
+      "memoryStatement": "Conflict is an opportunity to grow closer, not a threat to walk away from.",
+      "teachingNotes": [
+        "Conflict is inevitable in marriage; how you handle it determines whether it builds or breaks you.",
+        "Everyone has a natural conflict style \u2014 withdrawing, attacking, appeasing, or problem-solving.",
+        "Unresolved conflict doesn't disappear; it resurfaces in other forms.",
+        "Biblical conflict resolution prioritises reconciliation over winning."
+      ],
+      "keyScriptures": [
+        "Matthew 18:15",
+        "Ephesians 4:26-27",
+        "Proverbs 17:14"
+      ],
+      "personalReflection": [
+        "What is our most common source of conflict?",
+        "What is your natural conflict style (withdraw, attack, appease, problem-solve)?",
+        "What is one repair habit we will practice after our next disagreement?"
+      ],
+      "coupleDiscussion": [
+        "What does a typical disagreement between us usually look like?",
+        "What helps us de-escalate when tension rises?",
+        "What would 'fighting fair' look like for our marriage?"
+      ],
+      "coupleExercise": "Identify your last disagreement. Each of you writes down what you actually needed in that moment (to be heard, respected, reassured). Share and discuss.",
+      "prayerFocus": "Lord, help us fight for our marriage, not against each other. Give us wisdom to resolve conflict biblically.",
+      "weeklyActionStep": "This week, agree on one 'ground rule' for disagreements (e.g. no raised voices, no walking away without a time to reconnect).",
+      "worksheets": [
+        {
+          "worksheetTitle": "Conflict Styles Worksheet",
+          "worksheetInstructions": "Couples complete a Conflict Resolution Plan.",
+          "worksheetFields": [
+            "What is our most common source of conflict?",
+            "What is your natural conflict style (withdraw, attack, appease, problem-solve)?",
+            "What is one repair habit we will practice after our next disagreement?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-5",
+      "moduleTitle": "Healing Past Wounds",
+      "moduleTheme": "What Isn't Healed Gets Repeated",
+      "welcomeText": "Welcome to Module 5. What is not healed often reappears in marriage as reaction, fear, or repeated pain. This module helps you recognise how past wounds and family patterns affect the present and begin healing.",
+      "memoryStatement": "I will not let my unhealed past write my marriage's future.",
+      "teachingNotes": [
+        "Past wounds, if unaddressed, tend to resurface as overreactions or fears in marriage.",
+        "Family-of-origin patterns are often repeated unconsciously.",
+        "Healing requires honesty about what happened and willingness to process it, not just move past it.",
+        "God's grace is sufficient to heal even deeply rooted wounds."
+      ],
+      "keyScriptures": [
+        "Psalm 147:3",
+        "2 Corinthians 5:17",
+        "Isaiah 61:1"
+      ],
+      "personalReflection": [
+        "What past wound or family pattern still affects how you react today?",
+        "How has this shown up in our marriage?",
+        "What would healing in this area look like?"
+      ],
+      "coupleDiscussion": [
+        "What is one story from your childhood that shapes how you see marriage?",
+        "How can I support you as you process this?",
+        "What would help you feel safe bringing up painful topics with me?"
+      ],
+      "coupleExercise": "Each of you shares one memory that still affects you emotionally today. Practice simply listening and affirming ('Thank you for telling me that') without trying to fix it immediately.",
+      "prayerFocus": "Lord, bring healing to the wounds we carry. Help us extend grace to each other as we grow.",
+      "weeklyActionStep": "This week, notice one moment where an old wound may be influencing your reaction, and name it gently to your spouse.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Past Wounds Reflection Worksheet",
+          "worksheetInstructions": "Couples create a Healing and Renewal Reflection.",
+          "worksheetFields": [
+            "What past wound or family pattern still affects how you react today?",
+            "How has this shown up in our marriage?",
+            "What would healing in this area look like?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-6",
+      "moduleTitle": "Finances as a Couple",
+      "moduleTheme": "Stewardship, Not Secrecy",
+      "welcomeText": "Welcome to Module 6. Money becomes healthier in marriage when it is handled as stewardship, honesty, and shared vision. This module helps you build financial unity, transparency, and practical agreement.",
+      "memoryStatement": "We steward our finances together, with honesty and shared purpose.",
+      "teachingNotes": [
+        "Money reveals values more than it reveals math.",
+        "Financial secrecy erodes trust just as much as other forms of hidden behaviour.",
+        "Shared financial goals create unity; unspoken financial assumptions create tension.",
+        "Biblical stewardship views money as a tool for God's purposes, not just personal comfort."
+      ],
+      "keyScriptures": [
+        "Proverbs 21:5",
+        "Luke 16:10-11",
+        "1 Timothy 6:10"
+      ],
+      "personalReflection": [
+        "What is one financial habit we need to align on?",
+        "How transparent are we currently about money?",
+        "What is one step toward shared financial stewardship?"
+      ],
+      "coupleDiscussion": [
+        "What did money look like in each of our families growing up?",
+        "Where do we disagree most about spending or saving?",
+        "What is one shared financial goal we could set this year?"
+      ],
+      "coupleExercise": "Create a simple shared budget together, even if informal. Discuss one upcoming financial decision and agree on next steps together.",
+      "prayerFocus": "Lord, help us steward what You've given us wisely and unite us in how we handle money.",
+      "weeklyActionStep": "This week, have one transparent conversation about a financial habit or concern you've been avoiding.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Finances Worksheet",
+          "worksheetInstructions": "Couples build a Financial Unity Plan.",
+          "worksheetFields": [
+            "What is one financial habit we need to align on?",
+            "How transparent are we currently about money?",
+            "What is one step toward shared financial stewardship?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-7",
+      "moduleTitle": "Intimacy God's Way",
+      "moduleTheme": "Closeness With Honour",
+      "welcomeText": "Welcome to Module 7. Biblical intimacy is covenant closeness expressed with honour, tenderness, safety, and love. This module helps you address barriers to closeness and build a healthier relational climate.",
+      "memoryStatement": "Intimacy in our marriage is built on honour, safety, and mutual love.",
+      "teachingNotes": [
+        "Emotional intimacy often has to be present before physical intimacy feels safe and natural.",
+        "Intimacy flourishes in an environment of honour, not pressure or demand.",
+        "Barriers to closeness are often unspoken and need gentle, honest conversation.",
+        "Tenderness and patience matter more than performance."
+      ],
+      "keyScriptures": [
+        "Song of Songs 4:9-10",
+        "1 Corinthians 7:3-5",
+        "Genesis 2:24-25"
+      ],
+      "personalReflection": [
+        "What helps you feel closest to your spouse emotionally?",
+        "What is a barrier to intimacy we haven't talked about?",
+        "What is one way we can build safety and tenderness this month?"
+      ],
+      "coupleDiscussion": [
+        "What makes you feel most loved and desired by me?",
+        "Is there anything about our intimacy that feels unspoken or unclear?",
+        "What is one small way we could grow closer emotionally this week?"
+      ],
+      "coupleExercise": "Spend 20 minutes together with no distractions, sharing what makes each of you feel loved, safe, and desired. Practice affirming rather than critiquing.",
+      "prayerFocus": "Lord, help us build intimacy that honours You and each other, with tenderness and safety.",
+      "weeklyActionStep": "This week, prioritise one uninterrupted evening together focused on connection, not tasks.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Intimacy Worksheet",
+          "worksheetInstructions": "Couples complete an Intimacy Reflection.",
+          "worksheetFields": [
+            "What helps you feel closest to your spouse emotionally?",
+            "What is a barrier to intimacy we haven't talked about?",
+            "What is one way we can build safety and tenderness this month?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-8",
+      "moduleTitle": "Roles, Partnership & Service",
+      "moduleTheme": "Covenant Partnership, Not Competition",
+      "welcomeText": "Welcome to Module 8. Marriage is a covenant partnership shaped by honour, humility, and service \u2014 not a competition for power. This module helps you clarify expectations and build mutual support.",
+      "memoryStatement": "We serve each other in partnership, not compete for control.",
+      "teachingNotes": [
+        "Marriage roles work best when shaped by mutual honour, not rigid power struggles.",
+        "Unspoken role expectations often create quiet resentment.",
+        "Service, not control, is the biblical model of leadership in marriage.",
+        "Partnership means both spouses contribute to the marriage's flourishing."
+      ],
+      "keyScriptures": [
+        "Ephesians 5:21",
+        "Galatians 5:13",
+        "Mark 10:43-45"
+      ],
+      "personalReflection": [
+        "What unspoken expectation do you have about roles in our marriage?",
+        "Where do we need more mutual honour or service?",
+        "What does covenant partnership look like for us practically?"
+      ],
+      "coupleDiscussion": [
+        "What roles or responsibilities feel unbalanced right now?",
+        "Where do we serve each other well, and where could we grow?",
+        "What would 'mutual honour' look like in a normal week for us?"
+      ],
+      "coupleExercise": "List your current responsibilities separately, then compare lists together. Discuss where expectations are unclear and agree on one adjustment.",
+      "prayerFocus": "Lord, help us serve each other in humility, honouring one another as we build this partnership together.",
+      "weeklyActionStep": "This week, take on one task that usually falls to your spouse, as an act of service and honour.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Roles & Partnership Worksheet",
+          "worksheetInstructions": "Couples build a Partnership Agreement.",
+          "worksheetFields": [
+            "What unspoken expectation do you have about roles in our marriage?",
+            "Where do we need more mutual honour or service?",
+            "What does covenant partnership look like for us practically?"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-9",
+      "moduleTitle": "Building a Praying Marriage",
+      "moduleTheme": "Spiritual Agreement, Daily Dependence",
+      "welcomeText": "Welcome to Module 9. A praying marriage is strengthened by spiritual agreement and daily dependence on God. This module helps you create simple, sustainable rhythms of shared prayer.",
+      "memoryStatement": "We depend on God together, starting with shared prayer.",
+      "teachingNotes": [
+        "Many couples drift apart spiritually simply because they stop praying together.",
+        "Prayer invites humility and vulnerability, which deepens spiritual unity.",
+        "Small, consistent prayer habits matter more than occasional long prayer sessions.",
+        "Praying together builds agreement, not just individual spiritual growth."
+      ],
+      "keyScriptures": [
+        "Matthew 18:19-20",
+        "1 Peter 3:7",
+        "Philippians 4:6-7"
+      ],
+      "personalReflection": [
+        "What has stopped us from praying together consistently?",
+        "What is a simple prayer rhythm we could realistically commit to?",
+        "Write a short prayer of agreement for our marriage."
+      ],
+      "coupleDiscussion": [
+        "What has made praying together feel awkward or difficult in the past?",
+        "What would a simple, sustainable prayer rhythm look like for us?",
+        "What is one thing we want to pray for together consistently?"
+      ],
+      "coupleExercise": "Choose one simple prayer time this week (e.g. 5 minutes before bed) and commit to trying it together for seven days, even if it feels awkward at first.",
+      "prayerFocus": "Lord, teach us to depend on You together. Help our prayer life as a couple grow, even starting small.",
+      "weeklyActionStep": "This week, pray together at least three times, even briefly, and note how it feels afterward.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Praying Marriage Worksheet",
+          "worksheetInstructions": "Couples build a Shared Prayer Rhythm Plan.",
+          "worksheetFields": [
+            "What has stopped us from praying together consistently?",
+            "What is a simple prayer rhythm we could realistically commit to?",
+            "Write a short prayer of agreement for our marriage."
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-10",
+      "moduleTitle": "Building a Marriage That Lasts",
+      "moduleTheme": "Intentional, Not Accidental",
+      "welcomeText": "Welcome to Module 10. Strong marriages do not remain healthy by accident. This final module helps you develop long-term habits for lasting covenant strength and move from reactive to intentional building.",
+      "memoryStatement": "We build our marriage on purpose, every season, for the long haul.",
+      "teachingNotes": [
+        "Long-term marriage health requires intentional habits, not just good intentions.",
+        "Marriages tend to drift toward neglect unless actively maintained.",
+        "Vision and rhythm are what carry a couple through changing seasons.",
+        "Legacy is built through small, consistent choices over years, not single dramatic moments."
+      ],
+      "keyScriptures": [
+        "Proverbs 24:3-4",
+        "Deuteronomy 6:6-7",
+        "Galatians 6:9"
+      ],
+      "personalReflection": [
+        "What long-term vision do we have for our marriage?",
+        "What rhythm or habit will help us build intentionally, not reactively?",
+        "What does 'a marriage that lasts' mean to us?"
+      ],
+      "coupleDiscussion": [
+        "What kind of marriage do we want to model for our children or others?",
+        "What habit, if we kept it up for the next ten years, would strengthen our marriage most?",
+        "What legacy do we want our marriage to leave?"
+      ],
+      "coupleExercise": "Write a joint 'Marriage Vision Statement' describing the kind of marriage you're committed to building over the next decade. Revisit it every year on your anniversary.",
+      "prayerFocus": "Lord, help us build with vision and intention, not drift. Strengthen our covenant for the long haul.",
+      "weeklyActionStep": "This week, schedule a recurring monthly 'marriage check-in' on your calendar going forward.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Building a Marriage That Lasts Worksheet",
+          "worksheetInstructions": "Couples complete a Marriage That Lasts Legacy Plan.",
+          "worksheetFields": [
+            "What long-term vision do we have for our marriage?",
+            "What rhythm or habit will help us build intentionally, not reactively?",
+            "What does 'a marriage that lasts' mean to us?"
+          ]
+        }
+      ]
+    }
+  ]
+}
