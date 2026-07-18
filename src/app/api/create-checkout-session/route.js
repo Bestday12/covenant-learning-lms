@@ -90,7 +90,6 @@ export async function POST(request) {
         },
       ],
       mode: "payment",
-      // ✅ CORRECT: Use NEXT_PUBLIC_APP_URL (not VITE_APP_URL)
       success_url: successUrl || `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl || `${process.env.NEXT_PUBLIC_APP_URL}/courses/${courseId}`,
       metadata: {
