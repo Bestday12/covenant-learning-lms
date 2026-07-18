@@ -1,15 +1,27 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
 import { SALES_CONTENT } from "@/data/salesPageContent.js";
 
 export default function CourseSalesPage() {
   const { courseId } = useParams();
   const navigate = useNavigate();
+  
   const content = SALES_CONTENT[courseId];
 
   if (!content) {
-    return <div className="max-w-3xl mx-auto py-24 text-center">Course not found.</div>;
+    return (
+      <div className="max-w-3xl mx-auto py-24 text-center text-red-600">
+        Course not found.
+      </div>
+    );
   }
+
+  const handleEnroll = () => {
+    // Optional: Check if user is logged in
+    // if (!isLoggedIn) return navigate("/login?redirect=/checkout/" + content.id);
+    
+    navigate(`/checkout/${content.id}`);
+  };
 
   return (
     <div>
@@ -24,6 +36,7 @@ export default function CourseSalesPage() {
               {content.title} <span className="text-gold-400 italic">{content.titleAccent}</span>
             </h1>
             <p className="text-covenant-50/90 text-lg mb-8 leading-relaxed">{content.subtitle}</p>
+            
             <ul className="space-y-3 mb-8">
               {content.heroPoints.map((pt, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-covenant-50/90">
@@ -34,15 +47,18 @@ export default function CourseSalesPage() {
             </ul>
           </div>
 
+          {/* Pricing Card */}
           <div className="bg-covenant-900/40 border border-white/10 rounded-2xl p-8 backdrop-blur">
             <p className="font-serif text-xl font-bold text-white mb-1">
               {content.title} {content.titleAccent}
             </p>
             <p className="text-sm text-covenant-100/70 mb-6">Everything you need to build a stronger marriage</p>
+
             <div className="bg-gradient-to-br from-covenant-500/40 to-covenant-600/40 rounded-xl p-6 text-center mb-6 border border-gold-500/20">
               <p className="font-serif text-4xl font-bold text-gold-400">£{content.price}</p>
               <p className="text-xs text-covenant-100/60 mt-1">One-time payment · Instant access</p>
             </div>
+
             <ul className="space-y-2.5 mb-8">
               {content.included.map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-covenant-50/90">
@@ -50,12 +66,14 @@ export default function CourseSalesPage() {
                 </li>
               ))}
             </ul>
+
             <button
-              onClick={() => navigate(`/checkout/${content.id}`)}
+              onClick={handleEnroll}
               className="w-full rounded-full bg-gold-500 text-covenant-900 font-bold py-3.5 hover:bg-gold-400 transition-colors shadow-lg"
             >
               Enrol Now — £{content.price}
             </button>
+
             <p className="text-xs text-covenant-100/50 text-center mt-3 flex items-center justify-center gap-1">
               <ShieldCheck size={12} /> Secured checkout · Instant access after payment
             </p>
