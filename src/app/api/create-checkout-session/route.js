@@ -6,9 +6,45 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-02-24.acacia",
 });
 
-// Course catalog
-const COURSES = { /* your courses object - unchanged */ };
 
+const COURSES = { 
+"covenant-marriage-foundation": {
+    name: "The Covenant Marriage Foundation",
+    price: 9700, // £97.00 in pence
+    description: "A premium 10-module Christian marriage course.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+  "marriage-crisis-survival-guide": {
+    name: "Marriage Crisis Survival Guide",
+    price: 14700, // £147.00 in pence
+    description: "A structured restoration course for marriages in serious distress.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+  "pre-marital-masterclass": {
+    name: "Pre-Marital Masterclass",
+    price: 14700,
+    description: "A discernment and preparation course for engaged couples.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+  "parenting-as-a-team": {
+    name: "Parenting as a Team",
+    price: 9700,
+    description: "A Christ-centred parenting unity course for couples.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+  "blended-family-foundations": {
+    name: "Blended Family Foundations",
+    price: 9700,
+    description: "Building a new family with wisdom, patience, and grace.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+  "communication-that-builds-marriage": {
+    name: "Communication That Builds Marriage",
+    price: 9700,
+    description: "Transform your communication and strengthen your marriage.",
+    image: "https://covenantmarriagehelp.com/logo.png",
+  },
+};
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -48,6 +84,9 @@ export async function POST(request) {
       metadata: {
         course_id: courseId,
         user_id: userId,
+		customer_email: email,
+		customer_name: fullName,
+
       },
       
       customer_email: email,
