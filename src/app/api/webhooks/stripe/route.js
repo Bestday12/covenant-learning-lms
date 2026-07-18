@@ -4,8 +4,8 @@ import Stripe from "stripe";
 import { supabase } from "@/lib/supabase.js";
 
 // Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.VITE_STRIPE_SECRET_KEY, {
-  apiVersion: "2025-11-17.clover",
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2025-02-24.acacia",
 });
 
 // Helper to get user ID from customer ID
@@ -88,7 +88,7 @@ export async function POST(request) {
   const signature = request.headers.get("stripe-signature");
 
   // Verify webhook signature
-  if (!process.env.VITE_STRIPE_WEBHOOK_SECRET) {
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
     console.error("❌ Webhook secret not configured");
     return NextResponse.json(
       { error: "Webhook secret not configured" },

@@ -2,8 +2,9 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.VITE_STRIPE_SECRET_KEY, {
-  apiVersion: "2025-11-17.clover",
+// ✅ CORRECT: Use STRIPE_SECRET_KEY (no VITE_ prefix)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2025-02-24.acacia", // Updated to current version
 });
 
 // Course data (should match your courses table)
@@ -89,8 +90,9 @@ export async function POST(request) {
         },
       ],
       mode: "payment",
-      success_url: successUrl || `${process.env.VITE_APP_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${process.env.VITE_APP_URL}/courses/${courseId}`,
+      // ✅ CORRECT: Use NEXT_PUBLIC_APP_URL (not VITE_APP_URL)
+      success_url: successUrl || `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${process.env.NEXT_PUBLIC_APP_URL}/courses/${courseId}`,
       metadata: {
         course_id: courseId,
         user_id: userId,
