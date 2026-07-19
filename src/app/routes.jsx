@@ -17,7 +17,7 @@ const Settings = lazy(() => import("@/pages/Settings.jsx"));
 
 const MarketingHome = lazy(() => import("@/pages/marketing/MarketingHome.jsx"));
 const MarketingCatalog = lazy(() => import("@/pages/marketing/MarketingCatalog.jsx"));
-const CourseCatalog = lazy(() => import("@/features/courses/CourseCatalog.jsx"));
+const CourseCatalog = lazy(() => import("@/pages/CourseCatalog.jsx"));
 const CourseSalesPage = lazy(() => import("@/pages/marketing/CourseSalesPage.jsx"));
 const Checkout = lazy(() => import("@/pages/marketing/Checkout.jsx"));
 const ThankYou = lazy(() => import("@/pages/marketing/ThankYou.jsx"));
