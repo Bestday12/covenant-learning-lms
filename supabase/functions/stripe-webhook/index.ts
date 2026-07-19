@@ -1,19 +1,18 @@
 // supabase/functions/stripe-webhook/index.ts
-// Supabase Edge Function — handles Stripe checkout.session.completed
-// Deploy: supabase functions deploy stripe-webhook
+// Supabase Edge Function — Stripe webhook + auto account creation + email
+// Deploy: supabase functions deploy stripe-webhook --no-verify-jwt
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2?target=deno";
 
-// ── Clients (initialised once per cold start) ────────────────────────────────
+// ── Clients ───────────────────────────────────────────────────────────────────
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") ?? "", {
   apiVersion: "2025-02-24.acacia",
-  httpClient: Stripe.createFetchHttpClient(), // required for Deno
+  httpClient: Stripe.createFetchHttpClient(),
 });
 
-// Service-role client — bypasses Row Level Security
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL") ?? "",
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
@@ -22,59 +21,353 @@ const supabase = createClient(
 
 const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET") ?? "";
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// SMTP config from env
+const SMTP_HOST = "smtp.hostinger.com";
+const SMTP_PORT = 465;
+const SMTP_USER = Deno.env.get("SMTP_USER") ?? ""; // support@covenantmarriagehelp.com
+const SMTP_PASS = Deno.env.get("SMTP_PASS") ?? "";
+const FROM_EMAIL = "Covenant Marriage Help <support@covenantmarriagehelp.com>";
+const LMS_URL = "https://learn.covenantmarriagehelp.com";
 
-/**
- * Resolve Supabase user ID from the Stripe session.
- * Three strategies tried in order:
- *   A) session.metadata.user_id          — most reliable (set at checkout)
- *   B) email lookup in profiles table    — fallback for first-time buyers
- *   C) stripe_customer_id lookup         — fallback for repeat buyers
- */
-async function resolveUserId(session: Stripe.Checkout.Session): Promise<string | null> {
-  // Strategy A
-  if (session.metadata?.user_id) {
-    console.log("✅ userId from metadata:", session.metadata.user_id);
-    return session.metadata.user_id;
+// ── Email sender (SMTP via fetch to a relay — using Deno SMTP) ───────────────
+
+async function sendEmail({
+  to,
+  subject,
+  html,
+}: {
+  to: string;
+  subject: string;
+  html: string;
+}) {
+  try {
+    // Use Deno's built-in SMTP via std library
+    const { SMTPClient } = await import("https://deno.land/x/denomailer@1.6.0/mod.ts");
+
+    const client = new SMTPClient({
+      connection: {
+        hostname: SMTP_HOST,
+        port: SMTP_PORT,
+        tls: true,
+        auth: {
+          username: SMTP_USER,
+          password: SMTP_PASS,
+        },
+      },
+    });
+
+    await client.send({
+      from: FROM_EMAIL,
+      to,
+      subject,
+      html,
+    });
+
+    await client.close();
+    console.log(`✅ Email sent to ${to}`);
+    return true;
+  } catch (err: any) {
+    console.error("❌ Email send failed:", err.message);
+    return false;
   }
+}
 
-  // Strategy B
+// ── Email templates ───────────────────────────────────────────────────────────
+
+function newAccountEmail(email: string, tempPassword: string, courseName: string): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Georgia,serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:40px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        
+        <!-- Header -->
+        <tr>
+          <td style="background:#1a3a5c;padding:32px 40px;text-align:center;">
+            <h1 style="color:#c9a227;font-family:Georgia,serif;font-size:24px;margin:0;">
+              Covenant Marriage Help
+            </h1>
+            <p style="color:#ffffff;margin:8px 0 0;font-size:14px;opacity:0.9;">
+              Covenant Learning
+            </p>
+          </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="padding:40px;">
+            <h2 style="color:#1a3a5c;font-size:20px;margin:0 0 16px;">
+              Welcome! Your account is ready 🎉
+            </h2>
+            <p style="color:#444;line-height:1.7;margin:0 0 16px;">
+              Thank you for purchasing <strong>${courseName}</strong>. 
+              Your Covenant Learning account has been created and you are now enrolled.
+            </p>
+
+            <!-- Login details box -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f4eb;border-left:4px solid #c9a227;border-radius:4px;margin:24px 0;">
+              <tr>
+                <td style="padding:20px 24px;">
+                  <p style="margin:0 0 8px;color:#1a3a5c;font-weight:bold;font-size:15px;">
+                    Your Login Details
+                  </p>
+                  <p style="margin:0 0 6px;color:#444;font-size:14px;">
+                    <strong>Email:</strong> ${email}
+                  </p>
+                  <p style="margin:0 0 6px;color:#444;font-size:14px;">
+                    <strong>Temporary Password:</strong> 
+                    <span style="font-family:monospace;background:#fff;padding:2px 8px;border-radius:3px;border:1px solid #ddd;">
+                      ${tempPassword}
+                    </span>
+                  </p>
+                  <p style="margin:12px 0 0;color:#888;font-size:12px;">
+                    ⚠️ Please change your password after your first login.
+                  </p>
+                </td>
+              </tr>
+            </table>
+
+            <!-- CTA Button -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+              <tr>
+                <td align="center">
+                  <a href="${LMS_URL}/login" 
+                     style="display:inline-block;background:#c9a227;color:#ffffff;text-decoration:none;padding:14px 36px;border-radius:6px;font-size:16px;font-weight:bold;font-family:Georgia,serif;">
+                    Start Your Course →
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <p style="color:#444;line-height:1.7;margin:0 0 16px;">
+              Once logged in, you will find <strong>${courseName}</strong> ready and waiting 
+              for you in your dashboard.
+            </p>
+
+            <p style="color:#444;line-height:1.7;margin:0;">
+              If you have any questions, reply to this email or contact us at 
+              <a href="mailto:support@covenantmarriagehelp.com" style="color:#1a3a5c;">
+                support@covenantmarriagehelp.com
+              </a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#f8f8f8;padding:24px 40px;border-top:1px solid #eee;text-align:center;">
+            <p style="color:#999;font-size:12px;margin:0;">
+              © 2026 Covenant Marriage Help Limited · 
+              <a href="${LMS_URL}" style="color:#1a3a5c;text-decoration:none;">
+                learn.covenantmarriagehelp.com
+              </a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+function existingUserEnrollmentEmail(email: string, courseName: string, courseId: string): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Georgia,serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:40px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        
+        <!-- Header -->
+        <tr>
+          <td style="background:#1a3a5c;padding:32px 40px;text-align:center;">
+            <h1 style="color:#c9a227;font-family:Georgia,serif;font-size:24px;margin:0;">
+              Covenant Marriage Help
+            </h1>
+            <p style="color:#ffffff;margin:8px 0 0;font-size:14px;opacity:0.9;">
+              Covenant Learning
+            </p>
+          </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="padding:40px;">
+            <h2 style="color:#1a3a5c;font-size:20px;margin:0 0 16px;">
+              You're enrolled! 🎓
+            </h2>
+            <p style="color:#444;line-height:1.7;margin:0 0 16px;">
+              Thank you for your purchase. You are now enrolled in 
+              <strong>${courseName}</strong> and can begin immediately.
+            </p>
+
+            <!-- CTA Button -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+              <tr>
+                <td align="center">
+                  <a href="${LMS_URL}/courses/${courseId}" 
+                     style="display:inline-block;background:#c9a227;color:#ffffff;text-decoration:none;padding:14px 36px;border-radius:6px;font-size:16px;font-weight:bold;font-family:Georgia,serif;">
+                    Go to Your Course →
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <p style="color:#444;line-height:1.7;margin:0 0 16px;">
+              Log in with your existing Covenant Learning account at 
+              <a href="${LMS_URL}/login" style="color:#1a3a5c;">${LMS_URL}/login</a>
+              and your course will be waiting in your dashboard.
+            </p>
+
+            <p style="color:#444;line-height:1.7;margin:0;">
+              Questions? Contact us at 
+              <a href="mailto:support@covenantmarriagehelp.com" style="color:#1a3a5c;">
+                support@covenantmarriagehelp.com
+              </a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#f8f8f8;padding:24px 40px;border-top:1px solid #eee;text-align:center;">
+            <p style="color:#999;font-size:12px;margin:0;">
+              © 2026 Covenant Marriage Help Limited · 
+              <a href="${LMS_URL}" style="color:#1a3a5c;text-decoration:none;">
+                learn.covenantmarriagehelp.com
+              </a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+// ── Course name lookup ────────────────────────────────────────────────────────
+
+const COURSE_NAMES: Record<string, string> = {
+  "covenant-marriage-foundation": "The Covenant Marriage Foundation",
+  "marriage-crisis-survival-guide": "Marriage Crisis Survival Guide",
+  "pre-marital-masterclass": "Pre-Marital Masterclass",
+  "parenting-as-a-team": "Parenting as a Team",
+  "blended-family-foundations": "Blended Family Foundations",
+  "communication-that-builds-marriage": "Communication That Builds Marriage",
+};
+
+// ── Generate temp password ────────────────────────────────────────────────────
+
+function generateTempPassword(): string {
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  let password = "Cv!"; // prefix ensures uppercase + special char requirement
+  for (let i = 0; i < 9; i++) {
+    password += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return password;
+}
+
+// ── Core handlers ─────────────────────────────────────────────────────────────
+
+async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
+  userId: string;
+  isNewUser: boolean;
+  email: string;
+  tempPassword?: string;
+} | null> {
   const email =
     session.metadata?.customer_email ||
     session.customer_details?.email ||
     (session as any).customer_email;
 
-  if (email) {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("email", email)
-      .maybeSingle();
-
-    if (!error && data) {
-      console.log("✅ userId from email:", email, "→", data.id);
-      return data.id;
-    }
-    console.warn("⚠️ No profile found for email:", email);
+  if (!email) {
+    console.error("❌ No email found in session");
+    return null;
   }
 
-  // Strategy C
+  // Strategy A: user_id in metadata (logged-in purchase)
+  if (session.metadata?.user_id) {
+    console.log("✅ Existing user from metadata:", session.metadata.user_id);
+    return { userId: session.metadata.user_id, isNewUser: false, email };
+  }
+
+  // Strategy B: look up by email in profiles
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+
+  if (profile) {
+    console.log("✅ Existing user found by email:", email);
+    return { userId: profile.id, isNewUser: false, email };
+  }
+
+  // Strategy C: look up by stripe_customer_id
   if (session.customer) {
-    const { data, error } = await supabase
+    const { data: byCustomer } = await supabase
       .from("profiles")
       .select("id")
       .eq("stripe_customer_id", session.customer)
       .maybeSingle();
 
-    if (!error && data) {
-      console.log("✅ userId from stripe_customer_id:", session.customer, "→", data.id);
-      return data.id;
+    if (byCustomer) {
+      console.log("✅ Existing user found by stripe_customer_id");
+      return { userId: byCustomer.id, isNewUser: false, email };
     }
-    console.warn("⚠️ No profile found for stripe_customer_id:", session.customer);
   }
 
-  console.error("❌ Could not resolve userId. Metadata:", JSON.stringify(session.metadata));
-  return null;
+  // No user found — create one
+  console.log("👤 No user found for email:", email, "— creating account");
+
+  const tempPassword = generateTempPassword();
+  const fullName = session.metadata?.customer_name ||
+    session.customer_details?.name || "";
+
+  const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+    email,
+    password: tempPassword,
+    email_confirm: true, // skip email verification — they already verified via payment
+    user_metadata: {
+      full_name: fullName,
+      created_via: "stripe_purchase",
+    },
+  });
+
+  if (createError || !newUser?.user) {
+    console.error("❌ Failed to create auth user:", createError?.message);
+    return null;
+  }
+
+  const userId = newUser.user.id;
+
+  // Create profile row
+  await supabase.from("profiles").upsert({
+    id: userId,
+    email,
+    full_name: fullName,
+    role: "student",
+    stripe_customer_id: session.customer ?? null,
+    created_at: new Date().toISOString(),
+  });
+
+  console.log("✅ Created new user:", userId, "for email:", email);
+  return { userId, isNewUser: true, email, tempPassword };
 }
 
 async function enrollUserInCourse(
@@ -82,7 +375,6 @@ async function enrollUserInCourse(
   courseId: string,
   stripeSessionId: string
 ): Promise<boolean> {
-  // Idempotency — skip if already enrolled
   const { data: existing } = await supabase
     .from("enrollments")
     .select("id")
@@ -103,7 +395,7 @@ async function enrollUserInCourse(
   });
 
   if (error) {
-    console.error("❌ Supabase insert error:", error.message, error.details, error.hint);
+    console.error("❌ Enrollment insert error:", error.message, error.hint);
     return false;
   }
 
@@ -123,14 +415,12 @@ async function saveStripeCustomerId(userId: string, stripeCustomerId: string) {
       .from("profiles")
       .update({ stripe_customer_id: stripeCustomerId })
       .eq("id", userId);
-    console.log(`✅ Saved stripe_customer_id for user ${userId}`);
   }
 }
 
-// ── Main handler ─────────────────────────────────────────────────────────────
+// ── Main handler ──────────────────────────────────────────────────────────────
 
 serve(async (req: Request) => {
-  // Stripe only sends POST; return 200 for OPTIONS (CORS preflight)
   if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 200,
@@ -146,7 +436,6 @@ serve(async (req: Request) => {
     return new Response("Method not allowed", { status: 405 });
   }
 
-  // Verify Stripe signature
   const body = await req.text();
   const signature = req.headers.get("stripe-signature");
 
@@ -160,52 +449,70 @@ serve(async (req: Request) => {
     event = await stripe.webhooks.constructEventAsync(body, signature!, webhookSecret);
   } catch (err: any) {
     console.error("❌ Signature verification failed:", err.message);
-    return new Response(`Webhook signature error: ${err.message}`, { status: 400 });
+    return new Response(`Webhook error: ${err.message}`, { status: 400 });
   }
 
-  console.log(`📥 Stripe event: ${event.type} | id: ${event.id}`);
+  console.log(`📥 Stripe event: ${event.type} | ${event.id}`);
 
   try {
-    // ── checkout.session.completed ──────────────────────────────────────────
-    if (event.type === "checkout.session.completed") {
+    if (
+      event.type === "checkout.session.completed" ||
+      event.type === "checkout.session.async_payment_succeeded"
+    ) {
       const session = event.data.object as Stripe.Checkout.Session;
 
       if (session.payment_status !== "paid") {
-        console.warn("⚠️ Payment not yet confirmed. Status:", session.payment_status);
+        console.warn("⚠️ Not yet paid, skipping. Status:", session.payment_status);
         return new Response(JSON.stringify({ received: true }), { status: 200 });
       }
 
       const courseId = session.metadata?.course_id;
       if (!courseId) {
-        console.error("❌ course_id missing from session metadata:", JSON.stringify(session.metadata));
+        console.error("❌ course_id missing from metadata");
         return new Response(JSON.stringify({ received: true, warning: "missing course_id" }), { status: 200 });
       }
 
-      const userId = await resolveUserId(session);
-      if (!userId) {
-        console.error("❌ Could not resolve userId for session:", session.id);
-        return new Response(JSON.stringify({ received: true, warning: "missing userId" }), { status: 200 });
+      const courseName = COURSE_NAMES[courseId] ?? courseId;
+
+      // Resolve or create user
+      const userResult = await resolveOrCreateUser(session);
+      if (!userResult) {
+        console.error("❌ Could not resolve or create user");
+        return new Response(JSON.stringify({ received: true, warning: "user resolution failed" }), { status: 200 });
       }
 
+      const { userId, isNewUser, email, tempPassword } = userResult;
+
+      // Enroll
       const enrolled = await enrollUserInCourse(userId, courseId, session.id);
 
-      if (enrolled && session.customer) {
+      // Save Stripe customer ID
+      if (session.customer) {
         await saveStripeCustomerId(userId, session.customer as string);
       }
-    }
 
-    // ── async payment confirmation (bank transfers etc.) ────────────────────
-    if (event.type === "checkout.session.async_payment_succeeded") {
-      const session = event.data.object as Stripe.Checkout.Session;
-      const courseId = session.metadata?.course_id;
-      const userId = await resolveUserId(session);
-      if (userId && courseId) {
-        await enrollUserInCourse(userId, courseId, session.id);
+      // Send email
+      if (enrolled) {
+        if (isNewUser && tempPassword) {
+          // New user — send welcome + login credentials
+          await sendEmail({
+            to: email,
+            subject: `Welcome to Covenant Learning — Your login details inside`,
+            html: newAccountEmail(email, tempPassword, courseName),
+          });
+        } else {
+          // Existing user — send enrollment confirmation
+          await sendEmail({
+            to: email,
+            subject: `You're enrolled in ${courseName} — Start learning today`,
+            html: existingUserEnrollmentEmail(email, courseName, courseId),
+          });
+        }
       }
     }
   } catch (err: any) {
-    console.error("❌ Unhandled error processing event:", err.message);
-    // Always return 200 — a 5xx here would cause Stripe to retry infinitely
+    console.error("❌ Unhandled error:", err.message);
+    // Return 200 to prevent Stripe retries on server errors
   }
 
   return new Response(JSON.stringify({ received: true }), {
