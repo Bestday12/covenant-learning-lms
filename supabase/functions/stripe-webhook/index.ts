@@ -1,5 +1,5 @@
 // supabase/functions/stripe-webhook/index.ts
-// Supabase Edge Function — Stripe webhook + auto account creation + SMTP email
+// Supabase Edge Function — Stripe webhook + auto account creation + premium email
 // Deploy: supabase functions deploy stripe-webhook --no-verify-jwt
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
@@ -24,18 +24,11 @@ const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET") ?? "";
 const SMTP_USER = Deno.env.get("SMTP_USER") ?? "";
 const SMTP_PASS = Deno.env.get("SMTP_PASS") ?? "";
 const LMS_URL = "https://learn.covenantmarriagehelp.com";
+const WHATSAPP_URL = "https://wa.me/447428316189?text=Hello%20Reverend%20Sam%2C%20I%20have%20just%20enrolled%20in%20a%20Covenant%20Learning%20course%20and%20would%20love%20to%20connect.";
 
 // ── Raw SMTP over TLS ─────────────────────────────────────────────────────────
 
-async function sendSmtpEmail({
-  to,
-  subject,
-  html,
-}: {
-  to: string;
-  subject: string;
-  html: string;
-}): Promise<boolean> {
+async function sendSmtpEmail({ to, subject, html }: { to: string; subject: string; html: string }): Promise<boolean> {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
@@ -43,11 +36,10 @@ async function sendSmtpEmail({
     return base64Encode(encoder.encode(str));
   }
 
-  // Build RFC 2822 message
   const boundary = `boundary_${Date.now()}`;
   const date = new Date().toUTCString();
   const message = [
-    `From: Covenant Marriage Help <${SMTP_USER}>`,
+    `From: Reverend Sam Adeyemi — Covenant Marriage Help <${SMTP_USER}>`,
     `To: ${to}`,
     `Subject: ${subject}`,
     `Date: ${date}`,
@@ -58,7 +50,7 @@ async function sendSmtpEmail({
     `Content-Type: text/plain; charset="utf-8"`,
     `Content-Transfer-Encoding: base64`,
     ``,
-    b64(`Please view this email in an HTML-capable email client.`),
+    b64(`Please view this email in an HTML-capable email client. Visit ${LMS_URL}/login to access your course.`),
     ``,
     `--${boundary}`,
     `Content-Type: text/html; charset="utf-8"`,
@@ -72,11 +64,7 @@ async function sendSmtpEmail({
   ].join("\r\n");
 
   try {
-    // Connect via TLS to Hostinger SMTP port 465
-    const conn = await Deno.connectTls({
-      hostname: "smtp.hostinger.com",
-      port: 465,
-    });
+    const conn = await Deno.connectTls({ hostname: "smtp.hostinger.com", port: 465 });
 
     const read = async (): Promise<string> => {
       const buf = new Uint8Array(4096);
@@ -87,24 +75,19 @@ async function sendSmtpEmail({
     };
 
     const write = async (cmd: string) => {
-      console.log("SMTP →", cmd.trim());
+      console.log("SMTP →", cmd.startsWith(b64(SMTP_PASS)) ? "SMTP → [password hidden]" : cmd.trim());
       await conn.write(encoder.encode(cmd + "\r\n"));
     };
 
-    // SMTP handshake
-    await read(); // 220 greeting
-
+    await read();
     await write(`EHLO smtp.hostinger.com`);
-    await read(); // 250 capabilities
-
+    await read();
     await write(`AUTH LOGIN`);
-    await read(); // 334 username prompt
-
+    await read();
     await write(b64(SMTP_USER));
-    await read(); // 334 password prompt
-
+    await read();
     await write(b64(SMTP_PASS));
-    const authResult = await read(); // 235 authenticated
+    const authResult = await read();
 
     if (!authResult.startsWith("235")) {
       console.error("❌ SMTP AUTH failed:", authResult);
@@ -113,96 +96,280 @@ async function sendSmtpEmail({
     }
 
     await write(`MAIL FROM:<${SMTP_USER}>`);
-    await read(); // 250 OK
-
+    await read();
     await write(`RCPT TO:<${to}>`);
-    await read(); // 250 OK
-
+    await read();
     await write(`DATA`);
-    await read(); // 354 start input
-
+    await read();
     await write(message);
-    const dataResult = await read(); // 250 OK
-
+    const dataResult = await read();
     await write(`QUIT`);
     conn.close();
 
     const success = dataResult.includes("250");
-    if (success) {
-      console.log(`✅ Email sent to ${to}`);
-    } else {
-      console.error(`❌ Email data failed:`, dataResult);
-    }
+    console.log(success ? `✅ Email sent to ${to}` : `❌ Email failed: ${dataResult}`);
     return success;
-
   } catch (err: any) {
-    console.error("❌ SMTP connection error:", err.message);
+    console.error("❌ SMTP error:", err.message);
     return false;
   }
 }
 
-// ── Email templates ───────────────────────────────────────────────────────────
+// ── Email Templates ───────────────────────────────────────────────────────────
 
-function newAccountEmail(email: string, tempPassword: string, courseName: string): string {
+function newAccountEmail(email: string, tempPassword: string, courseName: string, firstName: string): string {
+  const greeting = firstName ? `Dear ${firstName},` : "Dear Friend,";
+
   return `<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f4f4f4;font-family:Georgia,serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:40px 0;">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Covenant Learning</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f3ede1;font-family:Georgia,serif;">
+
+<!-- Wrapper -->
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3ede1;padding:40px 20px;">
 <tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
 
+  <!-- Header -->
   <tr>
-    <td style="background:#1a3a5c;padding:32px 40px;text-align:center;">
-      <h1 style="color:#c9a227;font-family:Georgia,serif;font-size:24px;margin:0;">Covenant Marriage Help</h1>
-      <p style="color:#ffffff;margin:8px 0 0;font-size:14px;opacity:0.9;">Covenant Learning</p>
+    <td style="background:linear-gradient(135deg,#3d0a6e 0%,#5a1a9a 100%);border-radius:16px 16px 0 0;padding:40px 48px;text-align:center;">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(245,208,96,0.8);">COVENANT MARRIAGE HELP</p>
+      <h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:32px;font-weight:700;color:#ffffff;line-height:1.2;">Covenant Learning</h1>
+      <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.6);font-style:italic;">Biblical wisdom for every season of marriage</p>
+      <div style="margin:24px auto 0;width:48px;height:2px;background:linear-gradient(90deg,transparent,#c9960c,transparent);"></div>
     </td>
   </tr>
 
+  <!-- Gold accent bar -->
   <tr>
-    <td style="padding:40px;">
-      <h2 style="color:#1a3a5c;font-size:20px;margin:0 0 16px;">Welcome! Your account is ready &#127881;</h2>
-      <p style="color:#444;line-height:1.7;margin:0 0 16px;">
-        Thank you for purchasing <strong>${courseName}</strong>. Your Covenant Learning account has been created and you are now enrolled.
+    <td style="background:linear-gradient(135deg,#c9960c,#e8b422);padding:3px 0;"></td>
+  </tr>
+
+  <!-- Main body -->
+  <tr>
+    <td style="background:#ffffff;padding:48px 48px 32px;">
+
+      <!-- Welcome heading -->
+      <h2 style="margin:0 0 8px;font-family:Georgia,serif;font-size:26px;font-weight:700;color:#3d0a6e;line-height:1.3;">
+        Welcome to Covenant Learning &#127881;
+      </h2>
+      <p style="margin:0 0 28px;font-size:13px;color:#c9960c;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Your journey begins today</p>
+
+      <!-- Greeting -->
+      <p style="margin:0 0 16px;font-size:16px;color:#1a0a2e;line-height:1.8;">${greeting}</p>
+
+      <p style="margin:0 0 16px;font-size:16px;color:#1a0a2e;line-height:1.8;">
+        Thank you for enrolling in <strong style="color:#3d0a6e;">${courseName}</strong>. 
+        Your account has been created and you now have full access to your course.
       </p>
 
-      <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f4eb;border-left:4px solid #c9a227;border-radius:4px;margin:24px 0;">
-        <tr><td style="padding:20px 24px;">
-          <p style="margin:0 0 8px;color:#1a3a5c;font-weight:bold;font-size:15px;">Your Login Details</p>
-          <p style="margin:0 0 6px;color:#444;font-size:14px;"><strong>Website:</strong> ${LMS_URL}/login</p>
-          <p style="margin:0 0 6px;color:#444;font-size:14px;"><strong>Email:</strong> ${email}</p>
-          <p style="margin:0 0 6px;color:#444;font-size:14px;"><strong>Temporary Password:</strong>
-            <span style="font-family:monospace;background:#fff;padding:2px 8px;border-radius:3px;border:1px solid #ddd;">${tempPassword}</span>
-          </p>
-          <p style="margin:12px 0 0;color:#888;font-size:12px;">&#9888; Please change your password after your first login.</p>
-        </td></tr>
+      <!-- Scripture -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0;">
+        <tr>
+          <td style="background:#faf6ef;border-left:4px solid #c9960c;border-radius:0 8px 8px 0;padding:20px 24px;">
+            <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:17px;font-style:italic;color:#3d0a6e;line-height:1.6;">
+              &#8220;Two are better than one, because they have a good return for their labour: If either of them falls down, one can help the other up.&#8221;
+            </p>
+            <p style="margin:0;font-size:12px;font-weight:700;color:#c9960c;letter-spacing:1px;text-transform:uppercase;">Ecclesiastes 4:9&#8211;10</p>
+          </td>
+        </tr>
       </table>
 
-      <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
-        <tr><td align="center">
-          <a href="${LMS_URL}/login"
-             style="display:inline-block;background:#c9a227;color:#ffffff;text-decoration:none;padding:14px 36px;border-radius:6px;font-size:16px;font-weight:bold;font-family:Georgia,serif;">
-            Start Your Course &#8594;
-          </a>
-        </td></tr>
+      <!-- Personal word from Rev Sam -->
+      <h3 style="margin:0 0 12px;font-family:Georgia,serif;font-size:18px;color:#3d0a6e;">A Word From Reverend Sam</h3>
+      <p style="margin:0 0 16px;font-size:15px;color:#3d0a6e;line-height:1.8;">
+        I am genuinely honoured that you have chosen to invest in your marriage through Covenant Learning. 
+        This is not just a course — it is a covenant commitment to the person God has placed beside you.
+      </p>
+      <p style="margin:0 0 28px;font-size:15px;color:#3d0a6e;line-height:1.8;">
+        Every module has been built with prayer, Scripture, and the real stories of couples I have walked with 
+        over more than a decade of ministry. My prayer is that God meets you in every lesson and brings 
+        genuine, lasting transformation to your marriage.
+      </p>
+
+      <!-- Login credentials box -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
+        <tr>
+          <td style="background:#faf6ef;border:1px solid rgba(201,150,12,0.3);border-radius:12px;padding:28px;">
+            <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:16px;font-weight:700;color:#3d0a6e;">
+              &#128274; Your Login Details
+            </p>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:8px 0;border-bottom:1px solid rgba(201,150,12,0.15);">
+                  <p style="margin:0;font-size:12px;font-weight:700;color:#c9960c;text-transform:uppercase;letter-spacing:1px;">Course Platform</p>
+                  <p style="margin:4px 0 0;font-size:14px;color:#3d0a6e;"><a href="${LMS_URL}/login" style="color:#5a1a9a;text-decoration:none;font-weight:600;">${LMS_URL}/login</a></p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;border-bottom:1px solid rgba(201,150,12,0.15);">
+                  <p style="margin:0;font-size:12px;font-weight:700;color:#c9960c;text-transform:uppercase;letter-spacing:1px;">Email Address</p>
+                  <p style="margin:4px 0 0;font-size:14px;color:#3d0a6e;">${email}</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;">
+                  <p style="margin:0;font-size:12px;font-weight:700;color:#c9960c;text-transform:uppercase;letter-spacing:1px;">Temporary Password</p>
+                  <p style="margin:4px 0 0;font-size:14px;color:#3d0a6e;">
+                    <span style="font-family:monospace;background:#ffffff;border:1px solid rgba(201,150,12,0.4);padding:4px 12px;border-radius:6px;font-size:15px;letter-spacing:1px;">${tempPassword}</span>
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:16px 0 0;font-size:12px;color:#6b5f7a;font-style:italic;">
+              &#9888;&#65039; Please change your password after your first login via Settings in your dashboard.
+            </p>
+          </td>
+        </tr>
       </table>
 
-      <p style="color:#444;line-height:1.7;margin:0 0 16px;">
-        Once logged in, you will find <strong>${courseName}</strong> ready and waiting in your dashboard.
+      <!-- CTA Button -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 32px;">
+        <tr>
+          <td align="center">
+            <a href="${LMS_URL}/login"
+               style="display:inline-block;background:linear-gradient(135deg,#3d0a6e,#5a1a9a);color:#ffffff;text-decoration:none;padding:16px 48px;border-radius:50px;font-family:Georgia,serif;font-size:16px;font-weight:700;letter-spacing:0.5px;">
+              &#127891; Start Your Course Now
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- What to expect -->
+      <h3 style="margin:0 0 16px;font-family:Georgia,serif;font-size:18px;color:#3d0a6e;">What to Expect</h3>
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f3ede1;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:32px;vertical-align:top;">
+                  <div style="width:24px;height:24px;background:linear-gradient(135deg,#c9960c,#e8b422);border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:700;color:#3d0a6e;">1</div>
+                </td>
+                <td style="padding-left:12px;vertical-align:top;">
+                  <p style="margin:0;font-size:14px;font-weight:700;color:#3d0a6e;">Log in and find your course</p>
+                  <p style="margin:4px 0 0;font-size:13px;color:#6b5f7a;line-height:1.6;">Your enrolled course will be waiting in your dashboard. Click to begin Module 1.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f3ede1;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:32px;vertical-align:top;">
+                  <div style="width:24px;height:24px;background:linear-gradient(135deg,#c9960c,#e8b422);border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:700;color:#3d0a6e;">2</div>
+                </td>
+                <td style="padding-left:12px;vertical-align:top;">
+                  <p style="margin:0;font-size:14px;font-weight:700;color:#3d0a6e;">Work through each module together</p>
+                  <p style="margin:4px 0 0;font-size:13px;color:#6b5f7a;line-height:1.6;">Each module includes teaching, reflection questions, worksheets, and prayer. Work at your own pace.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f3ede1;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:32px;vertical-align:top;">
+                  <div style="width:24px;height:24px;background:linear-gradient(135deg,#c9960c,#e8b422);border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:700;color:#3d0a6e;">3</div>
+                </td>
+                <td style="padding-left:12px;vertical-align:top;">
+                  <p style="margin:0;font-size:14px;font-weight:700;color:#3d0a6e;">Change your password</p>
+                  <p style="margin:4px 0 0;font-size:13px;color:#6b5f7a;line-height:1.6;">Go to Settings in your dashboard and set a personal password you will remember.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:32px;vertical-align:top;">
+                  <div style="width:24px;height:24px;background:linear-gradient(135deg,#c9960c,#e8b422);border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:700;color:#3d0a6e;">4</div>
+                </td>
+                <td style="padding-left:12px;vertical-align:top;">
+                  <p style="margin:0;font-size:14px;font-weight:700;color:#3d0a6e;">Reach out if you need support</p>
+                  <p style="margin:4px 0 0;font-size:13px;color:#6b5f7a;line-height:1.6;">Reverend Sam is available via WhatsApp if you have any questions along the way.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- WhatsApp -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 32px;">
+        <tr>
+          <td style="background:#f0fdf4;border:1px solid rgba(37,211,102,0.3);border-radius:12px;padding:20px 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#1a0a2e;">&#128172; Connect on WhatsApp</p>
+                  <p style="margin:0;font-size:13px;color:#6b5f7a;line-height:1.5;">Message Reverend Sam directly for prayer, support, or questions about your course.</p>
+                </td>
+                <td style="vertical-align:middle;white-space:nowrap;padding-left:16px;">
+                  <a href="${WHATSAPP_URL}"
+                     style="display:inline-block;background:#25d366;color:#ffffff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;">
+                    &#128172; Chat Now
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Prayer -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
+        <tr>
+          <td style="background:linear-gradient(135deg,#3d0a6e,#5a1a9a);border-radius:12px;padding:28px 32px;text-align:center;">
+            <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(245,208,96,0.8);">A PRAYER FOR YOU</p>
+            <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:15px;font-style:italic;color:rgba(255,255,255,0.9);line-height:1.8;">
+              &#8220;Lord, I pray for this couple as they begin this journey. May every lesson bring wisdom, 
+              every reflection bring healing, and every prayer bring Your presence into the centre of their 
+              marriage. Let what You have joined together be strengthened by Your Word and Your grace. Amen.&#8221;
+            </p>
+            <p style="margin:0;font-size:13px;color:rgba(245,208,96,0.8);font-weight:600;">— Reverend Sam Adeyemi</p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:0;font-size:15px;color:#3d0a6e;line-height:1.8;">
+        Walking with you,<br/>
+        <strong style="font-size:16px;">Reverend Sam Adeyemi</strong><br/>
+        <span style="font-size:13px;color:#6b5f7a;">Founder, Covenant Marriage Help &amp; Covenant Learning<br/>
+        Senior Pastor, Powerhouse Holyghost Ministry International</span>
       </p>
-      <p style="color:#444;line-height:1.7;margin:0;">
-        Questions? Contact us at
-        <a href="mailto:support@covenantmarriagehelp.com" style="color:#1a3a5c;">support@covenantmarriagehelp.com</a>
-        or call +44 7428 216189.
-      </p>
+
     </td>
   </tr>
 
+  <!-- Gold divider -->
   <tr>
-    <td style="background:#f8f8f8;padding:24px 40px;border-top:1px solid #eee;text-align:center;">
-      <p style="color:#999;font-size:12px;margin:0;">
-        &copy; 2026 Covenant Marriage Help Limited &middot;
-        <a href="${LMS_URL}" style="color:#1a3a5c;text-decoration:none;">learn.covenantmarriagehelp.com</a>
+    <td style="background:linear-gradient(135deg,#c9960c,#e8b422);padding:2px 0;"></td>
+  </tr>
+
+  <!-- Footer -->
+  <tr>
+    <td style="background:#3d0a6e;border-radius:0 0 16px 16px;padding:28px 48px;text-align:center;">
+      <p style="margin:0 0 8px;font-size:13px;color:rgba(255,255,255,0.5);">
+        Need help? Reply to this email or contact us at
+        <a href="mailto:support@covenantmarriagehelp.com" style="color:#f5d060;text-decoration:none;">support@covenantmarriagehelp.com</a>
+      </p>
+      <p style="margin:0 0 8px;font-size:13px;color:rgba(255,255,255,0.5);">
+        <a href="${LMS_URL}" style="color:rgba(255,255,255,0.5);text-decoration:none;">learn.covenantmarriagehelp.com</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://covenantmarriagehelp.com" style="color:rgba(255,255,255,0.5);text-decoration:none;">covenantmarriagehelp.com</a>
+      </p>
+      <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.3);">
+        &copy; 2026 Covenant Marriage Help Limited &middot; Sheffield, UK &middot; Serving couples globally
       </p>
     </td>
   </tr>
@@ -210,59 +377,150 @@ function newAccountEmail(email: string, tempPassword: string, courseName: string
 </table>
 </td></tr>
 </table>
+
 </body>
 </html>`;
 }
 
-function existingUserEmail(email: string, courseName: string, courseId: string): string {
-  return `<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f4f4f4;font-family:Georgia,serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:40px 0;">
-<tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+function existingUserEmail(email: string, courseName: string, courseId: string, firstName: string): string {
+  const greeting = firstName ? `Dear ${firstName},` : "Dear Friend,";
 
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Enrolled — ${courseName}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f3ede1;font-family:Georgia,serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3ede1;padding:40px 20px;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+  <!-- Header -->
   <tr>
-    <td style="background:#1a3a5c;padding:32px 40px;text-align:center;">
-      <h1 style="color:#c9a227;font-family:Georgia,serif;font-size:24px;margin:0;">Covenant Marriage Help</h1>
-      <p style="color:#ffffff;margin:8px 0 0;font-size:14px;opacity:0.9;">Covenant Learning</p>
+    <td style="background:linear-gradient(135deg,#3d0a6e 0%,#5a1a9a 100%);border-radius:16px 16px 0 0;padding:40px 48px;text-align:center;">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(245,208,96,0.8);">COVENANT MARRIAGE HELP</p>
+      <h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:32px;font-weight:700;color:#ffffff;line-height:1.2;">Covenant Learning</h1>
+      <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.6);font-style:italic;">Biblical wisdom for every season of marriage</p>
+      <div style="margin:24px auto 0;width:48px;height:2px;background:linear-gradient(90deg,transparent,#c9960c,transparent);"></div>
     </td>
   </tr>
 
   <tr>
-    <td style="padding:40px;">
-      <h2 style="color:#1a3a5c;font-size:20px;margin:0 0 16px;">You're enrolled! &#127891;</h2>
-      <p style="color:#444;line-height:1.7;margin:0 0 16px;">
-        Thank you for your purchase. You are now enrolled in <strong>${courseName}</strong> and can begin immediately.
+    <td style="background:linear-gradient(135deg,#c9960c,#e8b422);padding:3px 0;"></td>
+  </tr>
+
+  <!-- Body -->
+  <tr>
+    <td style="background:#ffffff;padding:48px 48px 32px;">
+
+      <h2 style="margin:0 0 8px;font-family:Georgia,serif;font-size:26px;font-weight:700;color:#3d0a6e;">
+        You're Enrolled! &#127891;
+      </h2>
+      <p style="margin:0 0 28px;font-size:13px;color:#c9960c;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Your course is ready and waiting</p>
+
+      <p style="margin:0 0 16px;font-size:16px;color:#1a0a2e;line-height:1.8;">${greeting}</p>
+
+      <p style="margin:0 0 16px;font-size:16px;color:#1a0a2e;line-height:1.8;">
+        Thank you for your investment in <strong style="color:#3d0a6e;">${courseName}</strong>. 
+        You now have full access and can begin immediately.
       </p>
 
-      <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
-        <tr><td align="center">
-          <a href="${LMS_URL}/courses/${courseId}"
-             style="display:inline-block;background:#c9a227;color:#ffffff;text-decoration:none;padding:14px 36px;border-radius:6px;font-size:16px;font-weight:bold;font-family:Georgia,serif;">
-            Go to Your Course &#8594;
-          </a>
-        </td></tr>
+      <!-- Scripture -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0;">
+        <tr>
+          <td style="background:#faf6ef;border-left:4px solid #c9960c;border-radius:0 8px 8px 0;padding:20px 24px;">
+            <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:17px;font-style:italic;color:#3d0a6e;line-height:1.6;">
+              &#8220;Commit to the Lord whatever you do, and he will establish your plans.&#8221;
+            </p>
+            <p style="margin:0;font-size:12px;font-weight:700;color:#c9960c;letter-spacing:1px;text-transform:uppercase;">Proverbs 16:3</p>
+          </td>
+        </tr>
       </table>
 
-      <p style="color:#444;line-height:1.7;margin:0 0 16px;">
-        Log in at <a href="${LMS_URL}/login" style="color:#1a3a5c;">${LMS_URL}/login</a>
-        with your existing account and your course will be waiting in your dashboard.
+      <!-- Personal word -->
+      <p style="margin:0 0 16px;font-size:15px;color:#3d0a6e;line-height:1.8;">
+        Choosing to invest in your marriage is one of the most significant decisions you can make. 
+        I have put everything I know — from Scripture, from ministry, and from years of walking 
+        with couples — into this course. I believe God will meet you in it.
       </p>
-      <p style="color:#444;line-height:1.7;margin:0;">
-        Questions? Contact us at
-        <a href="mailto:support@covenantmarriagehelp.com" style="color:#1a3a5c;">support@covenantmarriagehelp.com</a>
-        or call +44 7428 216189.
+
+      <!-- CTA -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;">
+        <tr>
+          <td align="center">
+            <a href="${LMS_URL}/learn/${courseId}"
+               style="display:inline-block;background:linear-gradient(135deg,#3d0a6e,#5a1a9a);color:#ffffff;text-decoration:none;padding:16px 48px;border-radius:50px;font-family:Georgia,serif;font-size:16px;font-weight:700;letter-spacing:0.5px;">
+              &#9654;&#65039; Begin Your Course Now
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- WhatsApp -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 32px;">
+        <tr>
+          <td style="background:#f0fdf4;border:1px solid rgba(37,211,102,0.3);border-radius:12px;padding:20px 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#1a0a2e;">&#128172; Need Support?</p>
+                  <p style="margin:0;font-size:13px;color:#6b5f7a;line-height:1.5;">Message Reverend Sam on WhatsApp for prayer, questions, or pastoral support.</p>
+                </td>
+                <td style="vertical-align:middle;white-space:nowrap;padding-left:16px;">
+                  <a href="${WHATSAPP_URL}"
+                     style="display:inline-block;background:#25d366;color:#ffffff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;">
+                    &#128172; Chat
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Prayer -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
+        <tr>
+          <td style="background:linear-gradient(135deg,#3d0a6e,#5a1a9a);border-radius:12px;padding:28px 32px;text-align:center;">
+            <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(245,208,96,0.8);">A PRAYER FOR YOUR JOURNEY</p>
+            <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:15px;font-style:italic;color:rgba(255,255,255,0.9);line-height:1.8;">
+              &#8220;Father, bless this couple as they commit to growing together. May every module 
+              open their hearts to one another and to You. Let this course be the beginning of a 
+              new and beautiful chapter in their marriage. In Jesus&#8217; name. Amen.&#8221;
+            </p>
+            <p style="margin:0;font-size:13px;color:rgba(245,208,96,0.8);font-weight:600;">— Reverend Sam Adeyemi</p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:0;font-size:15px;color:#3d0a6e;line-height:1.8;">
+        Walking with you,<br/>
+        <strong style="font-size:16px;">Reverend Sam Adeyemi</strong><br/>
+        <span style="font-size:13px;color:#6b5f7a;">Founder, Covenant Marriage Help &amp; Covenant Learning</span>
       </p>
+
     </td>
   </tr>
 
   <tr>
-    <td style="background:#f8f8f8;padding:24px 40px;border-top:1px solid #eee;text-align:center;">
-      <p style="color:#999;font-size:12px;margin:0;">
-        &copy; 2026 Covenant Marriage Help Limited &middot;
-        <a href="${LMS_URL}" style="color:#1a3a5c;text-decoration:none;">learn.covenantmarriagehelp.com</a>
+    <td style="background:linear-gradient(135deg,#c9960c,#e8b422);padding:2px 0;"></td>
+  </tr>
+
+  <!-- Footer -->
+  <tr>
+    <td style="background:#3d0a6e;border-radius:0 0 16px 16px;padding:28px 48px;text-align:center;">
+      <p style="margin:0 0 8px;font-size:13px;color:rgba(255,255,255,0.5);">
+        Need help? Contact us at
+        <a href="mailto:support@covenantmarriagehelp.com" style="color:#f5d060;text-decoration:none;">support@covenantmarriagehelp.com</a>
+      </p>
+      <p style="margin:0 0 8px;font-size:13px;color:rgba(255,255,255,0.5);">
+        <a href="${LMS_URL}" style="color:rgba(255,255,255,0.5);text-decoration:none;">learn.covenantmarriagehelp.com</a>
+      </p>
+      <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.3);">
+        &copy; 2026 Covenant Marriage Help Limited &middot; Sheffield, UK
       </p>
     </td>
   </tr>
@@ -270,11 +528,12 @@ function existingUserEmail(email: string, courseName: string, courseId: string):
 </table>
 </td></tr>
 </table>
+
 </body>
 </html>`;
 }
 
-// ── Course name lookup ────────────────────────────────────────────────────────
+// ── Course names ──────────────────────────────────────────────────────────────
 
 const COURSE_NAMES: Record<string, string> = {
   "covenant-marriage-foundation": "The Covenant Marriage Foundation",
@@ -285,7 +544,7 @@ const COURSE_NAMES: Record<string, string> = {
   "communication-that-builds-marriage": "Communication That Builds Marriage",
 };
 
-// ── Generate temp password ────────────────────────────────────────────────────
+// ── Temp password ─────────────────────────────────────────────────────────────
 
 function generateTempPassword(): string {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
@@ -302,6 +561,7 @@ async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
   userId: string;
   isNewUser: boolean;
   email: string;
+  firstName: string;
   tempPassword?: string;
 } | null> {
   const email =
@@ -314,10 +574,13 @@ async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
     return null;
   }
 
-  // Strategy A: user_id in metadata (logged-in purchase)
+  const fullName = session.metadata?.customer_name || session.customer_details?.name || "";
+  const firstName = fullName.split(" ")[0] || "";
+
+  // Strategy A: user_id in metadata
   if (session.metadata?.user_id) {
     console.log("✅ Existing user from metadata:", session.metadata.user_id);
-    return { userId: session.metadata.user_id, isNewUser: false, email };
+    return { userId: session.metadata.user_id, isNewUser: false, email, firstName };
   }
 
   // Strategy B: look up by email
@@ -329,7 +592,7 @@ async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
 
   if (profile) {
     console.log("✅ Existing user found by email:", email);
-    return { userId: profile.id, isNewUser: false, email };
+    return { userId: profile.id, isNewUser: false, email, firstName };
   }
 
   // Strategy C: look up by stripe_customer_id
@@ -341,25 +604,19 @@ async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
       .maybeSingle();
 
     if (byCustomer) {
-      console.log("✅ Existing user found by stripe_customer_id");
-      return { userId: byCustomer.id, isNewUser: false, email };
+      return { userId: byCustomer.id, isNewUser: false, email, firstName };
     }
   }
 
-  // No user found — create one
+  // Create new user
   console.log("👤 Creating new account for:", email);
   const tempPassword = generateTempPassword();
-  const fullName = session.metadata?.customer_name ||
-    session.customer_details?.name || "";
 
   const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
     email,
     password: tempPassword,
     email_confirm: true,
-    user_metadata: {
-      full_name: fullName,
-      created_via: "stripe_purchase",
-    },
+    user_metadata: { full_name: fullName, created_via: "stripe_purchase" },
   });
 
   if (createError || !newUser?.user) {
@@ -379,16 +636,12 @@ async function resolveOrCreateUser(session: Stripe.Checkout.Session): Promise<{
   });
 
   console.log("✅ Created new user:", userId);
-  return { userId, isNewUser: true, email, tempPassword };
+  return { userId, isNewUser: true, email, firstName, tempPassword };
 }
 
-// ── Enroll user ───────────────────────────────────────────────────────────────
+// ── Enroll ────────────────────────────────────────────────────────────────────
 
-async function enrollUserInCourse(
-  userId: string,
-  courseId: string,
-  stripeSessionId: string
-): Promise<boolean> {
+async function enrollUserInCourse(userId: string, courseId: string, stripeSessionId: string): Promise<boolean> {
   const { data: existing } = await supabase
     .from("enrollments")
     .select("id")
@@ -409,7 +662,7 @@ async function enrollUserInCourse(
   });
 
   if (error) {
-    console.error("❌ Enrollment insert error:", error.message, error.hint);
+    console.error("❌ Enrollment error:", error.message, error.hint);
     return false;
   }
 
@@ -418,17 +671,9 @@ async function enrollUserInCourse(
 }
 
 async function saveStripeCustomerId(userId: string, stripeCustomerId: string) {
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("stripe_customer_id")
-    .eq("id", userId)
-    .single();
-
+  const { data: profile } = await supabase.from("profiles").select("stripe_customer_id").eq("id", userId).single();
   if (!profile?.stripe_customer_id) {
-    await supabase
-      .from("profiles")
-      .update({ stripe_customer_id: stripeCustomerId })
-      .eq("id", userId);
+    await supabase.from("profiles").update({ stripe_customer_id: stripeCustomerId }).eq("id", userId);
   }
 }
 
@@ -446,9 +691,7 @@ serve(async (req: Request) => {
     });
   }
 
-  if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
-  }
+  if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
   const body = await req.text();
   const signature = req.headers.get("stripe-signature");
@@ -476,7 +719,7 @@ serve(async (req: Request) => {
       const session = event.data.object as Stripe.Checkout.Session;
 
       if (session.payment_status !== "paid") {
-        console.warn("⚠️ Not yet paid, skipping. Status:", session.payment_status);
+        console.warn("⚠️ Not yet paid:", session.payment_status);
         return new Response(JSON.stringify({ received: true }), { status: 200 });
       }
 
@@ -487,33 +730,30 @@ serve(async (req: Request) => {
       }
 
       const courseName = COURSE_NAMES[courseId] ?? courseId;
-
       const userResult = await resolveOrCreateUser(session);
+
       if (!userResult) {
         console.error("❌ Could not resolve or create user");
         return new Response(JSON.stringify({ received: true, warning: "user resolution failed" }), { status: 200 });
       }
 
-      const { userId, isNewUser, email, tempPassword } = userResult;
-
+      const { userId, isNewUser, email, firstName, tempPassword } = userResult;
       const enrolled = await enrollUserInCourse(userId, courseId, session.id);
 
-      if (session.customer) {
-        await saveStripeCustomerId(userId, session.customer as string);
-      }
+      if (session.customer) await saveStripeCustomerId(userId, session.customer as string);
 
       if (enrolled) {
         if (isNewUser && tempPassword) {
           await sendSmtpEmail({
             to: email,
-            subject: `Welcome to Covenant Learning — Your login details inside`,
-            html: newAccountEmail(email, tempPassword, courseName),
+            subject: `Welcome to Covenant Learning — Your account and course are ready`,
+            html: newAccountEmail(email, tempPassword, courseName, firstName),
           });
         } else {
           await sendSmtpEmail({
             to: email,
-            subject: `You're enrolled in ${courseName} — Start learning today`,
-            html: existingUserEmail(email, courseName, courseId),
+            subject: `You're enrolled in ${courseName} — Begin your journey today`,
+            html: existingUserEmail(email, courseName, courseId, firstName),
           });
         }
       }
