@@ -1,9 +1,13 @@
+// src/pages/marketing/Checkout.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CheckCircle2, ShieldCheck, Lock } from "lucide-react";
 import { SALES_CONTENT } from "@/data/salesPageContent.js";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
-import { supabase } from "@/lib/supabase.js";
+
+// ✅ Supabase Edge Function URL — this actually runs, unlike /api/... in Vite
+const CHECKOUT_FUNCTION_URL =
+  "https://ebgpdurztpxzxqvvqcbk.supabase.co/functions/v1/create-checkout-session";
 
 export default function Checkout() {
   const { courseId } = useParams();
@@ -40,13 +44,15 @@ export default function Checkout() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/create-checkout-session", {
+      // ✅ Call the Supabase Edge Function directly
+      const response = await fetch(CHECKOUT_FUNCTION_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           courseId,
           userId: user.id,
           email: email.trim(),
+          fullName: fullName.trim(), // ✅ Now correctly included
           successUrl: `${window.location.origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
           cancelUrl: window.location.href,
         }),
@@ -58,7 +64,9 @@ export default function Checkout() {
         throw new Error(data.error || "Failed to start checkout.");
       }
 
-      window.location.href = data.url; // Redirect to Stripe
+      // Redirect to Stripe checkout
+      window.location.href = data.url;
+
     } catch (err) {
       console.error(err);
       alert(err.message || "Something went wrong. Please try again.");
@@ -127,7 +135,7 @@ export default function Checkout() {
       {/* Right Column - Order Summary */}
       <div className="bg-covenant-50 rounded-2xl p-8 border h-fit">
         <h3 className="font-serif text-xl font-bold mb-4">{content.title}</h3>
-        
+
         <ul className="space-y-2 mb-6">
           {content.included.map((item, i) => (
             <li key={i} className="flex items-center gap-2 text-sm">
