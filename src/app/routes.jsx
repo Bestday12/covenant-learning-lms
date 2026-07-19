@@ -39,7 +39,7 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<MarketingLayout />}>
         <Route path="/" element={<MarketingHome />} />
-        <Route path="/courses-catalog" element={<ProtectedRoute><CourseCatalog /></ProtectedRoute>} />
+        <Route path="/courses-catalog" element={<CourseCatalog />} />
         <Route path="/courses/:courseId" element={<CourseSalesPage />} />
         <Route path="/checkout/:courseId" element={<Checkout />} />
         <Route path="/thank-you/:courseId" element={<ThankYou />} />

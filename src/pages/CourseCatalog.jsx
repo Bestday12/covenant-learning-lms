@@ -75,13 +75,9 @@ export default function CourseCatalog() {
                     </Button>
                   </Link>
                 ) : (
-                  <Button
-                    size="sm"
-                    onClick={() => enrollMutation.mutate({ userId: user.id, courseId: course.id })}
-                    loading={enrollMutation.isPending}
-                  >
-                    Enroll Now
-                  </Button>
+                  <Link to={`/checkout/${course.id}`}>
+  <Button size="sm">Enrol Now</Button>
+</Link>
                 )}
               </div>
             </Card>
