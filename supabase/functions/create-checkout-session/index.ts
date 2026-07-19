@@ -38,9 +38,14 @@ const COURSES: Record<string, { name: string; price: number; description: string
   },
   "communication-that-builds-marriage": {
     name: "Communication That Builds Marriage",
-    price: 9700,
+    price: 7500,
     description: "Transform your communication and strengthen your marriage.",
   },
+  "test-course": {
+  name: "Test Course",
+  price: 100, // £1.00 in pence
+  description: "A £1 test course for development purposes.",
+},
 };
 
 const corsHeaders = {
