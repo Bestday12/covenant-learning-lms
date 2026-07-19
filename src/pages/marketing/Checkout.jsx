@@ -47,7 +47,7 @@ export default function Checkout() {
 
       // ✅ Call the Supabase Edge Function directly
    // Replace the fetch call in handlePay with this:
-const { data: { session } } = await supabase.getSession();
+const { data: { session } } = await supabase.auth.getSession();
 
 const response = await fetch(CHECKOUT_FUNCTION_URL, {
   method: "POST",
