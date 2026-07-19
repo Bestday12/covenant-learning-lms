@@ -7,7 +7,7 @@ export const SALES_CONTENT = {
     titleAccent: '"I Do"',
     subtitle:
       "An 8-module discernment and preparation course for engaged and seriously dating couples who want to build a marriage on wisdom, not just emotion.",
-    price: 87,
+    price: 147,
     heroPoints: [
       "8 biblical discernment and preparation modules",
       "Complete student workbook for both partners",
@@ -41,6 +41,7 @@ export const SALES_CONTENT = {
       "build a concrete first-year marriage plan",
     ],
   },
+
   "covenant-marriage-foundation": {
     id: "covenant-marriage-foundation",
     badge: "PREMIUM ONLINE MARRIAGE COURSE",
@@ -84,6 +85,7 @@ export const SALES_CONTENT = {
       "create rhythms for a marriage that lasts",
     ],
   },
+
   "marriage-crisis-survival-guide": {
     id: "marriage-crisis-survival-guide",
     badge: "PREMIUM RESTORATION COURSE",
@@ -125,6 +127,132 @@ export const SALES_CONTENT = {
       "interrupt repeating destructive cycles",
       "restart spiritual unity",
       "protect the marriage going forward",
+    ],
+  },
+
+  "parenting-as-a-team": {
+    id: "parenting-as-a-team",
+    badge: "PREMIUM PARENTING COURSE",
+    title: "Raise Children Together,",
+    titleAccent: "Not Apart",
+    subtitle:
+      "A practical, biblical course designed to help couples raise children from a place of unity, wisdom, consistency, and shared purpose.",
+    price: 97,
+    heroPoints: [
+      "8 practical parenting unity modules",
+      "Biblical framework for discipline and values",
+      "Tools for resolving parenting disagreements",
+      "Shared vision for your family culture",
+    ],
+    included: [
+      "8 biblical teaching modules",
+      "Complete parenting workbook",
+      "Full worksheets pack",
+      "Family culture planning guide",
+      "Discipline and values framework",
+      "30 couple parenting conversation starters",
+      "Home culture builder toolkit",
+      "Completion certificate",
+    ],
+    whoFor: [
+      "couples with young children feeling the parenting pressure",
+      "parents disagreeing on discipline and values",
+      "couples wanting to build a strong family culture",
+      "parents navigating different upbringings and styles",
+      "churches running parenting support programmes",
+    ],
+    outcomes: [
+      "align on shared parenting values and vision",
+      "resolve discipline disagreements constructively",
+      "build consistent routines and family culture",
+      "communicate better as a parenting team",
+      "raise children with faith, identity, and purpose",
+      "protect your marriage while parenting well",
+      "create a home environment of peace and love",
+    ],
+  },
+
+  "blended-family-foundations": {
+    id: "blended-family-foundations",
+    badge: "PREMIUM BLENDED FAMILY COURSE",
+    title: "Build Your Blended Family",
+    titleAccent: "With Grace",
+    subtitle:
+      "For blended families navigating step-parenting, co-parenting, divided loyalties, and building a new shared family culture — with wisdom, patience, and grace.",
+    price: 97,
+    heroPoints: [
+      "8 modules built specifically for blended families",
+      "Step-parenting and co-parenting tools",
+      "Biblical framework for loyalty and belonging",
+      "Practical strategies for a unified family culture",
+    ],
+    included: [
+      "8 biblical teaching modules",
+      "Complete blended family workbook",
+      "Full worksheets pack",
+      "Family culture tools",
+      "Co-parenting communication guide",
+      "Facilitator guide for counsellors",
+      "Loyalty and belonging framework",
+      "Completion certificate",
+    ],
+    whoFor: [
+      "couples navigating step-parenting challenges",
+      "blended families struggling with loyalty conflicts",
+      "co-parents wanting healthier communication",
+      "couples building a new family after divorce or loss",
+      "pastors and counsellors supporting blended families",
+    ],
+    outcomes: [
+      "understand the unique dynamics of blended families",
+      "build trust with stepchildren gradually and wisely",
+      "navigate co-parenting with grace and boundaries",
+      "resolve loyalty conflicts between children and parents",
+      "create shared family identity and belonging",
+      "communicate as a united couple in a complex family",
+      "build lasting family culture on biblical foundations",
+    ],
+  },
+
+  "communication-that-builds-marriage": {
+    id: "communication-that-builds-marriage",
+    badge: "PREMIUM COMMUNICATION COURSE",
+    title: "Communicate in Ways That",
+    titleAccent: "Build, Not Break",
+    subtitle:
+      "Transform the way you speak, listen, and connect. A biblical course for couples who want healthier conversations and a stronger marriage.",
+    price: 75,
+    heroPoints: [
+      "8 practical communication modules",
+      "Biblical listening and speaking tools",
+      "Scripts for difficult conversations",
+      "Conflict navigation without damage",
+    ],
+    included: [
+      "8 biblical teaching modules",
+      "Complete communication workbook",
+      "Full worksheets pack",
+      "Conversation scripts for hard topics",
+      "Active listening exercises",
+      "Conflict de-escalation tools",
+      "30 couple connection prompts",
+      "Completion certificate",
+    ],
+    whoFor: [
+      "couples who feel unheard or misunderstood",
+      "couples stuck in the same arguments repeatedly",
+      "couples who have drifted into silence and distance",
+      "newlyweds wanting to build healthy patterns early",
+      "churches running marriage enrichment programmes",
+    ],
+    outcomes: [
+      "listen actively without defensiveness",
+      "express feelings and needs clearly and kindly",
+      "navigate disagreements without lasting damage",
+      "rebuild emotional safety in conversation",
+      "handle difficult topics with grace",
+      "break cycles of miscommunication",
+      "deepen connection through daily conversation habits",
     ],
   },
 };
