@@ -17,6 +17,7 @@ const Settings = lazy(() => import("@/pages/Settings.jsx"));
 
 const MarketingHome = lazy(() => import("@/pages/marketing/MarketingHome.jsx"));
 const MarketingCatalog = lazy(() => import("@/pages/marketing/MarketingCatalog.jsx"));
+const CourseCatalog = lazy(() => import("@/features/courses/CourseCatalog.jsx"));
 const CourseSalesPage = lazy(() => import("@/pages/marketing/CourseSalesPage.jsx"));
 const Checkout = lazy(() => import("@/pages/marketing/Checkout.jsx"));
 const ThankYou = lazy(() => import("@/pages/marketing/ThankYou.jsx"));
@@ -38,7 +39,7 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<MarketingLayout />}>
         <Route path="/" element={<MarketingHome />} />
-        <Route path="/courses-catalog" element={<MarketingCatalog />} />
+        <Route path="/courses-catalog" element={<ProtectedRoute><CourseCatalog /></ProtectedRoute>} />
         <Route path="/courses/:courseId" element={<CourseSalesPage />} />
         <Route path="/checkout/:courseId" element={<Checkout />} />
         <Route path="/thank-you/:courseId" element={<ThankYou />} />
