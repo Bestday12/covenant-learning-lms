@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { CheckCircle2, ShieldCheck, Lock } from "lucide-react";
 import { SALES_CONTENT } from "@/data/salesPageContent.js";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
+import { supabase } from "@/lib/supabase.js";
 
 // ✅ Supabase Edge Function URL — this actually runs, unlike /api/... in Vite
 const CHECKOUT_FUNCTION_URL =
@@ -45,18 +46,24 @@ export default function Checkout() {
       setLoading(true);
 
       // ✅ Call the Supabase Edge Function directly
-      const response = await fetch(CHECKOUT_FUNCTION_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          courseId,
-          userId: user.id,
-          email: email.trim(),
-          fullName: fullName.trim(), // ✅ Now correctly included
-          successUrl: `${window.location.origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-          cancelUrl: window.location.href,
-        }),
-      });
+   // Replace the fetch call in handlePay with this:
+const { data: { session } } = await supabase.getSession();
+
+const response = await fetch(CHECKOUT_FUNCTION_URL, {
+  method: "POST",
+  headers: { 
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${session?.access_token ?? ""}`,
+  },
+  body: JSON.stringify({
+    courseId,
+    userId: user.id,
+    email: email.trim(),
+    fullName: fullName.trim(),
+    successUrl: `${window.location.origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: window.location.href,
+  }),
+});
 
       const data = await response.json();
 
