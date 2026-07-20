@@ -42,7 +42,7 @@ export default function AppRoutes() {
         <Route path="/courses-catalog" element={<CourseCatalog />} />
         <Route path="/courses/:courseId" element={<CourseSalesPage />} />
         <Route path="/checkout/:courseId" element={<Checkout />} />
-        <Route path="/thank-you/:courseId" element={<ThankYou />} />
+        <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/about" element={<About />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/faq" element={<FAQ />} />
