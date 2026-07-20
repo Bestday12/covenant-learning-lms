@@ -1,0 +1,537 @@
+{
+  "id": "newlywed-navigation",
+  "title": "The Newlywed Navigation: Building Your First Year Strong",
+  "subtitle": "The first year sets the tone for a lifetime. Build yours with wisdom.",
+  "description": "A premium Christ-centred first-year marriage course for couples who want to start strong, not just hope strong. Through 10 practical, biblically grounded modules, couples learn how to manage first-year expectations, strengthen communication, align around money and household life, build intimacy with honour, set healthy family boundaries, handle conflict early, and create a shared spiritual rhythm that sets the tone for a lifetime.",
+  "price": 97,
+  "currency": "GBP",
+  "instructor": "Reverend Sam Adeyemi",
+  "safetyNote": "This course is a pastoral and educational resource for first-year marriage support and strengthening. It is not a substitute for specialist support in situations involving domestic abuse, coercive control, active addiction crisis, severe mental health instability, suicidal risk, or other safeguarding concerns. Where those issues are present, wise pastoral and professional support should be sought as a priority.",
+  "bonuses": [
+    "First-Year Expectations Reality Check",
+    "Newlywed Communication Reset Plan",
+    "Expectation Alignment Worksheet",
+    "First-Year Financial Unity Plan",
+    "Intimacy and Connection Plan",
+    "Marital Intimacy Honesty Guide",
+    "Family and Boundaries Agreement",
+    "Household Unity and Rhythm Plan",
+    "First-Year Repair Framework",
+    "Newlywed Rule of Life Plan",
+    "Newlywed Foundations Starter Guide",
+    "Facilitator / Church Master Notes",
+    "Course Completion Certificate"
+  ],
+  "modules": [
+    {
+      "moduleId": "module-1",
+      "moduleTitle": "Debunking the Newlywed Myth",
+      "moduleTheme": "What the first year is really like and why that matters",
+      "welcomeText": "Welcome to Module 1. Many couples enter marriage assuming the first year should feel easy, romantic, and naturally unified. When it includes disappointment, communication strain, and unexpected tension, some quietly panic. This module helps you understand that the first year is often an adjustment zone, not a failure zone. Real life has begun, and wise expectations can protect your marriage from unnecessary fear.",
+      "memoryStatement": "The first year of marriage is not meant to be perfect. It is meant to be built with wisdom.",
+      "teachingNotes": [
+        "The first year often feels harder because real life replaces anticipation.",
+        "The newlywed myth sets couples up for confusion and unrealistic expectations.",
+        "Adjustment is normal, but passivity is dangerous — normal strain should lead to intentional building.",
+        "Marriage reveals more than dating did — tone, habits, and patterns become visible.",
+        "Disappointment does not always mean disillusionment — it can become an invitation to wisdom.",
+        "The first year sets patterns quickly — small habits can harden if ignored.",
+        "Newlyweds need grace and intentionality together — not perfection, but growth."
+      ],
+      "keyScriptures": [
+        "Ecclesiastes 4:9–12",
+        "Proverbs 24:3–4",
+        "James 1:2–4",
+        "Romans 12:2",
+        "Galatians 6:9"
+      ],
+      "personalReflection": [
+        "What did I expect the first year of marriage to feel like?",
+        "In what ways has the first year felt different from what I imagined?",
+        "What part of married life has surprised me most?",
+        "What adjustment area do I most need grace in right now?"
+      ],
+      "coupleDiscussion": [
+        "What did you think the first year of marriage would feel like?",
+        "What has surprised you most so far?",
+        "What part of the first year has stretched you most?",
+        "What kind of first-year tone do we want to build from here?"
+      ],
+      "coupleExercise": "Separately, complete the First-Year Expectations Reality Check. Then share your responses, identifying one expectation you both need to reset with grace and realism.",
+      "prayerFocus": "Lord, help us build our first year with wisdom, grace, and honesty. Protect us from fear, comparison, and shallow expectations. Teach us to recognise what is normal, address what needs growth, and lay a strong foundation for our future together.",
+      "weeklyActionStep": "Complete your First-Year Expectations Reality Check and discuss one expectation you both need to reset with grace and realism.",
+      "worksheets": [
+        {
+          "worksheetTitle": "First-Year Expectations Reality Check",
+          "worksheetInstructions": "A guided tool helping couples normalise first-year adjustment and identify unhealthy assumptions.",
+          "worksheetFields": [
+            "One myth about the first year we need to release is:",
+            "One area where real life has surprised us is:",
+            "One area of adjustment that feels normal is:",
+            "One area we want to take more seriously is:",
+            "One strength we already see in our marriage is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-2",
+      "moduleTitle": "From Courtship to Covenant Communication",
+      "moduleTheme": "How communication changes after 'I do'",
+      "welcomeText": "Welcome to Module 2. Communication in marriage is different from communication in courtship. Newlyweds need stronger everyday communication because covenant life exposes tone, habits, and misunderstanding more quickly. This module helps you understand why communication often changes after marriage and how to strengthen it early before poor patterns harden.",
+      "memoryStatement": "Courtship communication may create closeness, but covenant communication must sustain shared life.",
+      "teachingNotes": [
+        "Courtship communication and covenant communication are not the same — daily life requires more maturity.",
+        "Everyday life exposes communication quickly — tone under stress, assumptions, and reaction patterns.",
+        "Small communication habits become marriage culture fast — sarcasm, avoidance, and poor tone can become normal.",
+        "Communication after marriage must support shared life — planning, decisions, emotion, and repair.",
+        "Tone matters more than many newlyweds realise — words and tone both shape trust.",
+        "Early repair habits protect the marriage — learning to apologise and reconnect early is vital.",
+        "Communication must shift from attraction-maintenance to covenant-strengthening."
+      ],
+      "keyScriptures": [
+        "James 1:19",
+        "Ephesians 4:29",
+        "Proverbs 15:1",
+        "Colossians 4:6",
+        "Ecclesiastes 4:9"
+      ],
+      "personalReflection": [
+        "How has communication felt different since marriage?",
+        "What communication habit in me becomes more visible in daily life?",
+        "What tone do I tend to use when I am tired or stressed?",
+        "What communication pattern in us worries me most if left unchanged?"
+      ],
+      "coupleDiscussion": [
+        "How has communication changed since we got married?",
+        "When do you feel most heard by me?",
+        "When do you feel least heard by me?",
+        "What kind of communication culture do we want our first year to have?"
+      ],
+      "coupleExercise": "Complete the Newlywed Communication Reset Plan together. Choose one communication habit to practise this week in an ordinary daily conversation.",
+      "prayerFocus": "Lord, teach us how to communicate as husband and wife with grace, wisdom, and patience. Help us build habits that strengthen trust and closeness, and protect us from early patterns that could weaken our marriage.",
+      "weeklyActionStep": "Complete your Newlywed Communication Reset Plan and practise one healthier communication habit this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Newlywed Communication Reset Plan",
+          "worksheetInstructions": "A practical tool for strengthening tone, timing, and clarity early.",
+          "worksheetFields": [
+            "One communication strength we already have is:",
+            "One communication pattern we want to address early is:",
+            "One tone we want to reduce is:",
+            "One tone we want to build is:",
+            "One communication habit we will practise this week is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-3",
+      "moduleTitle": "Hidden Expectations, Disappointment, and Emotional Adjustment",
+      "moduleTheme": "What you assumed, what you did not say, and what now needs clarity",
+      "welcomeText": "Welcome to Module 3. Many first-year tensions are not caused by lack of love, but by hidden expectations, emotional letdown, and unspoken assumptions now being exposed by real married life. This module helps you surface unspoken assumptions and navigate first-year disappointment without panic, blame, or silent resentment.",
+      "memoryStatement": "What stays hidden in expectation often becomes painful in experience.",
+      "teachingNotes": [
+        "Most newlyweds carry more assumptions than they realise — about affection, roles, money, intimacy, and more.",
+        "Disappointment is common in the first year — even deeply loving couples may feel let down.",
+        "Emotional adjustment is real — new joy, stress, vulnerability, confusion, and unexpected grief.",
+        "Unspoken expectations create invisible tension — frustration without explanation.",
+        "Clarification is kinder than silent comparison — naming assumptions brings relief.",
+        "Maturity means naming disappointment without weaponising it — speaking honestly without blame.",
+        "First-year unity grows when assumptions become conversations — clarity strengthens trust."
+      ],
+      "keyScriptures": [
+        "Proverbs 4:7",
+        "James 1:19",
+        "Romans 12:10",
+        "Philippians 2:3–4",
+        "Ephesians 4:2–3"
+      ],
+      "personalReflection": [
+        "What expectation did I carry into marriage that I did not fully name?",
+        "What part of the first year has disappointed me most?",
+        "What assumption in me has caused quiet frustration?",
+        "What would healthier expectation alignment look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What expectation did you bring into marriage that surprised you once real life began?",
+        "What part of the first year has felt different from what you imagined?",
+        "What have you been quietly disappointed by?",
+        "What expectation do we most need to clarify now?"
+      ],
+      "coupleExercise": "Complete the Expectation Alignment Worksheet together. Identify one hidden expectation and one area where greater clarity is needed.",
+      "prayerFocus": "Lord, help us bring hidden expectations into the light with honesty and grace. Protect us from quiet resentment, false comparison, and silent disappointment. Teach us to speak clearly, listen gently, and align our hearts with wisdom.",
+      "weeklyActionStep": "Complete your Expectation Alignment Worksheet and schedule one calm conversation about an expectation that was never clearly discussed before.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Expectation Alignment Worksheet",
+          "worksheetInstructions": "A worksheet for surfacing hidden assumptions and emotional disappointments.",
+          "worksheetFields": [
+            "One expectation I carried that I never clearly named was:",
+            "One area of disappointment I have felt is:",
+            "One emotional adjustment that has been difficult is:",
+            "One assumption we need to clarify is:",
+            "One healthier expectation we want to build together is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-4",
+      "moduleTitle": "Money, Stewardship, and Financial Unity",
+      "moduleTheme": "Building peace around spending, pressure, and priorities",
+      "welcomeText": "Welcome to Module 4. Money is rarely just about numbers. In the first year of marriage, it often reveals values, fears, assumptions, and differences in how couples think about security, generosity, lifestyle, and responsibility. This module helps you build financial unity, transparency, and stewardship early before hidden habits or tension start shaping your marriage.",
+      "memoryStatement": "Financial unity in marriage is built through honesty, stewardship, and shared direction.",
+      "teachingNotes": [
+        "Money reveals more than behaviour — fear, control, habits, values, and family influence.",
+        "The first year is a critical time for financial honesty — income, debt, spending, and goals need clarity.",
+        "Financial secrecy weakens trust — hiding purchases, avoiding talks, or minimising debt damages unity.",
+        "Stewardship is spiritual, not only practical — faithfulness, generosity, and wisdom matter.",
+        "Different money styles need conversation, not judgement — cautious vs. generous, planned vs. impulsive.",
+        "Lifestyle assumptions create pressure quickly — expectations about standard of living, giving, and saving.",
+        "Financial peace grows through shared direction — honesty, unity, stewardship, and shared goals."
+      ],
+      "keyScriptures": [
+        "Proverbs 3:9–10",
+        "Luke 16:10",
+        "1 Timothy 6:6–10",
+        "Proverbs 21:5",
+        "2 Corinthians 9:6–8"
+      ],
+      "personalReflection": [
+        "What did my family background teach me about money?",
+        "What is my natural financial style?",
+        "What money topic makes me most anxious?",
+        "What kind of financial unity do I want us to build in this first year?"
+      ],
+      "coupleDiscussion": [
+        "What did your family teach you about money?",
+        "How would you describe your financial style?",
+        "What money topic feels most uncomfortable for you?",
+        "What kind of financial peace do we want in our home?"
+      ],
+      "coupleExercise": "Complete the First-Year Financial Unity Plan together. Schedule one focused conversation about budgeting, goals, or expectations this week.",
+      "prayerFocus": "Lord, teach us to handle money with honesty, wisdom, and peace. Protect our marriage from secrecy, fear, and tension. Help us become one in stewardship, contentment, generosity, and practical faithfulness.",
+      "weeklyActionStep": "Complete your First-Year Financial Unity Plan and schedule one focused conversation about budgeting, goals, or expectations this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "First-Year Financial Unity Plan",
+          "worksheetInstructions": "A tool for budgeting, goals, stewardship, and money conversations.",
+          "worksheetFields": [
+            "One financial strength we already have is:",
+            "One financial tension point we need to address is:",
+            "One hidden assumption we need to clarify is:",
+            "One budgeting or planning habit we want to build is:",
+            "One financial conversation we need to keep having is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-5",
+      "moduleTitle": "Intimacy, Cherishing, and Emotional Connection",
+      "moduleTheme": "Building closeness that is honouring, warm, and intentional",
+      "welcomeText": "Welcome to Module 5. Newlywed intimacy is not meant to run on assumption alone. Emotional closeness, tenderness, affection, and cherishing must be built intentionally in the first year. This module helps you build emotional and relational intimacy in ways that are warm, honouring, and sustainable.",
+      "memoryStatement": "Intimacy grows stronger where honour, tenderness, and intentional cherishing are practised.",
+      "teachingNotes": [
+        "Intimacy is more than physical nearness — it includes feeling safe, wanted, seen, and honoured.",
+        "Cherishing matters early — the first year sets a tone for feeling precious and appreciated.",
+        "Intimacy grows in ordinary moments — greetings, affection, thoughtful words, and presence.",
+        "Some newlyweds expect constant emotional closeness — but intimacy is cultivated connection, not constant intensity.",
+        "Tiredness and stress affect intimacy — it must be cared for more intentionally.",
+        "Honour protects intimacy — gentleness, respect, and thoughtfulness create safety.",
+        "Intimacy is strengthened when it is discussed — asking what helps closeness and what weakens it."
+      ],
+      "keyScriptures": [
+        "Song of Solomon 2:16",
+        "Romans 12:10",
+        "1 Peter 3:7",
+        "Ephesians 5:28–29",
+        "Philippians 2:3–4"
+      ],
+      "personalReflection": [
+        "What helps me feel most emotionally close in marriage?",
+        "What makes me feel under-cherished or emotionally distant?",
+        "What expression of affection matters most to me?",
+        "What would stronger newlywed intimacy look like for us in this season?"
+      ],
+      "coupleDiscussion": [
+        "What helps you feel most emotionally close to me?",
+        "What makes you feel most cherished by me?",
+        "What weakens closeness for you?",
+        "What would help us stay warmer and more connected in ordinary life?"
+      ],
+      "coupleExercise": "Complete the Intimacy and Connection Plan together. Choose one intentional connection habit to practise daily for the next seven days.",
+      "prayerFocus": "Lord, teach us how to cherish one another with tenderness, honour, and warmth. Help us build closeness intentionally and protect our marriage from carelessness, distance, and assumption.",
+      "weeklyActionStep": "Choose one intentional connection habit to practise daily for the next seven days.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Intimacy and Connection Plan",
+          "worksheetInstructions": "A practical builder for affection, emotional closeness, and cherishing.",
+          "worksheetFields": [
+            "One thing that helps me feel close is:",
+            "One thing that weakens closeness is:",
+            "One expression of affection I need more is:",
+            "One way I want to cherish my spouse more intentionally is:",
+            "One small habit of connection we want to build is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-6",
+      "moduleTitle": "The Sex Talk You Still Need to Have",
+      "moduleTheme": "Real talk on marital intimacy, adjustment, and tenderness",
+      "welcomeText": "Welcome to Module 6. Many newlyweds enter marriage with expectations about sex they have never fully discussed. Early marital intimacy can include nervousness, uncertainty, shame, disappointment, desire differences, and pressure. None of these automatically mean something is wrong. This module helps you talk honestly, gently, and maturely about sexual intimacy so that this part of marriage can grow in safety, honour, and truth.",
+      "memoryStatement": "Healthy marital intimacy grows where honesty, honour, patience, and tenderness stay together.",
+      "teachingNotes": [
+        "Newlyweds often carry silent expectations about sex — frequency, desire, confidence, and comfort.",
+        "Awkwardness is not failure — growth requires learning, trust, communication, and patience.",
+        "Sexual intimacy must be honouring, not demanding — marked by care, mutuality, and tenderness.",
+        "Honest conversation matters deeply — couples should talk about what feels easy, hard, or confusing.",
+        "Emotional connection affects physical intimacy — feeling safe and cherished shapes closeness.",
+        "Shame and silence weaken first-year intimacy — naming what you feel brings relief.",
+        "Patience protects intimacy — gentle growth, not pressure, builds safety."
+      ],
+      "keyScriptures": [
+        "1 Corinthians 7:3–5",
+        "Hebrews 13:4",
+        "Song of Solomon 4:9–10",
+        "Ephesians 4:15",
+        "Philippians 2:4"
+      ],
+      "personalReflection": [
+        "What expectation about sexual intimacy did I carry into marriage?",
+        "What part of marital intimacy has felt easiest so far?",
+        "What part has felt hardest, awkward, or most unclear?",
+        "What would healthier sexual honesty look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What expectation did you carry into marriage in this area?",
+        "What has felt easier than you expected?",
+        "What has felt harder or more awkward than expected?",
+        "What kind of conversation culture do we want to build around this topic?"
+      ],
+      "coupleExercise": "Use the Marital Intimacy Honesty Guide for one calm, pressure-free conversation this week.",
+      "prayerFocus": "Lord, help us honour one another with honesty, tenderness, and patience in this part of our marriage. Remove shame, fear, and silence, and teach us how to build intimacy with truth, safety, and grace.",
+      "weeklyActionStep": "Use your Marital Intimacy Honesty Guide for one calm, pressure-free conversation this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Marital Intimacy Honesty Guide",
+          "worksheetInstructions": "A guided conversation pack for honouring early sexual adjustment.",
+          "worksheetFields": [
+            "One expectation I carried into marriage was:",
+            "One thing that has felt harder than expected is:",
+            "One thing that helps me feel safe is:",
+            "One thing that makes me feel pressured or hesitant is:",
+            "One honest conversation we need to keep having is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-7",
+      "moduleTitle": "Blending Family, In-Laws, and Boundaries",
+      "moduleTheme": "Leaving, cleaving, and building healthy new priorities",
+      "welcomeText": "Welcome to Module 7. Marriage creates a new primary covenant relationship, but family systems do not automatically adjust overnight. Newlyweds need healthy boundaries, clear loyalty, and wise honour. This module helps you establish healthy boundaries and protect your new covenant from unhealthy outside pressure or confusion.",
+      "memoryStatement": "Honouring family and cleaving to your spouse must work together if the new marriage is going to be protected.",
+      "teachingNotes": [
+        "Marriage creates a new primary loyalty — leaving, cleaving, and becoming one flesh.",
+        "Families do not always adjust automatically — over-involvement, advice, and loyalty tension are common.",
+        "Honour and boundaries are not enemies — boundaries protect peace, warmth, and trust.",
+        "Couples need agreement before outside pressure comes — holidays, visits, privacy, and decisions.",
+        "Divided loyalty weakens new covenant stability — parents should not outrank the spouse.",
+        "Boundaries must be expressed with wisdom — clear, kind, and united language helps.",
+        "First-year boundary clarity protects future peace — what is established early shapes what becomes normal."
+      ],
+      "keyScriptures": [
+        "Genesis 2:24",
+        "Matthew 19:5–6",
+        "Exodus 20:12",
+        "Ephesians 4:2–3",
+        "Proverbs 4:23"
+      ],
+      "personalReflection": [
+        "What family expectation feels most pressuring right now?",
+        "Where do I feel most torn between honouring family and protecting marriage?",
+        "What kind of family boundary feels hardest for me to hold?",
+        "What would healthier first-year family boundaries look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What family dynamic has been hardest in our first year so far?",
+        "Where do you feel most pressure from outside expectations?",
+        "What does 'leaving and cleaving' look like in our situation?",
+        "How can we present a more united front as a couple?"
+      ],
+      "coupleExercise": "Complete the Family and Boundaries Agreement together. Identify one family-related conversation or decision you need to handle as a united couple this week.",
+      "prayerFocus": "Lord, help us honour our families while protecting our covenant. Give us wisdom, courage, and unity as we build a new household with healthy boundaries, clear loyalty, and peace.",
+      "weeklyActionStep": "Complete your Family and Boundaries Agreement and identify one family-related conversation or decision you need to handle as a united couple this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Family and Boundaries Agreement",
+          "worksheetInstructions": "A worksheet for in-laws, loyalty, privacy, and healthy relational boundaries.",
+          "worksheetFields": [
+            "One family dynamic that needs attention is:",
+            "One area where we need more couple unity is:",
+            "One boundary we need to strengthen is:",
+            "One expectation we need to clarify is:",
+            "One statement that expresses our new priority is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-8",
+      "moduleTitle": "Roles, Responsibilities, Rhythms, and Rest",
+      "moduleTheme": "Household life, expectations, service, and shared load",
+      "welcomeText": "Welcome to Module 8. Household life becomes one of the earliest real-life tests of unity in marriage. Roles, responsibilities, rhythms, and rest need intentional agreement, not silent assumption. This module helps you build practical unity around home life, contribution, routines, and sustainable rest.",
+      "memoryStatement": "A peaceful home rarely happens by accident. It is built through shared responsibility, service, and wise rhythm.",
+      "teachingNotes": [
+        "Household life is never 'just practical' — it exposes fairness, respect, initiative, and exhaustion.",
+        "Silent assumptions create household resentment — who notices, who starts, what 'helping' means.",
+        "Shared life requires shared responsibility — visible partnership, not vague hope.",
+        "Family background shapes role expectations — traditional, chaotic, or service patterns show up.",
+        "Mental load matters — remembering, planning, and tracking is invisible work that often creates frustration.",
+        "Rest protects kindness — exhausted couples communicate poorly and serve poorly.",
+        "Rhythms reduce friction — shared routines, clear expectations, and regular review bring peace."
+      ],
+      "keyScriptures": [
+        "Galatians 5:13",
+        "Philippians 2:3–4",
+        "Colossians 3:23–24",
+        "Ecclesiastes 4:9",
+        "Mark 6:31"
+      ],
+      "personalReflection": [
+        "What household task or responsibility creates the most tension for me?",
+        "What role assumption did I carry into marriage?",
+        "Do I tend to over-function, under-function, avoid, or control?",
+        "What would healthier household teamwork look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What household responsibility feels easiest for you?",
+        "What part of home life feels hardest or most draining?",
+        "Where do you feel most supported by me at home?",
+        "What kind of household rhythm would make home life feel more peaceful?"
+      ],
+      "coupleExercise": "Complete the Household Unity and Rhythm Plan together. Make one visible adjustment to shared responsibility this week.",
+      "prayerFocus": "Lord, teach us to serve one another with humility, fairness, and peace in our home life. Help us carry responsibility wisely, communicate clearly, and build rhythms that strengthen our marriage instead of draining it.",
+      "weeklyActionStep": "Complete your Household Unity and Rhythm Plan and make one visible adjustment to shared responsibility this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Household Unity and Rhythm Plan",
+          "worksheetInstructions": "A planner for chores, roles, routines, mental load, and rest.",
+          "worksheetFields": [
+            "One household strength we already have is:",
+            "One household tension point we need to address is:",
+            "One hidden assumption we need to clarify is:",
+            "One responsibility area we want to rebalance is:",
+            "One routine we want to build or improve is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-9",
+      "moduleTitle": "Conflict, Repair, and Learning to Recover Quickly",
+      "moduleTheme": "How to stop early patterns from becoming marriage culture",
+      "welcomeText": "Welcome to Module 9. The first year often sets the tone for how a couple handles conflict. Newlyweds need repair habits early so that tension does not become normal marriage culture. This module helps you address conflict wisely before destructive habits become normal.",
+      "memoryStatement": "Newlywed conflict is not most dangerous when it happens. It is most dangerous when it keeps teaching the marriage the wrong habits.",
+      "teachingNotes": [
+        "The first year teaches conflict habits quickly — tone, defensiveness, escalation, and repair patterns.",
+        "Conflict itself is not the whole problem — contempt, silence, and weak apologies are the real dangers.",
+        "Repair builds trust — knowing that tension will be addressed and reconnection matters.",
+        "Newlyweds often overreact to conflict — but conflict can teach wisdom if couples learn to repair.",
+        "Weak apologies weaken recovery — 'sorry, but' and defensive language damage trust.",
+        "Recovery speed matters in the first year — learning to pause, return, and reconnect is vital.",
+        "The goal is not no conflict, but healthier culture — learning to repair before damage becomes identity."
+      ],
+      "keyScriptures": [
+        "James 1:19–20",
+        "Ephesians 4:26–27",
+        "Colossians 3:12–13",
+        "Romans 12:18",
+        "Proverbs 15:1"
+      ],
+      "personalReflection": [
+        "What does conflict usually bring out in me?",
+        "What weak apology habit do I most need to change?",
+        "What makes it harder for me to repair quickly?",
+        "What do I want conflict to stop teaching our marriage?"
+      ],
+      "coupleDiscussion": [
+        "What does conflict most often bring out in you?",
+        "What part of repair feels easiest for us?",
+        "What helps you feel that repair is real?",
+        "What kind of conflict culture do we want our first year to build?"
+      ],
+      "coupleExercise": "Complete the First-Year Repair Framework together. Identify one conflict pattern to stop early and one stronger repair habit to practise.",
+      "prayerFocus": "Lord, teach us how to repair quickly and wisely in this first year. Protect our marriage from defensiveness, silence, and repeated damage. Help us build a culture of humility, clear apology, and genuine reconnection.",
+      "weeklyActionStep": "Complete your First-Year Repair Framework and practise one stronger repair habit the next time tension appears.",
+      "worksheets": [
+        {
+          "worksheetTitle": "First-Year Repair Framework",
+          "worksheetInstructions": "A guide for conflict reset, apology, and healthier early repair.",
+          "worksheetFields": [
+            "One conflict pattern we want to stop early is:",
+            "One thing tension brings out in me is:",
+            "One apology habit I need to strengthen is:",
+            "One thing that helps repair feel real is:",
+            "One reconnection habit we want to practise is:"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleId": "module-10",
+      "moduleTitle": "Building a Prayer Life That Lasts Beyond the Honeymoon",
+      "moduleTheme": "Shared spiritual rhythm for life beyond the honeymoon",
+      "welcomeText": "Welcome to Module 10, the final module. The first year sets spiritual patterns quickly. Newlyweds need a shared rhythm of prayer and spiritual connection that can survive real life, not only romantic intention. This module helps you establish simple, realistic spiritual habits that keep Christ central in the first year and beyond.",
+      "memoryStatement": "The honeymoon fades, but shared spiritual rhythm can keep deepening the marriage.",
+      "teachingNotes": [
+        "Newlyweds often confuse shared faith with shared rhythm — belief alone does not build practice.",
+        "The first year sets spiritual habits quickly — whether prayer is normal or drift is ignored.",
+        "Spiritual rhythm must fit real life — simple, realistic, repeatable, and season-aware.",
+        "Shared prayer deepens unity — tenderness, honesty, humility, and dependence on God.",
+        "Awkwardness is not a reason to stop — awkward beginnings can still become strong habits.",
+        "A rule of life gives shape to first-year faithfulness — daily or weekly prayer, Scripture, worship, and rest.",
+        "Spiritual rhythm protects the marriage beyond emotion — faithful practice deepens covenant strength."
+      ],
+      "keyScriptures": [
+        "Matthew 6:33",
+        "Deuteronomy 6:6–7",
+        "Psalm 127:1",
+        "Acts 2:42",
+        "Colossians 3:16"
+      ],
+      "personalReflection": [
+        "How would I describe the current spiritual rhythm of our marriage?",
+        "What shared spiritual habit do I most long for?",
+        "What has made spiritual rhythm hard in this first year?",
+        "What would a strong first-year rule of life look like for us?"
+      ],
+      "coupleDiscussion": [
+        "What does the spiritual rhythm of our marriage currently look like?",
+        "What spiritual habit do you most want us to build?",
+        "What has made shared rhythm difficult so far?",
+        "What kind of first-year rule of life do we want to begin?"
+      ],
+      "coupleExercise": "Complete the Newlywed Rule of Life Plan together. Begin one shared prayer or spiritual rhythm this week.",
+      "prayerFocus": "Lord, teach us to seek You together in this first year of marriage. Protect us from spiritual drift, passivity, and inconsistency. Help us build a shared rhythm that keeps You central in our home and covenant.",
+      "weeklyActionStep": "Complete your Newlywed Rule of Life Plan and begin one shared prayer or spiritual rhythm this week.",
+      "worksheets": [
+        {
+          "worksheetTitle": "Newlywed Rule of Life Plan",
+          "worksheetInstructions": "A practical spiritual rhythm and first-year marriage alignment tool.",
+          "worksheetFields": [
+            "One shared spiritual habit we most need is:",
+            "One obstacle to rhythm is:",
+            "One prayer rhythm we want to begin is:",
+            "One Scripture or spiritual conversation rhythm we want is:",
+            "One thing we want to keep central in this first year is:"
+          ]
+        }
+      ]
+    }
+  ]
+}
