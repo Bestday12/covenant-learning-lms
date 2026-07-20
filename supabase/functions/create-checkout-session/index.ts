@@ -1,6 +1,5 @@
 // supabase/functions/create-checkout-session/index.ts
 // Deploy: supabase functions deploy create-checkout-session
-// Called from frontend: fetch(`${SUPABASE_URL}/functions/v1/create-checkout-session`, ...)
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0?target=deno";
@@ -13,39 +12,44 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") ?? "", {
 const COURSES: Record<string, { name: string; price: number; description: string }> = {
   "covenant-marriage-foundation": {
     name: "The Covenant Marriage Foundation",
-    price: 9700,
+    price: 9700, // £97.00
     description: "A premium 10-module Christian marriage course.",
   },
   "marriage-crisis-survival-guide": {
     name: "Marriage Crisis Survival Guide",
-    price: 14700,
+    price: 14700, // £147.00
     description: "A structured restoration course for marriages in serious distress.",
   },
   "pre-marital-masterclass": {
     name: "Pre-Marital Masterclass",
-    price: 14700,
-    description: "A discernment and preparation course for engaged couples.",
+    price: 14700, // £147.00
+    description: "A discernment and preparation course for engaged and dating couples.",
   },
   "parenting-as-a-team": {
     name: "Parenting as a Team",
-    price: 9700,
+    price: 9700, // £97.00
     description: "A Christ-centred parenting unity course for couples.",
   },
   "blended-family-foundations": {
     name: "Blended Family Foundations",
-    price: 9700,
+    price: 9700, // £97.00
     description: "Building a new family with wisdom, patience, and grace.",
   },
   "communication-that-builds-marriage": {
     name: "Communication That Builds Marriage",
-    price: 7500,
+    price: 7500, // £75.00
     description: "Transform your communication and strengthen your marriage.",
   },
-  "test-course": {
-  name: "Test Course",
-  price: 100, // £1.00 in pence
-  description: "A £1 test course for development purposes.",
-},
+  "newlywed-navigation": {
+    name: "The Newlywed Navigation: Building Your First Year Strong",
+    price: 9700, // £97.00
+    description: "The first year sets the tone for a lifetime. Build yours with wisdom.",
+  },
+  "sacred-purpose-gods-design-for-marriage": {
+    name: "Sacred Purpose: God's Design for Your Marriage",
+    price: 12700, // £127.00
+    description: "Move from happy to holy. Discover God's deeper purpose for your covenant.",
+  },
 };
 
 const corsHeaders = {
@@ -55,7 +59,6 @@ const corsHeaders = {
 };
 
 serve(async (req: Request) => {
-  // CORS preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
   }
@@ -70,7 +73,7 @@ serve(async (req: Request) => {
     const course = COURSES[courseId];
     if (!course) {
       return new Response(
-        JSON.stringify({ error: "Course not found" }),
+        JSON.stringify({ error: `Course not found: ${courseId}` }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -104,7 +107,7 @@ serve(async (req: Request) => {
       success_url: successUrl || `${LMS_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl || `${LMS_URL}/courses/${courseId}`,
 
-      // ✅ Critical — these are what the webhook reads to enroll the user
+      // Critical — these are what the webhook reads to enroll the user
       metadata: {
         course_id: courseId,
         user_id: userId,
@@ -115,7 +118,7 @@ serve(async (req: Request) => {
       customer_email: email,
       billing_address_collection: "required",
       shipping_address_collection: {
-        allowed_countries: ["GB", "US", "NG"],
+        allowed_countries: ["GB", "US", "NG", "KE", "GH", "ZA"],
       },
     });
 
@@ -125,7 +128,6 @@ serve(async (req: Request) => {
       JSON.stringify({ sessionId: session.id, url: session.url }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-
   } catch (err: any) {
     console.error("❌ Error creating checkout session:", err.message);
     return new Response(

@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase.js";
 import covenantMarriage from "@/data/covenant_marriage_course.json";
 import marriageCrisis from "@/data/marriage_crisis_survival_guide.json";
 import preMarital from "@/data/pre_marital_masterclass.json";
+import newlywedNavigation from "@/data/newlywed-navigation.json";
+import sacredPurpose from "@/data/sacred-purpose-gods-design-for-marriage.json";
 
 const LOCAL_COURSES = {
   "covenant-marriage-foundation": {
@@ -22,6 +24,19 @@ const LOCAL_COURSES = {
     description: "A discernment and preparation course for engaged and dating couples.",
     data: preMarital,
   },
+  
+  "newlywed-navigation": {
+  id: "newlywed-navigation",
+  title: "The Newlywed Navigation: Building Your First Year Strong",
+  description: "The first year sets the tone for a lifetime. Build yours with wisdom.",
+  data: newlywedNavigation,
+},
+"sacred-purpose-gods-design-for-marriage": {
+  id: "sacred-purpose-gods-design-for-marriage",
+  title: "Sacred Purpose: God's Design for Your Marriage",
+  description: "Move from happy to holy. Discover God's deeper purpose for your covenant.",
+  data: sacredPurpose,
+},
 };
 
 /**
