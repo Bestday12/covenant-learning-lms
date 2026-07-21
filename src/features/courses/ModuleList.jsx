@@ -11,7 +11,7 @@ export default function ModuleList({ courseId, modules }) {
         const completed = isModuleComplete(courseId, mod.moduleId);
         const prevCompleted =
           idx === 0 || isModuleComplete(courseId, modules[idx - 1].moduleId);
-        const locked = !prevCompleted && !completed;
+        const locked = false;
 
         return (
           <li key={mod.moduleId}>
