@@ -239,7 +239,7 @@ export default function Certificate() {
           </h1>
 
           {/* Certifies that */}
-          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 8, fontStyle: "italic", fontFamily: "Georgia, serif" }}>
+          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 8, fontStyle: "normal", fontFamily: "Arial, sans-serif", letterSpacing: "0.03em" }}>
             This is to certify that
           </p>
 
@@ -251,7 +251,7 @@ export default function Certificate() {
           </div>
 
           {/* Has completed */}
-          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 8, fontStyle: "italic", fontFamily: "Georgia, serif" }}>
+          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 8, fontStyle: "normal", fontFamily: "Arial, sans-serif", letterSpacing: "0.02em" }}>
             has successfully completed
           </p>
 
@@ -297,7 +297,7 @@ export default function Certificate() {
             {/* Instructor */}
             <div style={{ textAlign: "center" }}>
               <div style={{ borderTop: "1px solid #3d0a6e", paddingTop: 8, minWidth: 140 }}>
-                <p style={{ fontSize: 13, color: "#3d0a6e", fontStyle: "italic", fontFamily: "Georgia, serif" }}>
+                <p style={{ fontSize: 13, color: "#3d0a6e", fontStyle: "normal", fontFamily: "Arial, sans-serif", letterSpacing: "0.02em" }}>
                   {course?.instructor || "Reverend Sam Adeyemi"}
                 </p>
                 <p style={{ fontSize: 10, color: "#6b5f7a", marginTop: 2, textTransform: "uppercase", letterSpacing: "0.1em", fontFamily: "Inter, sans-serif" }}>
