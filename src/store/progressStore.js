@@ -21,19 +21,37 @@ export const useProgressStore = create(
       // shape: { [courseId]: { [moduleId]: { completed: bool, completedAt, answers: {} } } }
       progress: {},
 
-      markModuleComplete: (courseId, moduleId) => {
-        set((state) => {
-          const next = {
-            ...state.progress,
-            [courseId]: {
-              ...state.progress[courseId],
-              [moduleId]: {
-                ...(state.progress[courseId]?.[moduleId] || {}),
-                completed: true,
-                completedAt: new Date().toISOString(),
-              },
-            },
-          };
+      markModuleComplete: async (userId, courseId, moduleId) => {
+  // Get existing progress from store
+  const currentProgress = get().progress[courseId] || {};
+
+  // Merge new completion with existing progress
+  const updatedProgress = {
+    ...currentProgress,
+    [moduleId]: {
+      completed: true,
+      completedAt: new Date().toISOString(),
+    },
+  };
+
+  // Update local store
+  set((state) => ({
+    progress: {
+      ...state.progress,
+      [courseId]: updatedProgress,
+    },
+  }));
+
+  // Save FULL merged progress to Supabase immediately (no debounce)
+  if (userId && courseId) {
+    try {
+      await syncProgressToBackend(userId, courseId, updatedProgress);
+      console.log(`✅ Progress saved: ${courseId} / ${moduleId}`);
+    } catch (err) {
+      console.error("❌ Failed to save progress:", err);
+    }
+  }
+},
           // Fire-and-forget sync to Supabase
           const userId = supabase?.auth?.getUser
             ? undefined // will be resolved async below
