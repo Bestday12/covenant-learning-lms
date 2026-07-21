@@ -38,7 +38,6 @@ export default function Course() {
     enabled: !!user?.id,
   });
 
-  // ✅ Keep this declaration (only once)
   const getCourseProgress = useProgressStore((s) => s.getCourseProgress);
   const loadProgressFromBackend = useProgressStore((s) => s.loadProgressFromBackend);
 
