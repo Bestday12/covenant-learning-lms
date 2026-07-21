@@ -6,14 +6,14 @@ import { getDisplayName } from "@/utils/getDisplayName.js";
 import { useState } from "react";
 
 export default function MainLayout() {
-  const { isAuthenticated, role, logout, user } = useAuth();
+  const { isAuthenticated, role, signOut, user } = useAuth();
   const displayName = getDisplayName(user, null);
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/login");
   };
 
   return (
