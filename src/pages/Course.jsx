@@ -38,7 +38,15 @@ export default function Course() {
     enabled: !!user?.id,
   });
 
+  // ✅ Keep this declaration (only once)
   const getCourseProgress = useProgressStore((s) => s.getCourseProgress);
+  const loadProgressFromBackend = useProgressStore((s) => s.loadProgressFromBackend);
+
+  useEffect(() => {
+    if (user?.id && courseId) {
+      loadProgressFromBackend(user.id, courseId);
+    }
+  }, [user?.id, courseId, loadProgressFromBackend]);
 
   if (isLoading || checkingEnrollment) return <LoadingScreen />;
   if (error) return <p className="text-red-500">Course not found.</p>;
@@ -59,16 +67,6 @@ export default function Course() {
       </div>
     );
   }
-
-const getCourseProgress = useProgressStore((s) => s.getCourseProgress);
-const loadProgressFromBackend = useProgressStore((s) => s.loadProgressFromBackend);
-
-useEffect(() => {
-  if (user?.id && courseId) {
-    loadProgressFromBackend(user.id, courseId);
-  }
-}, [user?.id, courseId]);
-
 
   const modules = course.modules || [];
   const percent = getCourseProgress(courseId, modules.length);
