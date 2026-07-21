@@ -136,12 +136,40 @@ function WorksheetsTab({ worksheets = [] }) {
       {worksheets.length === 0 && (
         <p className="text-brand-400 text-sm">No worksheets for this module.</p>
       )}
-      {worksheets.map((ws, i) => (
-        <div key={i} className="flex items-center gap-3 rounded-xl border border-brand-100 bg-white px-4 py-3">
-          <FileText size={16} className="text-accent-500 flex-shrink-0" />
-          <span className="text-sm font-medium text-brand-700">{ws}</span>
-        </div>
-      ))}
+      {worksheets.map((ws, i) => {
+        // Handle both string and object formats
+        const title = typeof ws === "string" ? ws : ws.worksheetTitle || `Worksheet ${i + 1}`;
+        const instructions = typeof ws === "object" ? ws.worksheetInstructions : null;
+        const fields = typeof ws === "object" ? ws.worksheetFields || [] : [];
+
+        return (
+          <div key={i} className="rounded-xl border border-brand-100 bg-white px-5 py-4">
+            <div className="flex items-center gap-3 mb-3">
+              <FileText size={16} className="text-accent-500 flex-shrink-0" />
+              <span className="text-sm font-bold text-brand-800">{title}</span>
+            </div>
+            {instructions && (
+              <p className="text-xs text-brand-500 mb-3 leading-relaxed">{instructions}</p>
+            )}
+            {fields.length > 0 && (
+              <div className="space-y-2">
+                {fields.map((field, j) => (
+                  <div key={j}>
+                    <p className="text-xs font-semibold text-brand-600 mb-1">
+                      {typeof field === "string" ? field : field.fieldLabel || field}
+                    </p>
+                    <textarea
+                      rows={2}
+                      placeholder="Write your response here..."
+                      className="w-full rounded-lg border border-brand-100 bg-brand-50 px-3 py-2 text-sm text-brand-700 placeholder:text-brand-300 focus:outline-none focus:border-accent-400 resize-none"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
