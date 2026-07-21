@@ -9,6 +9,7 @@ import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { supabase } from "@/lib/supabase.js";
 import Button from "@/components/ui/Button.jsx";
 import { Lock } from "lucide-react";
+import { useEffect } from "react";
 
 async function checkEnrollment(userId, courseId) {
   if (!supabase || !userId) return false;
@@ -58,6 +59,16 @@ export default function Course() {
       </div>
     );
   }
+
+const getCourseProgress = useProgressStore((s) => s.getCourseProgress);
+const loadProgressFromBackend = useProgressStore((s) => s.loadProgressFromBackend);
+
+useEffect(() => {
+  if (user?.id && courseId) {
+    loadProgressFromBackend(user.id, courseId);
+  }
+}, [user?.id, courseId]);
+
 
   const modules = course.modules || [];
   const percent = getCourseProgress(courseId, modules.length);
