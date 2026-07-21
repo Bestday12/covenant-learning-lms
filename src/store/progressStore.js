@@ -1,4 +1,3 @@
-// src/store/progressStore.js
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { syncProgressToBackend, fetchProgressFromBackend } from "@/services/progressService.js";
@@ -23,7 +22,7 @@ export const useProgressStore = create(
         if (userId && courseId) {
           try {
             await syncProgressToBackend(userId, courseId, updatedProgress);
-            console.log(`✅ Progress saved: ${courseId}/${moduleId} (${Object.keys(updatedProgress).length} modules)`);
+            console.log(`✅ Progress saved: ${courseId}/${moduleId}`);
           } catch (err) {
             console.error("❌ Failed to save progress:", err);
           }
@@ -52,7 +51,9 @@ export const useProgressStore = create(
       getCourseProgress: (courseId, totalModules) => {
         if (!totalModules) return 0;
         const courseProgress = get().progress[courseId] || {};
-        const completedCount = Object.values(courseProgress).filter((m) => m?.completed).length;
+        const completedCount = Object.values(courseProgress).filter(
+          (m) => m?.completed
+        ).length;
         return Math.round((completedCount / totalModules) * 100);
       },
 
