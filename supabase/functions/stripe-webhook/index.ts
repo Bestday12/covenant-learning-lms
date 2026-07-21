@@ -542,6 +542,8 @@ const COURSE_NAMES: Record<string, string> = {
   "parenting-as-a-team": "Parenting as a Team",
   "blended-family-foundations": "Blended Family Foundations",
   "communication-that-builds-marriage": "Communication That Builds Marriage",
+  "newlywed-navigation": "The Newlywed Navigation: Building Your First Year Strong",
+  "sacred-purpose-gods-design-for-marriage": "Sacred Purpose: God's Design for Your Marriage",
 };
 
 // ── Temp password ─────────────────────────────────────────────────────────────
