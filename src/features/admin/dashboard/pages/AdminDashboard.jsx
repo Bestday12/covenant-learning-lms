@@ -74,14 +74,24 @@ export default function AdminDashboard() {
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => navigate("/admin/users")}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
-            >
-              Open user management
-              <ArrowUpRight className="h-4 w-4" />
-            </button>
+            <div className="flex flex-col gap-2">
+  <button
+    type="button"
+    onClick={() => navigate("/admin/users")}
+    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+  >
+    Open user management
+    <ArrowUpRight className="h-4 w-4" />
+  </button>
+  <button
+    type="button"
+    onClick={() => navigate("/admin/courses/new")}
+    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
+  >
+    Create new course
+    <ArrowUpRight className="h-4 w-4" />
+  </button>
+</div>
           </div>
         </div>
       </section>
