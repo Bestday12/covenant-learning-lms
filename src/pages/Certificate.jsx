@@ -191,10 +191,10 @@ export default function Certificate() {
         }}
       >
         {/* Purple corner accents */}
-        <div style={{ position: "absolute", top: 0, left: 0, width: 120, height: 120, background: "linear-gradient(135deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
-        <div style={{ position: "absolute", top: 0, right: 0, width: 120, height: 120, background: "linear-gradient(225deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 100% 0, 100% 100%)" }} />
-        <div style={{ position: "absolute", bottom: 0, left: 0, width: 120, height: 120, background: "linear-gradient(45deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 0 100%, 100% 100%)" }} />
-        <div style={{ position: "absolute", bottom: 0, right: 0, width: 120, height: 120, background: "linear-gradient(315deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, width: 80, height: 80, background: "linear-gradient(135deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
+        <div style={{ position: "absolute", top: 0, right: 0, width: 80, height: 80, background: "linear-gradient(225deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 100% 0, 100% 100%)" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, width: 80, height: 80, background: "linear-gradient(45deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(0 0, 0 100%, 100% 100%)" }} />
+        <div style={{ position: "absolute", bottom: 0, right: 0, width: 80, height: 80, background: "linear-gradient(315deg, #3d0a6e 0%, #5a1a9a 100%)", clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }} />
 
         {/* Outer border */}
         <div style={{ position: "absolute", inset: 16, border: "2px solid #3d0a6e", borderRadius: 4 }} />
@@ -222,7 +222,7 @@ export default function Certificate() {
           </div>
 
           {/* Institution name */}
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9960c", marginBottom: 4, fontFamily: "Inter, sans-serif" }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9960c", marginBottom: 4, fontFamily: "Arial, sans-serif" }}>
             Covenant Learning
           </p>
 
