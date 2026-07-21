@@ -7,6 +7,8 @@ import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { supabase } from "@/lib/supabase.js";
 import { Link } from "react-router-dom";
 import { BookOpen, Settings, AlertCircle } from "lucide-react";
+import { useEffect } from "react";
+import { useProgressStore } from "@/store/progressStore.js";
 
 async function fetchMyEnrolledCourseIds(userId) {
   if (!supabase || !userId) return [];
@@ -36,6 +38,16 @@ export default function Dashboard() {
     staleTime: 0, // Always refetch to get fresh enrollment data
   });
 
+   const loadProgressFromBackend = useProgressStore((s) => s.loadProgressFromBackend);
+
+  useEffect(() => {
+    if (user?.id && enrolledIds?.length) {
+      enrolledIds.forEach((courseId) => {
+        loadProgressFromBackend(user.id, courseId);
+      });
+    }
+  }, [user?.id, enrolledIds, loadProgressFromBackend]);
+  
   const { data: fullCourses, isLoading: loadingFull } = useQuery({
     queryKey: ["courses-full", enrolledIds],
     queryFn: async () => {
