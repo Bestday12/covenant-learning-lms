@@ -31,8 +31,8 @@ useEffect(() => {
 }, []);
 
   return (
-    <div style={{ background: "linear-gradient(135deg, #3d0a6e 0%, #5a1a9a 50%, #2a0550 100%)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
-      <div style={{ maxWidth: "620px", width: "100%" }}>
+    <div style={{ background: "linear-gradient(135deg, #3d0a6e 0%, #5a1a9a 50%, #2a0550 100%)", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 20px", gap: "24px" }}>
+  <div style={{ maxWidth: "620px", width: "100%" }}>
 
         {/* Card */}
         <div style={{ background: "#ffffff", borderRadius: "24px", overflow: "hidden", boxShadow: "0 24px 80px rgba(0,0,0,0.3)" }}>
@@ -128,7 +128,7 @@ useEffect(() => {
           Questions? Email <a href="mailto:support@covenantmarriagehelp.com" style={{ color: "#f5d060", textDecoration: "none" }}>support@covenantmarriagehelp.com</a>
         </p>
       </div>
-      <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
+      <div style={{ maxWidth: "620px", width: "100%", background: "#f3ede1", borderRadius: "24px", padding: "8px 0" }}>
         <CourseUpsell
           completedCourseId={null}
           userId={user?.id}
