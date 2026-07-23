@@ -13,6 +13,7 @@ import { getDisplayName } from "@/utils/getDisplayName.js";
 import { supabase } from "@/lib/supabase.js";
 import CourseUpsell from "@/components/ui/CourseUpsell.jsx";
 import QRCode from "https://esm.sh/qrcode@1.5.3";
+import CourseReviews from "@/components/ui/CourseReviews.jsx";
 
 const LMS_URL = "https://learn.covenantmarriagehelp.com";
 
@@ -403,6 +404,19 @@ export default function Certificate() {
     userId={user?.id}
     variant="certificate"
   />
+  
+  
+)}
+
+{isCourseComplete && (
+  <div className="mt-10 max-w-5xl mx-auto px-6">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-brand-200" />
+      <span className="text-sm font-semibold text-brand-600 uppercase tracking-widest">⭐ Rate This Course</span>
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-brand-200" />
+    </div>
+    <CourseReviews courseId={courseId} showForm={true} />
+  </div>
 )}
         </div>
       )}

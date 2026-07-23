@@ -8,6 +8,27 @@ import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { useToast } from "@/components/ui/ToastProvider.jsx";
 import { supabase } from "@/lib/supabase.js";
 import { CheckCircle2 } from "lucide-react";
+import CourseReviews, { AverageStars } from "@/components/ui/CourseReviews.jsx";
+
+
+
+function CourseRatingSummary({ courseId }) {
+  const [stats, setStats] = useState(null);
+  useEffect(() => {
+    supabase
+      .from("course_reviews")
+      .select("rating")
+      .eq("course_id", courseId)
+      .then(({ data }) => {
+        if (data?.length) {
+          const avg = data.reduce((s, r) => s + r.rating, 0) / data.length;
+          setStats({ average: avg, count: data.length });
+        }
+      });
+  }, [courseId]);
+  if (!stats) return null;
+  return <AverageStars average={stats.average} count={stats.count} size={14} />;
+}
 
 async function fetchMyEnrollments(userId) {
   if (!supabase || !userId) return [];
@@ -67,6 +88,9 @@ export default function CourseCatalog() {
           return (
             <Card key={course.id}>
               <CardHeader title={course.title} subtitle={course.description} />
+			  <div className="mt-3">
+        <CourseRatingSummary courseId={course.id} />
+      </div>
               <div className="mt-4 flex items-center gap-2">
                 {isEnrolled ? (
                   <Link to={`/courses/${course.id}`}>
