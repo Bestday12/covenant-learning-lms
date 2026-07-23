@@ -15,7 +15,6 @@ import QRCode from "https://esm.sh/qrcode@1.5.3";
 
 const LMS_URL = "https://learn.covenantmarriagehelp.com";
 
-// ── Default settings (fallback if none saved in admin) ────────────────────────
 const DEFAULTS = {
   bgColor: "#ffffff",
   textMid: "#6b5f7a",
@@ -39,7 +38,7 @@ const DEFAULTS = {
   secondaryColor: "#5a1a9a",
   institutionName: "Covenant Learning",
   instructorTitle: "Course Instructor",
-  signatureUrl: null, 
+  signatureUrl: null,
   showInnerBorder: true,
   certificateTitle: "Certificate of Completion",
   innerBorderColor: "#c9960c",
@@ -73,21 +72,15 @@ export default function Certificate() {
   ).length || 0;
   const isCourseComplete = totalModules > 0 && completedModules === totalModules;
 
-  // Load progress
   useEffect(() => {
     if (user?.id && courseId) loadProgressFromBackend(user.id, courseId);
   }, [user?.id, courseId]);
 
-  // Fetch user profile
   useEffect(() => {
     async function fetchProfile() {
       if (!user?.id) { setProfileLoading(false); return; }
       try {
-        const { data } = await supabase
-          .from("profiles")
-          .select("full_name, email, role")
-          .eq("id", user.id)
-          .single();
+        const { data } = await supabase.from("profiles").select("full_name, email, role").eq("id", user.id).single();
         if (data) setUserProfile(data);
       } catch (err) {
         console.error(err);
@@ -98,24 +91,15 @@ export default function Certificate() {
     fetchProfile();
   }, [user?.id]);
 
-  // Fetch certificate record + generate QR
   useEffect(() => {
     async function fetchCert() {
       if (!user?.id || !courseId) return;
       try {
-        const { data } = await supabase
-          .from("certificates")
-          .select("certificate_number, issued_at")
-          .eq("user_id", user.id)
-          .eq("course_id", courseId)
-          .maybeSingle();
+        const { data } = await supabase.from("certificates").select("certificate_number, issued_at").eq("user_id", user.id).eq("course_id", courseId).maybeSingle();
         if (data) {
           setCertRecord(data);
           const verifyUrl = `${LMS_URL}/verify/${data.certificate_number}`;
-          const qr = await QRCode.toDataURL(verifyUrl, {
-            width: 120, margin: 1,
-            color: { dark: "#3d0a6e", light: "#ffffff" },
-          });
+          const qr = await QRCode.toDataURL(verifyUrl, { width: 120, margin: 1, color: { dark: "#3d0a6e", light: "#ffffff" } });
           setQrDataUrl(qr);
         }
       } catch (err) {
@@ -125,15 +109,10 @@ export default function Certificate() {
     fetchCert();
   }, [user?.id, courseId]);
 
-  // ── Fetch admin certificate settings ────────────────────────────────────────
   useEffect(() => {
     async function loadSettings() {
       try {
-        const { data } = await supabase
-          .from("settings")
-          .select("value")
-          .eq("key", "certificate_settings")
-          .maybeSingle();
+        const { data } = await supabase.from("settings").select("value").eq("key", "certificate_settings").maybeSingle();
         if (data?.value) setCertSettings(data.value);
       } catch (err) {
         console.error("Failed to load certificate settings:", err);
@@ -142,20 +121,14 @@ export default function Certificate() {
     loadSettings();
   }, []);
 
-  // Confetti
   useEffect(() => {
     if (isCourseComplete) {
-      const fire = () => confetti({
-        particleCount: 150, spread: 100, origin: { y: 0.4 },
-        colors: ["#c9960c", "#e8b422", "#f5d060", "#3d0a6e", "#5a1a9a", "#ffffff"],
-      });
+      const fire = () => confetti({ particleCount: 150, spread: 100, origin: { y: 0.4 }, colors: ["#c9960c", "#e8b422", "#f5d060", "#3d0a6e", "#5a1a9a", "#ffffff"] });
       fire(); setTimeout(fire, 500); setTimeout(fire, 1000);
     }
   }, [isCourseComplete]);
 
-  // ── Merge saved settings with defaults ───────────────────────────────────────
   const S = { ...DEFAULTS, ...certSettings };
-
   const studentName = getDisplayName(user, userProfile);
   const now = new Date();
   const dateString = `${now.getDate()} ${now.toLocaleDateString("en-GB", { month: "long" })} ${now.getFullYear()}`;
@@ -164,15 +137,9 @@ export default function Certificate() {
     if (!certRef.current) return;
     setGenerating(true);
     try {
-      const canvas = await html2canvas(certRef.current, {
-        scale: 3, backgroundColor: S.bgColor,
-        useCORS: true, logging: false, letterRendering: true,
-      });
+      const canvas = await html2canvas(certRef.current, { scale: 3, backgroundColor: S.bgColor, useCORS: true, logging: false, letterRendering: true });
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        orientation: "landscape", unit: "px",
-        format: [canvas.width / 3, canvas.height / 3],
-      });
+      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [canvas.width / 3, canvas.height / 3] });
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width / 3, canvas.height / 3);
       pdf.save(`Covenant-Learning-Certificate-${course?.title?.replace(/\s+/g, "-") || courseId}.pdf`);
     } catch (err) {
@@ -241,7 +208,7 @@ export default function Certificate() {
         )}
       </div>
 
-      {/* ── CERTIFICATE ── */}
+      {/* CERTIFICATE */}
       <div
         ref={certRef}
         style={{
@@ -263,8 +230,7 @@ export default function Certificate() {
               { bottom: 0, right: 0, clip: "polygon(100% 0, 0 100%, 100% 100%)", gradient: "315deg" },
             ].map((c, i) => (
               <div key={i} style={{
-                position: "absolute",
-                width: S.cornerSize, height: S.cornerSize,
+                position: "absolute", width: S.cornerSize, height: S.cornerSize,
                 top: c.top, left: c.left, right: c.right, bottom: c.bottom,
                 background: `linear-gradient(${c.gradient}, ${S.primaryColor} 0%, ${S.secondaryColor} 100%)`,
                 clipPath: c.clip,
@@ -273,15 +239,9 @@ export default function Certificate() {
           </>
         )}
 
-        {/* Outer border */}
+        {/* Borders */}
         <div style={{ position: "absolute", inset: 14, border: `2px solid ${S.outerBorderColor}`, borderRadius: 3 }} />
-
-        {/* Inner border */}
-        {S.showInnerBorder && (
-          <div style={{ position: "absolute", inset: 22, border: `1px solid ${S.innerBorderColor}`, borderRadius: 2, opacity: 0.55 }} />
-        )}
-
-        {/* Gold rules */}
+        {S.showInnerBorder && <div style={{ position: "absolute", inset: 22, border: `1px solid ${S.innerBorderColor}`, borderRadius: 2, opacity: 0.55 }} />}
         <div style={{ position: "absolute", top: 34, left: 56, right: 56, height: 1, background: `linear-gradient(90deg,transparent,${S.accentColor},transparent)` }} />
         <div style={{ position: "absolute", bottom: 34, left: 56, right: 56, height: 1, background: `linear-gradient(90deg,transparent,${S.accentColor},transparent)` }} />
 
@@ -302,7 +262,7 @@ export default function Certificate() {
             <img src="/logo.png" alt={S.institutionName} style={{ height: 40, width: "auto", objectFit: "contain", marginBottom: 5 }} onError={(e) => e.target.style.display = "none"} />
           )}
 
-          {/* Institution name */}
+          {/* Institution */}
           <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.35em", textTransform: "uppercase", color: S.accentColor, marginBottom: 5, fontFamily: S.bodyFont }}>
             {S.institutionName.split("").join("\u00A0")}
           </p>
@@ -379,27 +339,33 @@ export default function Certificate() {
               )}
             </div>
 
-<div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
-  {S.signatureUrl ? (
-    <div>
-      <img
-        src={S.signatureUrl}
-        alt="Signature"
-        style={{ height: 36, maxWidth: 160, objectFit: "contain", display: "block", margin: "0 auto 2px" }}
-      />
-      <p style={{ fontSize: 10, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", fontWeight: 600 }}>
-        {S.instructorName}
-      </p>
-    </div>
-  ) : (
-    <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
-      {S.instructorName}
-    </p>
-  )}
-  <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
-    {S.instructorTitle}
-  </p>
-</div>
+            {/* Instructor + Signature */}
+            <div style={{ textAlign: "center" }}>
+              <div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
+                {S.signatureUrl ? (
+                  <div>
+                    <img
+                      src={S.signatureUrl}
+                      alt="Signature"
+                      style={{ height: 36, maxWidth: 160, objectFit: "contain", display: "block", margin: "0 auto 2px" }}
+                    />
+                    <p style={{ fontSize: 10, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", fontWeight: 600 }}>
+                      {S.instructorName}
+                    </p>
+                  </div>
+                ) : (
+                  <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
+                    {S.instructorName}
+                  </p>
+                )}
+                <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
+                  {S.instructorTitle}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
           {/* QR Code */}
           {qrDataUrl && certRecord?.certificate_number && (
             <div style={{ position: "absolute", bottom: 44, right: 72, textAlign: "center" }}>
