@@ -27,6 +27,7 @@ const FAQ = lazy(() => import("@/pages/marketing/FAQ.jsx"));
 const Contact = lazy(() => import("@/pages/marketing/Contact.jsx"));
 const Blog = lazy(() => import("@/pages/marketing/Blog.jsx"));
 const UpdatePassword = lazy(() => import("@/pages/UpdatePassword.jsx"));
+const CertificateVerify = lazy(() => import("@/pages/CertificateVerify.jsx"));
 const Privacy = lazy(() =>
   import("@/pages/marketing/Legal.jsx").then((m) => ({ default: m.Privacy }))
 );
@@ -53,6 +54,8 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 		<Route path="/update-password" element={<UpdatePassword />} />
+		<Route path="/verify/:certificateNumber" element={<CertificateVerify />} />
+
       </Route>
 
       <Route element={<MainLayout />}>

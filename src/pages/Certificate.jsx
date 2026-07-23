@@ -11,11 +11,13 @@ import { fetchCourseById } from "@/services/courseService.js";
 import { useQuery } from "@tanstack/react-query";
 import { getDisplayName } from "@/utils/getDisplayName.js";
 import { supabase } from "@/lib/supabase.js";
+import QRCode from "https://esm.sh/qrcode@1.5.3";
 
-// ── Safe font helper — all text uses Arial to avoid html2canvas kerning bugs ──
+const LMS_URL = "https://learn.covenantmarriagehelp.com";
+
 const F = {
-  serif: "Georgia, 'Times New Roman', serif",   // large headings only
-  sans: "Arial, Helvetica, sans-serif",          // everything else
+  serif: "Georgia, 'Times New Roman', serif",
+  sans: "Arial, Helvetica, sans-serif",
 };
 
 export default function Certificate() {
@@ -25,6 +27,8 @@ export default function Certificate() {
   const [generating, setGenerating] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [certRecord, setCertRecord] = useState(null);
+  const [qrDataUrl, setQrDataUrl] = useState(null);
 
   const { data: course, isLoading } = useQuery({
     queryKey: ["course", courseId],
@@ -45,6 +49,7 @@ export default function Certificate() {
     if (user?.id && courseId) loadProgressFromBackend(user.id, courseId);
   }, [user?.id, courseId]);
 
+  // Fetch profile
   useEffect(() => {
     async function fetchProfile() {
       if (!user?.id) { setProfileLoading(false); return; }
@@ -64,6 +69,36 @@ export default function Certificate() {
     fetchProfile();
   }, [user?.id]);
 
+  // Fetch certificate record (for number)
+  useEffect(() => {
+    async function fetchCert() {
+      if (!user?.id || !courseId) return;
+      try {
+        const { data } = await supabase
+          .from("certificates")
+          .select("certificate_number, issued_at")
+          .eq("user_id", user.id)
+          .eq("course_id", courseId)
+          .maybeSingle();
+        if (data) {
+          setCertRecord(data);
+          // Generate QR code
+          const verifyUrl = `${LMS_URL}/verify/${data.certificate_number}`;
+          const qr = await QRCode.toDataURL(verifyUrl, {
+            width: 120,
+            margin: 1,
+            color: { dark: "#3d0a6e", light: "#ffffff" },
+          });
+          setQrDataUrl(qr);
+        }
+      } catch (err) {
+        console.error("Failed to fetch certificate record:", err);
+      }
+    }
+    fetchCert();
+  }, [user?.id, courseId]);
+
+  // Confetti
   useEffect(() => {
     if (isCourseComplete) {
       const fire = () => confetti({
@@ -76,7 +111,6 @@ export default function Certificate() {
 
   const studentName = getDisplayName(user, userProfile);
 
-  // Format date parts separately to avoid html2canvas word-spacing issues
   const now = new Date();
   const day = now.getDate();
   const month = now.toLocaleDateString("en-GB", { month: "long" });
@@ -124,25 +158,13 @@ export default function Certificate() {
         <div className="w-20 h-20 rounded-full bg-brand-100 flex items-center justify-center mx-auto mb-6">
           <Award className="text-brand-400" size={40} />
         </div>
-        <h1 className="font-serif text-2xl font-bold text-brand-800 mb-3">
-          Certificate Not Yet Available
-        </h1>
-        <p className="text-brand-500 mb-2">
-          Complete all {totalModules} modules of <strong>{course?.title}</strong> to unlock your certificate.
-        </p>
-        <p className="text-brand-400 text-sm mb-8">
-          {completedModules} of {totalModules} modules completed
-        </p>
+        <h1 className="font-serif text-2xl font-bold text-brand-800 mb-3">Certificate Not Yet Available</h1>
+        <p className="text-brand-500 mb-2">Complete all {totalModules} modules of <strong>{course?.title}</strong> to unlock your certificate.</p>
+        <p className="text-brand-400 text-sm mb-8">{completedModules} of {totalModules} modules completed</p>
         <div className="w-full bg-brand-100 rounded-full h-2 mb-8 max-w-xs mx-auto">
-          <div
-            className="bg-accent-500 h-2 rounded-full transition-all"
-            style={{ width: `${totalModules > 0 ? (completedModules / totalModules) * 100 : 0}%` }}
-          />
+          <div className="bg-accent-500 h-2 rounded-full transition-all" style={{ width: `${totalModules > 0 ? (completedModules / totalModules) * 100 : 0}%` }} />
         </div>
-        <Link
-          to={`/learn/${courseId}`}
-          className="inline-flex items-center gap-2 rounded-full bg-brand-700 text-white px-6 py-3 font-medium hover:bg-brand-800 transition-colors"
-        >
+        <Link to={`/learn/${courseId}`} className="inline-flex items-center gap-2 rounded-full bg-brand-700 text-white px-6 py-3 font-medium hover:bg-brand-800 transition-colors">
           <ArrowLeft size={16} /> Continue Course
         </Link>
       </div>
@@ -154,10 +176,7 @@ export default function Certificate() {
 
       {/* Action bar */}
       <div className="flex items-center justify-between mb-8">
-        <Link
-          to={`/learn/${courseId}`}
-          className="inline-flex items-center gap-2 text-sm text-brand-500 hover:text-brand-700 transition-colors"
-        >
+        <Link to={`/learn/${courseId}`} className="inline-flex items-center gap-2 text-sm text-brand-500 hover:text-brand-700 transition-colors">
           <ArrowLeft size={14} /> Back to course
         </Link>
         <button
@@ -175,7 +194,11 @@ export default function Certificate() {
         <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-2">
           🎉 Congratulations on completing the course!
         </div>
-        <p className="text-brand-500 text-sm">Your certificate is ready to download and share.</p>
+        {certRecord?.certificate_number && (
+          <p className="text-brand-400 text-xs mt-1">
+            Certificate Number: <span className="font-mono font-bold text-brand-600">{certRecord.certificate_number}</span>
+          </p>
+        )}
       </div>
 
       {/* ── CERTIFICATE ── */}
@@ -190,7 +213,7 @@ export default function Certificate() {
           fontFamily: F.sans,
         }}
       >
-        {/* Purple corner triangles — smaller so they don't crowd content */}
+        {/* Purple corner triangles */}
         {[
           { top: 0, left: 0, clip: "polygon(0 0, 100% 0, 0 100%)", gradient: "135deg" },
           { top: 0, right: 0, clip: "polygon(0 0, 100% 0, 100% 100%)", gradient: "225deg" },
@@ -205,47 +228,30 @@ export default function Certificate() {
           }} />
         ))}
 
-        {/* Outer navy border */}
+        {/* Borders */}
         <div style={{ position: "absolute", inset: 14, border: "2px solid #3d0a6e", borderRadius: 3 }} />
-
-        {/* Inner gold border */}
         <div style={{ position: "absolute", inset: 22, border: "1px solid #c9960c", borderRadius: 2, opacity: 0.55 }} />
-
-        {/* Gold top rule */}
         <div style={{ position: "absolute", top: 34, left: 56, right: 56, height: 1, background: "linear-gradient(90deg,transparent,#c9960c,transparent)" }} />
-
-        {/* Gold bottom rule */}
         <div style={{ position: "absolute", bottom: 34, left: 56, right: 56, height: 1, background: "linear-gradient(90deg,transparent,#c9960c,transparent)" }} />
 
-        {/* Background watermark */}
+        {/* Watermark */}
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", zIndex: 0 }}>
-          <p style={{ fontSize: 160, fontWeight: 900, color: "#3d0a6e", opacity: 0.018, fontFamily: F.serif, userSelect: "none", letterSpacing: "-0.05em" }}>
-            CMH
-          </p>
+          <p style={{ fontSize: 160, fontWeight: 900, color: "#3d0a6e", opacity: 0.018, fontFamily: F.serif, userSelect: "none", letterSpacing: "-0.05em" }}>CMH</p>
         </div>
 
-        {/* ── Main content ── */}
-        <div style={{
-          position: "relative", zIndex: 1,
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          height: "100%", padding: "52px 80px", textAlign: "center",
-        }}>
+        {/* Main content */}
+        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", padding: "44px 80px", textAlign: "center" }}>
 
           {/* Logo */}
-          <img
-            src="/logo.png"
-            alt="Covenant Learning"
-            style={{ height: 44, width: "auto", objectFit: "contain", marginBottom: 6 }}
-            onError={(e) => e.target.style.display = "none"}
-          />
+          <img src="/logo.png" alt="Covenant Learning" style={{ height: 40, width: "auto", objectFit: "contain", marginBottom: 5 }} onError={(e) => e.target.style.display = "none"} />
 
           {/* Institution */}
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.35em", textTransform: "uppercase", color: "#c9960c", marginBottom: 6, fontFamily: F.sans }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.35em", textTransform: "uppercase", color: "#c9960c", marginBottom: 5, fontFamily: F.sans }}>
             COVENANT&nbsp;&nbsp;LEARNING
           </p>
 
-          {/* Decorative dots + lines */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+          {/* Decorative dots */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 36, height: 1, background: "#c9960c", opacity: 0.5 }} />
             <div style={{ width: 5, height: 5, background: "#c9960c", borderRadius: "50%" }} />
             <div style={{ width: 5, height: 5, background: "#3d0a6e", borderRadius: "50%" }} />
@@ -253,97 +259,110 @@ export default function Certificate() {
             <div style={{ width: 36, height: 1, background: "#c9960c", opacity: 0.5 }} />
           </div>
 
-          {/* Certificate of Completion */}
-          <h1 style={{ fontSize: "clamp(26px, 4.2vw, 44px)", fontWeight: 700, color: "#3d0a6e", marginBottom: 14, lineHeight: 1.15, fontFamily: F.serif, letterSpacing: "-0.01em" }}>
+          {/* Certificate title */}
+          <h1 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 700, color: "#3d0a6e", marginBottom: 12, lineHeight: 1.15, fontFamily: F.serif }}>
             Certificate of Completion
           </h1>
 
-          {/* This is to certify that */}
-          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 10, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em" }}>
+          <p style={{ fontSize: 12, color: "#6b5f7a", marginBottom: 8, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em" }}>
             This is to certify that
           </p>
 
           {/* Student name */}
-          <div style={{ marginBottom: 12, paddingBottom: 8, borderBottom: "2px solid #3d0a6e", display: "inline-block", minWidth: 280 }}>
-            <p style={{ fontSize: "clamp(20px, 3vw, 32px)", fontWeight: 700, color: "#1a0a2e", fontFamily: F.serif, letterSpacing: "0.01em" }}>
+          <div style={{ marginBottom: 10, paddingBottom: 7, borderBottom: "2px solid #3d0a6e", display: "inline-block", minWidth: 280 }}>
+            <p style={{ fontSize: "clamp(18px, 2.8vw, 30px)", fontWeight: 700, color: "#1a0a2e", fontFamily: F.serif }}>
               {studentName}
             </p>
           </div>
 
-          {/* Has successfully completed */}
-          <p style={{ fontSize: 13, color: "#6b5f7a", marginBottom: 8, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em" }}>
+          <p style={{ fontSize: 12, color: "#6b5f7a", marginBottom: 6, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em" }}>
             has successfully completed
           </p>
 
-          {/* Course name */}
-          <p style={{ fontSize: "clamp(14px, 2.2vw, 22px)", fontWeight: 700, color: "#c9960c", marginBottom: 6, fontFamily: F.serif, letterSpacing: "0.02em" }}>
+          <p style={{ fontSize: "clamp(13px, 2vw, 20px)", fontWeight: 700, color: "#c9960c", marginBottom: 5, fontFamily: F.serif }}>
             {course?.title}
           </p>
 
-          {/* Course description */}
-          <p style={{ fontSize: 11, color: "#6b5f7a", maxWidth: 480, lineHeight: 1.65, marginBottom: 14, fontFamily: F.sans, letterSpacing: "0.03em", wordSpacing: "0.08em" }}>
+          <p style={{ fontSize: 10, color: "#6b5f7a", maxWidth: 420, lineHeight: 1.6, marginBottom: 10, fontFamily: F.sans, letterSpacing: "0.03em" }}>
             {course?.description}
           </p>
 
-          {/* Scripture — Arial, no italic, explicit spacing */}
-          <p style={{ fontSize: 11, color: "#3d0a6e", opacity: 0.65, marginBottom: 20, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em", maxWidth: 500 }}>
+          {/* Scripture */}
+          <p style={{ fontSize: 10, color: "#3d0a6e", opacity: 0.65, marginBottom: 16, fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.12em", maxWidth: 460 }}>
             "Two are better than one, because they have a good return for their labour." — Ecclesiastes 4:9
           </p>
 
           {/* Signatures row */}
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 72, width: "100%", maxWidth: 560 }}>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 40, width: "100%", maxWidth: 580 }}>
 
             {/* Date */}
             <div style={{ textAlign: "center" }}>
-              <div style={{ borderTop: "1px solid #3d0a6e", paddingTop: 8, minWidth: 110 }}>
-                <p style={{ fontSize: 13, color: "#3d0a6e", fontWeight: 700, fontFamily: F.sans, letterSpacing: "0.06em", wordSpacing: "0.1em" }}>
-                  {dateString}
-                </p>
-                <p style={{ fontSize: 9, color: "#6b5f7a", marginTop: 3, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: F.sans }}>
-                  Date of Completion
-                </p>
+              <div style={{ borderTop: "1px solid #3d0a6e", paddingTop: 7, minWidth: 110 }}>
+                <p style={{ fontSize: 12, color: "#3d0a6e", fontWeight: 700, fontFamily: F.sans, letterSpacing: "0.06em", wordSpacing: "0.1em" }}>{dateString}</p>
+                <p style={{ fontSize: 8, color: "#6b5f7a", marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: F.sans }}>Date of Completion</p>
               </div>
             </div>
 
-            {/* Gold seal */}
+            {/* Gold seal + QR */}
             <div style={{ textAlign: "center", marginBottom: 4 }}>
-              <div style={{
-                width: 52, height: 52, borderRadius: "50%",
-                background: "linear-gradient(135deg, #c9960c, #e8b422)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                margin: "0 auto 4px",
-                boxShadow: "0 4px 14px rgba(201,150,12,0.35)",
-              }}>
+              <div style={{ width: 48, height: 48, borderRadius: "50%", background: "linear-gradient(135deg, #c9960c, #e8b422)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 3px", boxShadow: "0 4px 14px rgba(201,150,12,0.35)" }}>
                 <span style={{ fontSize: 22 }}>🏆</span>
               </div>
-              <p style={{ fontSize: 8, color: "#c9960c", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", fontFamily: F.sans }}>
-                Verified
-              </p>
+              <p style={{ fontSize: 7, color: "#c9960c", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", fontFamily: F.sans }}>Verified</p>
+              {/* Certificate number */}
+              {certRecord?.certificate_number && (
+                <p style={{ fontSize: 7, color: "#6b5f7a", marginTop: 2, fontFamily: F.sans, letterSpacing: "0.05em" }}>
+                  {certRecord.certificate_number}
+                </p>
+              )}
             </div>
 
             {/* Instructor */}
             <div style={{ textAlign: "center" }}>
-              <div style={{ borderTop: "1px solid #3d0a6e", paddingTop: 8, minWidth: 140 }}>
-                <p style={{ fontSize: 13, color: "#3d0a6e", fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
-                  {course?.instructor || "Reverend Sam Adeyemi"}
+              <div style={{ borderTop: "1px solid #3d0a6e", paddingTop: 7, minWidth: 160 }}>
+                <p style={{ fontSize: 12, color: "#3d0a6e", fontFamily: F.sans, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
+                  Reverend Sam Adeyemi
                 </p>
-                <p style={{ fontSize: 9, color: "#6b5f7a", marginTop: 3, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: F.sans }}>
+                <p style={{ fontSize: 8, color: "#6b5f7a", marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: F.sans }}>
                   Course Instructor
                 </p>
               </div>
             </div>
 
           </div>
+
+          {/* QR Code + verification URL */}
+          {qrDataUrl && certRecord?.certificate_number && (
+            <div style={{ position: "absolute", bottom: 44, right: 72, textAlign: "center" }}>
+              <img src={qrDataUrl} alt="Verify QR" style={{ width: 56, height: 56 }} />
+              <p style={{ fontSize: 6, color: "#6b5f7a", marginTop: 2, fontFamily: F.sans, letterSpacing: "0.03em" }}>
+                Scan to verify
+              </p>
+            </div>
+          )}
+
         </div>
       </div>
 
-      {/* Share note */}
-      <div className="mt-8 text-center">
-        <p className="text-brand-500 text-sm mb-1">Share your achievement with your community 🙏</p>
-        <p className="text-brand-400 text-xs">
-          Completed: <strong className="text-brand-600">{course?.title}</strong> · {dateString}
-        </p>
-      </div>
+      {/* Verification link */}
+      {certRecord?.certificate_number && (
+        <div className="mt-6 text-center">
+          <p className="text-brand-400 text-xs mb-1">
+            Certificate Number: <span className="font-mono font-bold text-brand-600">{certRecord.certificate_number}</span>
+          </p>
+          <a
+            href={`${LMS_URL}/verify/${certRecord.certificate_number}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-indigo-600 hover:underline"
+          >
+            🔗 {LMS_URL}/verify/{certRecord.certificate_number}
+          </a>
+          <p className="text-brand-400 text-xs mt-1">
+            Completed: <strong className="text-brand-600">{course?.title}</strong> · {dateString}
+          </p>
+        </div>
+      )}
 
     </div>
   );
