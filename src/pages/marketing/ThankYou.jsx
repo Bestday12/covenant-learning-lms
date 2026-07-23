@@ -26,7 +26,7 @@ export default function ThankYou() {
 useEffect(() => {
   const sessionId = searchParams.get("session_id");
   if (sessionId) {
-    trackPurchase(courseId || "unknown", "Course Purchase", 0, sessionId);
+    trackPurchase("unknown", "Course Purchase", 0, sessionId);
   }
 }, []);
 
