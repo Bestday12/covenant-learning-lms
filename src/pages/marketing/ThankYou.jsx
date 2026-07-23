@@ -128,19 +128,17 @@ useEffect(() => {
         <p style={{ margin: "20px 0 0", textAlign: "center", fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>
           Questions? Email <a href="mailto:support@covenantmarriagehelp.com" style={{ color: "#f5d060", textDecoration: "none" }}>support@covenantmarriagehelp.com</a>
         </p>
+       </div>
       </div>
 
-      
-     
-     </div>
-
-    {/* Upsell — below purple section, full width */}
-    <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
-      <CourseUpsell
-        completedCourseId={null}
-        userId={user?.id}
-        variant="thankyou"
-      />
+      {/*Upsell — below purple section, full width */}
+      <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
+        <CourseUpsell
+          completedCourseId={null}
+          userId={user?.id}
+          variant="thankyou"
+        />
+      </div>
     </div>
   );
 }
