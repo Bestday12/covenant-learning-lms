@@ -1,18 +1,12 @@
 // src/components/ui/CourseUpsell.jsx
-// Reusable upsell section - shows next course recommendations
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Star } from "lucide-react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase.js";
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const publicClient = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY,
-  { auth: { persistSession: false } }
-);
-
-// Course relationship map - which courses to recommend after each
 const NEXT_COURSE_MAP = {
   "pre-marital-masterclass": ["covenant-marriage-foundation", "newlywed-navigation"],
   "covenant-marriage-foundation": ["communication-that-builds-marriage", "sacred-purpose-gods-design-for-marriage"],
@@ -24,63 +18,75 @@ const NEXT_COURSE_MAP = {
   "sacred-purpose-gods-design-for-marriage": ["covenant-marriage-foundation", "communication-that-builds-marriage"],
 };
 
+// Direct REST fetch — bypasses Supabase client auth issues for public data
+async function fetchPublicCourses(ids) {
+  try {
+    let url = `${SUPABASE_URL}/rest/v1/courses?select=id,title,description,price`;
+    if (ids && ids.length > 0) {
+      url += `&id=in.(${ids.join(",")})`;
+    } else {
+      url += `&limit=2`;
+    }
+    const res = await fetch(url, {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to fetch courses:", err);
+    return [];
+  }
+}
+
 export default function CourseUpsell({ completedCourseId, userId, variant = "certificate" }) {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadRecommendations() {
-  try {
-    const nextIds = NEXT_COURSE_MAP[completedCourseId] || [];
-    
-    let query = publicClient
-      .from("courses")
-      .select("id, title, description, price");
+      try {
+        const nextIds = NEXT_COURSE_MAP[completedCourseId] || [];
+        const courses = await fetchPublicCourses(nextIds.length > 0 ? nextIds : null);
 
-    if (nextIds.length > 0) {
-      query = query.in("id", nextIds);
-    } else if (completedCourseId) {
-      query = query.neq("id", completedCourseId).limit(2);
-    } else {
-      query = query.limit(2);
+        if (!courses?.length) { setLoading(false); return; }
+
+        // Filter out completed course and already enrolled
+        let filtered = courses.filter((c) => c.id !== completedCourseId);
+
+        if (userId) {
+          try {
+            const { data: enrollments } = await supabase
+              .from("enrollments")
+              .select("course_id")
+              .eq("user_id", userId);
+            const enrolledIds = new Set((enrollments || []).map((e) => e.course_id));
+            filtered = filtered.filter((c) => !enrolledIds.has(c.id));
+          } catch {
+            // ignore enrollment filter errors
+          }
+        }
+
+        setRecommendations(filtered.slice(0, 2));
+      } catch (err) {
+        console.error("Failed to load recommendations:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-
-    const { data: courses } = await query;
-
-    if (!courses?.length) { setLoading(false); return; }
-
-    // Only filter enrollments if user is logged in
-    if (userId) {
-      const { data: enrollments } = await publicClient
-        .from("enrollments")
-        .select("course_id")
-        .eq("user_id", userId);
-      const enrolledIds = new Set((enrollments || []).map((e) => e.course_id));
-      setRecommendations(courses.filter((c) => !enrolledIds.has(c.id)).slice(0, 2));
-    } else {
-      // Not logged in — show all recommendations
-      setRecommendations(courses.slice(0, 2));
-    }
-  } catch (err) {
-    console.error("Failed to load recommendations:", err);
-  } finally {
-    setLoading(false);
-  }
-}
-    if (completedCourseId) loadRecommendations();
+    loadRecommendations();
   }, [completedCourseId, userId]);
 
-if (loading) return (
-  <div className="mt-10 max-w-2xl mx-auto px-6 text-center">
-    <p className="text-xs text-gray-400">Loading recommendations...</p>
-  </div>
-);
-if (recommendations.length === 0) return null;
-  // Certificate page variant — elegant, scripture-inspired
+  if (loading) return null;
+  if (recommendations.length === 0) return null;
+
+  // Certificate page variant
   if (variant === "certificate") {
     return (
       <div className="mt-12 max-w-5xl mx-auto px-6">
-        {/* Divider */}
         <div className="flex items-center gap-4 mb-8">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent to-brand-200" />
           <div className="flex items-center gap-2">
@@ -98,15 +104,12 @@ if (recommendations.length === 0) return null;
         <div className="grid gap-6 md:grid-cols-2">
           {recommendations.map((course, index) => (
             <div key={course.id} className="relative rounded-[24px] border border-brand-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              {/* Top accent */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3d0a6e] to-[#c9960c]" />
-
               {index === 0 && (
                 <span className="inline-block bg-accent-50 text-accent-700 text-xs font-bold px-2.5 py-1 rounded-full mb-3 border border-accent-200">
                   ⭐ Recommended Next
                 </span>
               )}
-
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center flex-shrink-0">
                   <BookOpen size={20} className="text-brand-600" />
@@ -131,7 +134,6 @@ if (recommendations.length === 0) return null;
           ))}
         </div>
 
-        {/* Scripture encouragement */}
         <div className="mt-8 text-center">
           <p className="text-brand-400 text-xs italic">
             "Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up." — Galatians 6:9
@@ -141,10 +143,10 @@ if (recommendations.length === 0) return null;
     );
   }
 
-  // Thank You page variant — more urgent, conversion focused
+  // Thank You page variant
   if (variant === "thankyou") {
     return (
-      <div className="mt-10 max-w-2xl mx-auto px-6">
+      <div className="mt-6 max-w-2xl mx-auto px-6">
         <div className="rounded-[24px] border-2 border-accent-200 bg-gradient-to-br from-accent-50 to-white p-6">
           <div className="text-center mb-6">
             <span className="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1.5 rounded-full mb-3">
@@ -153,7 +155,6 @@ if (recommendations.length === 0) return null;
             <h3 className="font-serif text-xl font-bold text-brand-800">Continue Your Marriage Journey</h3>
             <p className="text-brand-500 text-sm mt-1">Add another course while you're here</p>
           </div>
-
           <div className="space-y-4">
             {recommendations.slice(0, 1).map((course) => (
               <div key={course.id} className="rounded-2xl bg-white border border-brand-100 p-5 flex items-center gap-4">
