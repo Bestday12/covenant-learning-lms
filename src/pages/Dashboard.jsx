@@ -23,7 +23,7 @@ async function fetchMyEnrolledCourseIds(userId) {
 export default function Dashboard() {
   const { user, profile } = useAuth();
 
-  // Get first name from profile full_name, or from email
+  // Get first name from profile full_name, or from email.
   const fullName = profile?.full_name || user?.user_metadata?.full_name || "";
   const firstName = fullName.split(" ")[0] || user?.email?.split("@")[0] || "friend";
 
