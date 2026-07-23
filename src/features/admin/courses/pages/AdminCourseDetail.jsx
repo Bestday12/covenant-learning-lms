@@ -299,7 +299,11 @@ export default function AdminCourseDetail() {
             <PencilLine className="h-4 w-4" />
             Edit course
           </Link>
-
+		<Link to={`/admin/courses/${courseId}/modules`}>
+  <Button variant="secondary" size="sm">
+    <BookOpen size={14} /> Module Builder
+  </Button>
+</Link>
           <Link
             to={`/courses/${course.id}`}
             className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
