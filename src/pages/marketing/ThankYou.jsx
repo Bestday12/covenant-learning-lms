@@ -65,7 +65,7 @@ useEffect(() => {
             </p>
 			
 			<CourseUpsell
-  completedCourseId={courseId}
+  completedCourseId={null}
   userId={user?.id}
   variant="thankyou"
 />
