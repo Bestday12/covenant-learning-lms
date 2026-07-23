@@ -1,7 +1,6 @@
 ﻿// src/features/admin/courses/pages/AdminCourseDetail.jsx
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-<Link to={`/admin/courses/${courseId}/edit`}>
 import {
   ArrowLeft,
   BookOpen,
