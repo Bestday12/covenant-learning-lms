@@ -133,7 +133,6 @@ useEffect(() => {
       
      
      </div>
-    </div>
 
     {/* Upsell — below purple section, full width */}
     <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
