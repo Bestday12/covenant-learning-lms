@@ -62,6 +62,65 @@ function CourseBasicForm({ data, onChange }) {
           />
         </div>
       </div>
+
+      {/* Instructor + Level */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Instructor</label>
+          <input
+            type="text"
+            value={data.instructor || ""}
+            onChange={(e) => onChange("instructor", e.target.value)}
+            placeholder="Reverend Sam Adeyemi"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Level</label>
+          <select
+            value={data.level || ""}
+            onChange={(e) => onChange("level", e.target.value)}
+            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 bg-white"
+          >
+            <option value="">Select level...</option>
+            <option value="All levels">All levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Category + Duration */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Category</label>
+          <select
+            value={data.category || ""}
+            onChange={(e) => onChange("category", e.target.value)}
+            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 bg-white"
+          >
+            <option value="">Select category...</option>
+            <option value="Marriage">Marriage</option>
+            <option value="Pre-Marital">Pre-Marital</option>
+            <option value="Parenting">Parenting</option>
+            <option value="Communication">Communication</option>
+            <option value="Restoration">Restoration</option>
+            <option value="Discipleship">Discipleship</option>
+            <option value="Family">Family</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Duration</label>
+          <input
+            type="text"
+            value={data.duration || ""}
+            onChange={(e) => onChange("duration", e.target.value)}
+            placeholder="e.g. 8 weeks, 10 modules"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -294,11 +353,15 @@ export default function AdminEditCourse() {
   const [error, setError] = useState("");
 
   const [courseData, setCourseData] = useState({
-    title: "",
-    description: "",
-    price: 0,
-    stripe_price_id: "",
-  });
+  title: "",
+  description: "",
+  price: 0,
+  stripe_price_id: "",
+  instructor: "Reverend Sam Adeyemi",
+  level: "All levels",
+  category: "Marriage",
+  duration: "",
+});
   const [modules, setModules] = useState([]);
 
   // Load existing course
@@ -315,12 +378,16 @@ export default function AdminEditCourse() {
         if (error) throw error;
 
         setCourseData({
-          title: data.title || "",
-          description: data.description || "",
-          price: data.price || 0,
-          stripe_price_id: data.stripe_price_id || "",
-        });
-        setModules(Array.isArray(data.modules) ? data.modules : []);
+  title: data.title || "",
+  description: data.description || "",
+  price: data.price || 0,
+  stripe_price_id: data.stripe_price_id || "",
+  instructor: data.instructor || "Reverend Sam Adeyemi",
+  level: data.level || "All levels",
+  category: data.category || "Marriage",
+  duration: data.duration || "",
+});
+setModules(Array.isArray(data.modules) ? data.modules : []);
       } catch (err) {
         setError(err.message || "Failed to load course");
       } finally {
