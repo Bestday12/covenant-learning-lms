@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "@/features/auth/ProtectedRoute.jsx";
 import MainLayout from "@/components/ui/MainLayout.jsx";
 import MarketingLayout from "@/components/ui/MarketingLayout.jsx";
