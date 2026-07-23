@@ -449,7 +449,7 @@ export default function AdminCourseDetail() {
                     </div>
 
                     <Link
-  to={`/admin/courses/${courseId}/modules/${mod.moduleId}/lessons`}
+  to={`/admin/courses/${courseId}/modules/${module.id}/lessons`}
   className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
 >
   Open
