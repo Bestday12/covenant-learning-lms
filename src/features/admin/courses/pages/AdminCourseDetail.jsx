@@ -61,7 +61,7 @@ function getModuleCount(modules) {
 
 function getLessonCount(modules) {
   if (!Array.isArray(modules)) return 0;
-  // Each module has 5 lesson tabs
+  // Each module has 5 lesson tabs.
   return modules.length * 5;
 }
 
