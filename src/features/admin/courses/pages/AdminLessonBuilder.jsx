@@ -6,6 +6,7 @@ import {
   Loader2, CheckCircle2, AlertCircle, GripVertical,
   Video, FileText, BookOpen, HelpCircle, ClipboardList, CheckSquare,
 } from "lucide-react";
+// Note: VisualQuizBuilder uses useState internally
 import { supabase } from "@/lib/supabase.js";
 import { useToast } from "@/components/ui/ToastProvider.jsx";
 
@@ -21,6 +22,233 @@ const LESSON_TYPES = [
 
 function getLessonType(value) {
   return LESSON_TYPES.find((t) => t.value === value) || LESSON_TYPES[0];
+}
+
+// ── Visual Quiz Builder ───────────────────────────────────────────────────────
+function VisualQuizBuilder({ content, onChange }) {
+  // Parse existing questions from JSON content
+  const parseQuestions = () => {
+    try {
+      const parsed = JSON.parse(content || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const [questions, setQuestions] = useState(parseQuestions);
+
+  const updateContent = (updatedQuestions) => {
+    setQuestions(updatedQuestions);
+    onChange(JSON.stringify(updatedQuestions, null, 2));
+  };
+
+  const addQuestion = () => {
+    const newQuestion = {
+      question: "",
+      options: ["", "", "", ""],
+      correct: 0,
+      explanation: "",
+    };
+    updateContent([...questions, newQuestion]);
+  };
+
+  const updateQuestion = (qIndex, field, value) => {
+    const updated = questions.map((q, i) =>
+      i === qIndex ? { ...q, [field]: value } : q
+    );
+    updateContent(updated);
+  };
+
+  const updateOption = (qIndex, oIndex, value) => {
+    const updated = questions.map((q, i) => {
+      if (i !== qIndex) return q;
+      const newOptions = [...q.options];
+      newOptions[oIndex] = value;
+      return { ...q, options: newOptions };
+    });
+    updateContent(updated);
+  };
+
+  const addOption = (qIndex) => {
+    const updated = questions.map((q, i) => {
+      if (i !== qIndex) return q;
+      return { ...q, options: [...q.options, ""] };
+    });
+    updateContent(updated);
+  };
+
+  const removeOption = (qIndex, oIndex) => {
+    const updated = questions.map((q, i) => {
+      if (i !== qIndex) return q;
+      const newOptions = q.options.filter((_, oi) => oi !== oIndex);
+      const newCorrect = q.correct >= oIndex && q.correct > 0 ? q.correct - 1 : q.correct;
+      return { ...q, options: newOptions, correct: newCorrect };
+    });
+    updateContent(updated);
+  };
+
+  const removeQuestion = (qIndex) => {
+    updateContent(questions.filter((_, i) => i !== qIndex));
+  };
+
+  const moveQuestion = (qIndex, direction) => {
+    const updated = [...questions];
+    const targetIndex = qIndex + direction;
+    if (targetIndex < 0 || targetIndex >= updated.length) return;
+    [updated[qIndex], updated[targetIndex]] = [updated[targetIndex], updated[qIndex]];
+    updateContent(updated);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+            Quiz Questions
+          </label>
+          <p className="text-xs text-slate-400 mt-0.5">{questions.length} question{questions.length !== 1 ? "s" : ""}</p>
+        </div>
+        <button
+          type="button"
+          onClick={addQuestion}
+          className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-purple-700"
+        >
+          <Plus size={12} /> Add Question
+        </button>
+      </div>
+
+      {questions.length === 0 ? (
+        <div className="rounded-xl border-2 border-dashed border-slate-200 p-8 text-center">
+          <HelpCircle size={28} className="text-slate-300 mx-auto mb-3" />
+          <p className="text-sm text-slate-500 mb-1">No questions yet</p>
+          <p className="text-xs text-slate-400 mb-4">Add your first quiz question</p>
+          <button
+            type="button"
+            onClick={addQuestion}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 px-4 py-2 text-xs font-semibold text-white hover:bg-purple-700"
+          >
+            <Plus size={12} /> Add First Question
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {questions.map((q, qIndex) => (
+            <div key={qIndex} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              {/* Question header */}
+              <div className="flex items-start gap-3 mb-3">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700 flex-shrink-0 mt-0.5">
+                  {qIndex + 1}
+                </span>
+                <div className="flex-1">
+                  <textarea
+                    value={q.question}
+                    onChange={(e) => updateQuestion(qIndex, "question", e.target.value)}
+                    placeholder="Type your question here..."
+                    rows={2}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-400 focus:outline-none resize-none"
+                  />
+                </div>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <button type="button" onClick={() => moveQuestion(qIndex, -1)} disabled={qIndex === 0} className="p-1 rounded text-slate-400 hover:bg-slate-200 disabled:opacity-30">
+                    <ChevronUp size={12} />
+                  </button>
+                  <button type="button" onClick={() => moveQuestion(qIndex, 1)} disabled={qIndex === questions.length - 1} className="p-1 rounded text-slate-400 hover:bg-slate-200 disabled:opacity-30">
+                    <ChevronDown size={12} />
+                  </button>
+                  <button type="button" onClick={() => removeQuestion(qIndex)} className="p-1 rounded text-rose-400 hover:bg-rose-50">
+                    <Trash2 size={12} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Options */}
+              <div className="space-y-2 ml-9 mb-3">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">
+                  Answer Options <span className="text-slate-400 normal-case font-normal">(click ● to mark correct)</span>
+                </p>
+                {q.options.map((option, oIndex) => (
+                  <div key={oIndex} className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => updateQuestion(qIndex, "correct", oIndex)}
+                      className={`w-5 h-5 rounded-full border-2 flex-shrink-0 transition-colors ${
+                        q.correct === oIndex
+                          ? "border-emerald-500 bg-emerald-500"
+                          : "border-slate-300 hover:border-emerald-400"
+                      }`}
+                      title="Mark as correct answer"
+                    >
+                      {q.correct === oIndex && (
+                        <CheckCircle2 size={12} className="text-white m-auto" />
+                      )}
+                    </button>
+                    <input
+                      type="text"
+                      value={option}
+                      onChange={(e) => updateOption(qIndex, oIndex, e.target.value)}
+                      placeholder={`Option ${oIndex + 1}...`}
+                      className={`flex-1 rounded-lg border px-3 py-1.5 text-sm focus:outline-none ${
+                        q.correct === oIndex
+                          ? "border-emerald-300 bg-emerald-50 focus:border-emerald-400"
+                          : "border-slate-200 bg-white focus:border-purple-400"
+                      }`}
+                    />
+                    {q.options.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => removeOption(qIndex, oIndex)}
+                        className="p-1 rounded text-slate-300 hover:text-rose-400"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                {q.options.length < 6 && (
+                  <button
+                    type="button"
+                    onClick={() => addOption(qIndex)}
+                    className="ml-7 text-xs text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    + Add option
+                  </button>
+                )}
+              </div>
+
+              {/* Explanation */}
+              <div className="ml-9">
+                <input
+                  type="text"
+                  value={q.explanation || ""}
+                  onChange={(e) => updateQuestion(qIndex, "explanation", e.target.value)}
+                  placeholder="Explanation shown after answering (optional)..."
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 focus:border-purple-400 focus:outline-none"
+                />
+              </div>
+
+              {/* Correct answer indicator */}
+              {q.options[q.correct] && (
+                <div className="ml-9 mt-2">
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <CheckCircle2 size={10} /> Correct: {q.options[q.correct]}
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addQuestion}
+            className="w-full rounded-xl border-2 border-dashed border-slate-200 py-3 text-xs font-medium text-slate-400 hover:border-purple-300 hover:text-purple-500 transition-colors"
+          >
+            + Add Another Question
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 // ── Lesson content editor based on type ──────────────────────────────────────
@@ -93,27 +321,7 @@ function LessonContentEditor({ type, content, onChange }) {
       );
 
     case "quiz":
-      return (
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">
-            Quiz Questions (JSON format)
-          </label>
-          <textarea
-            value={content}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={`[
-  {
-    "question": "What is the key theme of this module?",
-    "options": ["Love", "Communication", "Trust", "All of the above"],
-    "correct": 3
-  }
-]`}
-            rows={10}
-            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm font-mono focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-50 resize-y"
-          />
-          <p className="text-xs text-slate-400 mt-1">Enter questions as a JSON array. "correct" is the 0-based index of the correct answer.</p>
-        </div>
-      );
+      return <VisualQuizBuilder content={content} onChange={onChange} />;
 
     case "worksheet":
       return (
