@@ -122,16 +122,12 @@ useEffect(() => {
           {/* Gold bottom bar */}
           <div style={{ background: "linear-gradient(135deg, #c9960c, #e8b422)", height: "4px" }} />
 
-        </div>
-
+       </div>
        {/* Footer note */}
         <p style={{ margin: "20px 0 0", textAlign: "center", fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>
           Questions? Email <a href="mailto:support@covenantmarriagehelp.com" style={{ color: "#f5d060", textDecoration: "none" }}>support@covenantmarriagehelp.com</a>
         </p>
-      
-        </div>
       </div>
-
       <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
         <CourseUpsell
           completedCourseId={null}
