@@ -69,14 +69,32 @@ export async function fetchEnrollmentsByCourse() {
 export async function fetchRecentEnrollments(limit = 8) {
   if (!supabase) return [];
 
+  // Fetch enrollments and courses together
   const { data, error } = await supabase
     .from("enrollments")
-    .select("id, enrolled_at, course_id, user_id, courses(title), profiles!enrollments_user_id_fkey(full_name, email)")
+    .select("id, enrolled_at, course_id, user_id, courses(title)")
     .order("enrolled_at", { ascending: false })
     .limit(limit);
 
   if (error) throw error;
-  return data || [];
+  if (!data?.length) return [];
+
+  // Fetch profiles separately for each user
+  const userIds = [...new Set(data.map((e) => e.user_id))];
+  const { data: profiles } = await supabase
+    .from("profiles")
+    .select("id, full_name, email")
+    .in("id", userIds);
+
+  const profileMap = {};
+  for (const p of profiles || []) {
+    profileMap[p.id] = p;
+  }
+
+  return data.map((e) => ({
+    ...e,
+    profiles: profileMap[e.user_id] || null,
+  }));
 }
 
 export async function fetchRecentActivity() {
