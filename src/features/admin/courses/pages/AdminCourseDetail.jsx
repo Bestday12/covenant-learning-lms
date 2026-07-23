@@ -1,6 +1,8 @@
 ﻿// src/features/admin/courses/pages/AdminCourseDetail.jsx
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { BookOpen, Edit, PencilLine, Tag } from "lucide-react";
+import Button from "@/components/ui/Button.jsx";
 import {
   ArrowLeft,
   BookOpen,
