@@ -105,23 +105,23 @@ function mapCourseRow(row) {
   const curriculum = getCurriculum(modules);
   const derivedOutcomes = getOutcomes(modules);
 
-  return {
-    id: row.id,
-    slug: row.id,
-    title: row.title || "Untitled course",
-    description: row.description || "No description added yet.",
-    status: "published",
-    visibility: "public",
-    category: "General",
-    level: "Not set",
-    price: 0,
-    duration:
-      moduleCount > 0
-        ? `${moduleCount} module${moduleCount > 1 ? "s" : ""}`
-        : "—",
-    lessons: lessonCount,
-    modules: moduleCount,
-    instructor: "Not assigned",
+return {
+  id: row.id,
+  slug: row.id,
+  title: row.title || "Untitled course",
+  description: row.description || "No description added yet.",
+  status: "published",
+  visibility: "public",
+  category: row.category || "General",
+  level: row.level || "Not set",
+  price: row.price || 0,
+  duration: row.duration ||
+    (moduleCount > 0
+      ? `${moduleCount} module${moduleCount > 1 ? "s" : ""}`
+      : "—"),
+  lessons: lessonCount,
+  modules: moduleCount,
+  instructor: row.instructor || "Not assigned",
     updatedAt: row.updated_at,
     createdAt: row.created_at,
     outcomes:
