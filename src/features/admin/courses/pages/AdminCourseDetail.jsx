@@ -180,7 +180,7 @@ export default function AdminCourseDetail() {
 
         const { data, error } = await supabase
           .from("courses")
-          .select("id, title, description, modules, bonus_resources, created_at, updated_at")
+          .select("id, title, description, modules, bonus_resources, created_at, updated_at, price, stripe_price_id, instructor, level, category, duration")
           .eq("id", courseId)
           .single();
 
