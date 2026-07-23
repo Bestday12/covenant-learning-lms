@@ -379,45 +379,27 @@ export default function Certificate() {
               )}
             </div>
 
-            {/* Instructor */}
-<div style={{ textAlign: "center" }}>
-  <div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
-    {S.signatureUrl ? (
+<div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
+  {S.signatureUrl ? (
+    <div>
       <img
         src={S.signatureUrl}
         alt="Signature"
-        style={{ height: 36, maxWidth: 160, objectFit: "contain", marginBottom: 2, display: "block", margin: "0 auto 2px" }}
+        style={{ height: 36, maxWidth: 160, objectFit: "contain", display: "block", margin: "0 auto 2px" }}
       />
-    ) : (
-      <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
-        {S.signatureUrl ? (
-  <>
-    <img
-      src={S.signatureUrl}
-      alt="Signature"
-      style={{ height: 36, maxWidth: 160, objectFit: "contain", display: "block", margin: "0 auto 2px" }}
-    />
-    <p style={{ fontSize: 10, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", fontWeight: 600 }}>
-      {S.instructorName}
-    </p>
-  </>
-) : (
-  <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
-    {S.instructorName}
-  </p>
-)}
-    )}
-    <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
-      {S.instructorTitle}
-    </p>
-    {S.signatureUrl && (
-      <p style={{ fontSize: 9, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", marginTop: 1 }}>
+      <p style={{ fontSize: 10, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", fontWeight: 600 }}>
         {S.instructorName}
       </p>
-    )}
-  </div>
+    </div>
+  ) : (
+    <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
+      {S.instructorName}
+    </p>
+  )}
+  <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
+    {S.instructorTitle}
+  </p>
 </div>
-
           {/* QR Code */}
           {qrDataUrl && certRecord?.certificate_number && (
             <div style={{ position: "absolute", bottom: 44, right: 72, textAlign: "center" }}>
