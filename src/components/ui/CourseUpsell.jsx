@@ -63,8 +63,12 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
     if (completedCourseId) loadRecommendations();
   }, [completedCourseId, userId]);
 
-  if (loading || recommendations.length === 0) return null;
-
+if (loading) return (
+  <div className="mt-10 max-w-2xl mx-auto px-6 text-center">
+    <p className="text-xs text-gray-400">Loading recommendations...</p>
+  </div>
+);
+if (recommendations.length === 0) return null;
   // Certificate page variant — elegant, scripture-inspired
   if (variant === "certificate") {
     return (
