@@ -131,14 +131,17 @@ useEffect(() => {
       </div>
 
       
-      {/* Upsell — shown below the main card */}
-      <div style={{ background: "#ffffff", borderRadius: "16px", marginTop: "16px", padding: "8px 0" }}>
-        <CourseUpsell
-          completedCourseId={null}
-          userId={user?.id}
-          variant="thankyou"
-        />
-      </div>
+     
+     </div>
+    </div>
+
+    {/* Upsell — below purple section, full width */}
+    <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
+      <CourseUpsell
+        completedCourseId={null}
+        userId={user?.id}
+        variant="thankyou"
+      />
     </div>
   );
 }
