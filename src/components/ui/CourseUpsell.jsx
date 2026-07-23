@@ -3,7 +3,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Star } from "lucide-react";
-import { supabase } from "@/lib/supabase.js";
+import { createClient } from "@supabase/supabase-js";
+
+
+const publicClient = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY,
+  { auth: { persistSession: false } }
+);
 
 // Course relationship map - which courses to recommend after each
 const NEXT_COURSE_MAP = {
@@ -26,7 +33,7 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
   try {
     const nextIds = NEXT_COURSE_MAP[completedCourseId] || [];
     
-    let query = supabase
+    let query = publicClient
       .from("courses")
       .select("id, title, description, price");
 
@@ -44,7 +51,7 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
 
     // Only filter enrollments if user is logged in
     if (userId) {
-      const { data: enrollments } = await supabase
+      const { data: enrollments } = await publicClient
         .from("enrollments")
         .select("course_id")
         .eq("user_id", userId);
