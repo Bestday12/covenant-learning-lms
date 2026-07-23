@@ -15,10 +15,6 @@ import AdminLessonBuilder from "@/features/admin/courses/pages/AdminLessonBuilde
 import AdminCertificateBuilder from "@/features/admin/certificates/pages/AdminCertificateBuilder.jsx";
 import AdminAffiliates from "@/features/admin/affiliates/pages/AdminAffiliates.jsx";
 
-// Add route:
-{ path: "affiliates", element: <AdminAffiliates /> },
-
-
 
 export function AdminGuard() {
   const { isAuthenticated, role, loading } = useAuth();
