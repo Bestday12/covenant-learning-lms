@@ -11,6 +11,7 @@ import { fetchCourseById } from "@/services/courseService.js";
 import { useQuery } from "@tanstack/react-query";
 import { getDisplayName } from "@/utils/getDisplayName.js";
 import { supabase } from "@/lib/supabase.js";
+import CourseUpsell from "@/components/ui/CourseUpsell.jsx";
 import QRCode from "https://esm.sh/qrcode@1.5.3";
 
 const LMS_URL = "https://learn.covenantmarriagehelp.com";
@@ -396,6 +397,13 @@ export default function Certificate() {
           <p className="text-brand-400 text-xs mt-1">
             Completed: <strong className="text-brand-600">{course?.title}</strong> · {dateString}
           </p>
+		  {isCourseComplete && (
+  <CourseUpsell
+    completedCourseId={courseId}
+    userId={user?.id}
+    variant="certificate"
+  />
+)}
         </div>
       )}
 

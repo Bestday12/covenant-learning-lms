@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, BookOpen, Mail, MessageCircle, ArrowRight } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { trackPurchase } from "@/hooks/useFacebookPixel.js";
+import CourseUpsell from "@/components/ui/CourseUpsell.jsx";
 
 
 export default function ThankYou() {
@@ -62,6 +63,12 @@ useEffect(() => {
               Check your inbox — we've sent your course access details and a personal welcome from Reverend Sam. 
               {user ? "" : " If this is your first purchase, your login credentials are in that email."}
             </p>
+			
+			<CourseUpsell
+  completedCourseId={courseId}
+  userId={user?.id}
+  variant="thankyou"
+/>
 
             {/* What happens next */}
             <div style={{ background: "#faf6ef", border: "1px solid rgba(201,150,12,0.2)", borderRadius: "12px", padding: "24px", marginBottom: "28px" }}>
