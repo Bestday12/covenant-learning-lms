@@ -32,11 +32,13 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
 
         // Fetch course details
         let query = supabase.from("courses").select("id, title, description, price");
-        if (courseIds.length > 0) {
-          query = query.in("id", courseIds);
-        } else {
-          query = query.neq("id", completedCourseId).limit(2);
-        }
+if (courseIds.length > 0) {
+  query = query.in("id", courseIds);
+} else if (completedCourseId) {
+  query = query.neq("id", completedCourseId).limit(2);
+} else {
+  query = query.limit(2);
+}
 
         const { data: courses } = await query;
 
