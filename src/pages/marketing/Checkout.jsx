@@ -5,6 +5,8 @@ import { CheckCircle2, ShieldCheck, Lock } from "lucide-react";
 import { SALES_CONTENT } from "@/data/salesPageContent.js";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { supabase } from "@/lib/supabase.js";
+import { trackInitiateCheckout } from "@/hooks/useFacebookPixel.js";
+
 
 // ✅ Supabase Edge Function URL — this actually runs, unlike /api/... in Vite
 const CHECKOUT_FUNCTION_URL =
@@ -15,7 +17,33 @@ export default function Checkout() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const content = SALES_CONTENT[courseId];
+
+const staticContent = SALES_CONTENT[courseId];
+const [dbCourse, setDbCourse] = useState(null);
+
+useEffect(() => {
+  if (!staticContent && courseId) {
+    supabase
+      .from("courses")
+      .select("id, title, description, price")
+      .eq("id", courseId)
+      .single()
+      .then(({ data }) => { if (data) setDbCourse(data); });
+  }
+}, [courseId, staticContent]);
+
+const content = staticContent || (dbCourse ? {
+  id: dbCourse.id,
+  badge: "ONLINE COURSE",
+  title: dbCourse.title,
+  titleAccent: "",
+  subtitle: dbCourse.description || "",
+  price: dbCourse.price || 0,
+  heroPoints: [],
+  included: ["Biblical teaching modules", "Completion certificate"],
+  whoFor: [],
+  outcomes: [],
+} : null);  
   const [loading, setLoading] = useState(false);
   const [fullName, setFullName] = useState(user?.user_metadata?.full_name || "");
   const [email, setEmail] = useState(user?.email || "");
@@ -28,15 +56,21 @@ export default function Checkout() {
     }
   }, [user, navigate]);
 
-  if (!content) {
-    return <div className="max-w-3xl mx-auto py-24 text-center">Course not found.</div>;
-  }
+  if (!content && !dbCourse) {
+  return (
+    <div className="max-w-3xl mx-auto py-24 text-center">
+      <div className="animate-spin w-8 h-8 border-4 border-brand-200 border-t-brand-600 rounded-full mx-auto mb-4" />
+      <p className="text-brand-500">Loading course...</p>
+    </div>
+  );
+}
 
   const bumpPrice = 17;
   const total = content.price + (addBump ? bumpPrice : 0);
 
   const handlePay = async (e) => {
     e.preventDefault();
+	trackInitiateCheckout(courseId, content?.title, content?.price);
     if (!email || !fullName.trim()) {
       alert("Please fill in all fields");
       return;
