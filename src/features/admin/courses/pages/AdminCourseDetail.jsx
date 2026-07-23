@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase.js";
 
+
 function formatDate(value) {
   if (!value) return "—";
 
