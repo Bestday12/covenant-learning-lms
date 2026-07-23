@@ -11,6 +11,7 @@ import AdminSettings from "@/features/admin/settings/pages/AdminSettings.jsx";
 import AdminCreateCourse from "@/features/admin/courses/pages/AdminCreateCourse.jsx";
 import AdminEditCourse from "@/features/admin/courses/pages/AdminEditCourse.jsx";
 import AdminModuleBuilder from "@/features/admin/courses/pages/AdminModuleBuilder.jsx";
+import AdminLessonBuilder from "@/features/admin/courses/pages/AdminLessonBuilder.jsx";
 
 
 export function AdminGuard() {
@@ -75,6 +76,10 @@ export const adminChildren = [
   {
   path: "courses/:courseId/modules",
   element: <AdminModuleBuilder />,
+},
+{
+  path: "courses/:courseId/modules/:moduleId/lessons",
+  element: <AdminLessonBuilder />,
 },
   
   {
