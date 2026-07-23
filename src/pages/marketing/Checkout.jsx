@@ -6,6 +6,8 @@ import { SALES_CONTENT } from "@/data/salesPageContent.js";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
 import { supabase } from "@/lib/supabase.js";
 import { trackInitiateCheckout } from "@/hooks/useFacebookPixel.js";
+import { getReferralCode } from "@/hooks/useReferral.js";
+
 
 
 // ✅ Supabase Edge Function URL — this actually runs, unlike /api/... in Vite
@@ -96,6 +98,7 @@ const response = await fetch(CHECKOUT_FUNCTION_URL, {
     fullName: fullName.trim(),
     successUrl: `${window.location.origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.href,
+	referralCode: getReferralCode(),
   }),
 });
 

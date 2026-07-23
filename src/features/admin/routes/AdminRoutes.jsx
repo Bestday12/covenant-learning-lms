@@ -13,6 +13,10 @@ import AdminEditCourse from "@/features/admin/courses/pages/AdminEditCourse.jsx"
 import AdminModuleBuilder from "@/features/admin/courses/pages/AdminModuleBuilder.jsx";
 import AdminLessonBuilder from "@/features/admin/courses/pages/AdminLessonBuilder.jsx";
 import AdminCertificateBuilder from "@/features/admin/certificates/pages/AdminCertificateBuilder.jsx";
+import AdminAffiliates from "@/features/admin/affiliates/pages/AdminAffiliates.jsx";
+
+// Add route:
+{ path: "affiliates", element: <AdminAffiliates /> },
 
 
 
@@ -87,7 +91,12 @@ export const adminChildren = [
   path: "certificates",
   element: <AdminCertificateBuilder />,
 },
-  
+ 
+ { path: "affiliates", 
+  element: <AdminAffiliates /> 
+ 
+ },
+ 
   {
     path: "*",
     element: <Navigate to="dashboard" replace />,

@@ -5,6 +5,8 @@ import ErrorBoundary from "@/components/ui/ErrorBoundary.jsx";
 import LoadingScreen from "@/components/ui/LoadingScreen.jsx";
 import ToastProvider from "@/components/ui/ToastProvider.jsx";
 import { seedCoursesToSupabase } from "@/services/courseService.js";
+import { captureReferral } from "@/hooks/useReferral.js";
+
 
 export default function App() {
   useEffect(() => { seedCoursesToSupabase(); }, []);
@@ -18,6 +20,7 @@ export default function App() {
         </ToastProvider>
       </AuthProvider>
     </ErrorBoundary>
+	</captureReferral>
   );
 }
 

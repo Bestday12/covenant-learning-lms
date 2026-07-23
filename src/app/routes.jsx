@@ -4,6 +4,8 @@ import ProtectedRoute from "@/features/auth/ProtectedRoute.jsx";
 import MainLayout from "@/components/ui/MainLayout.jsx";
 import MarketingLayout from "@/components/ui/MarketingLayout.jsx";
 import { AdminGuard, AdminShellRoute, adminChildren } from "@/features/admin/routes/AdminRoutes.jsx";
+import AffiliateDashboard from "@/pages/AffiliateDashboard.jsx";
+
 
 const Login = lazy(() => import("@/pages/Login.jsx"));
 const Signup = lazy(() => import("@/pages/Signup.jsx"));
@@ -56,6 +58,7 @@ export default function AppRoutes() {
 		<Route path="/update-password" element={<UpdatePassword />} />
 		<Route path="/verify/:certificateNumber" element={<CertificateVerify />} />
 		<Route path="/verify" element={<Navigate to="/" replace />} />
+		<Route path= "/affiliate" element={ <AffiliateDashboard /> }/>
 
       </Route>
 

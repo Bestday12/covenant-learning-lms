@@ -55,7 +55,12 @@ export default function MainLayout() {
                   <Link to="/admin" className="flex items-center gap-1 hover:text-accent-600">
                     <ShieldCheck size={16} /> Admin
                   </Link>
+				  
                 )}
+				
+				 <Link to="/affiliate" className="flex items-center gap-1 hover:text-accent-600">
+      <span className="text-gold-500"></span> Affiliate
+    </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1 hover:text-accent-600"
@@ -102,6 +107,9 @@ export default function MainLayout() {
                   {role === "admin" && (
                     <Link to="/admin" className="hover:text-accent-600">Admin</Link>
                   )}
+				  <Link to="/affiliate" className="flex items-center gap-1 hover:text-accent-600">
+                  <span className="text-gold-500"></span> Affiliate
+                </Link>
                   <button onClick={handleLogout} className="text-left hover:text-accent-600">Sign out</button>
                 </>
               ) : (
