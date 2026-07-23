@@ -132,7 +132,6 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* ✅ Upsell section - below purple background */}
       <div style={{ background: "#f3ede1", padding: "32px 16px" }}>
         <CourseUpsell
           completedCourseId={null}
