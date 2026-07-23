@@ -183,7 +183,7 @@ function CertificatePreview({ settings, studentName = "Student Name", courseName
         )}
 
         {/* Signatures */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 60, width: "100%", maxWidth: 480 }}>
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 40, width: "100%", maxWidth: 520 }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ borderTop: `1px solid ${s.primaryColor}`, paddingTop: 6, minWidth: 100 }}>
               <p style={{ fontSize: 10, color: s.primaryColor, fontWeight: 700, fontFamily: s.bodyFont, letterSpacing: "0.05em" }}>
@@ -201,7 +201,7 @@ function CertificatePreview({ settings, studentName = "Student Name", courseName
             <p style={{ fontSize: 7, color: s.accentColor, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.18em", fontFamily: s.bodyFont }}>Verified</p>
           </div>
           <div style={{ textAlign: "center" }}>
-            <div style={{ borderTop: `1px solid ${s.primaryColor}`, paddingTop: 6, minWidth: 120 }}>
+            <div style={{ borderTop: `1px solid ${s.primaryColor}`, paddingTop: 6, minWidth: 160 }}>
               <p style={{ fontSize: 10, color: s.primaryColor, fontFamily: s.bodyFont, letterSpacing: "0.03em", fontWeight: 600 }}>
                 {s.instructorName}
               </p>
