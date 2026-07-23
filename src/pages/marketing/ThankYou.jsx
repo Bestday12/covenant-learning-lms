@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, BookOpen, Mail, MessageCircle, ArrowRight } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthProvider.jsx";
+import { trackPurchase } from "@/hooks/useFacebookPixel.js";
+
 
 export default function ThankYou() {
   const [searchParams] = useSearchParams();
@@ -19,6 +21,13 @@ export default function ThankYou() {
     const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown]);
+
+useEffect(() => {
+  const sessionId = searchParams.get("session_id");
+  if (sessionId) {
+    trackPurchase(courseId || "unknown", "Course Purchase", 0, sessionId);
+  }
+}, []);
 
   return (
     <div style={{ background: "linear-gradient(135deg, #3d0a6e 0%, #5a1a9a 50%, #2a0550 100%)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
