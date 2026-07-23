@@ -9,13 +9,15 @@ import { captureReferral } from "@/hooks/useReferral.js";
 
 
 export default function App() {
-  useEffect(() => { seedCoursesToSupabase(); }, []);
+  useEffect(() => { 
+    seedCoursesToSupabase();
+    captureReferral(); // ← just call it here
+  }, []);
   return (
     <ErrorBoundary>
       <AuthProvider>
         <ToastProvider>
           <Suspense fallback={<LoadingScreen />}>
-		   <CaptureReferral />
             <AppRoutes />
           </Suspense>
         </ToastProvider>
@@ -23,6 +25,5 @@ export default function App() {
     </ErrorBoundary>
   );
 }
-
 
 
