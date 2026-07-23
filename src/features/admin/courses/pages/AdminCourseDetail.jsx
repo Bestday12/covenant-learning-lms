@@ -67,17 +67,19 @@ function getLessonCount(modules) {
 
 function getCurriculum(modules) {
   if (!Array.isArray(modules)) return [];
-
   return modules.map((moduleItem, index) => {
     const title =
+      moduleItem?.moduleTitle ||
       moduleItem?.title ||
       moduleItem?.name ||
       `Module ${index + 1}`;
-
+    const moduleId =
+      moduleItem?.moduleId ||
+      `module-${index + 1}`;
     return {
-      id: `${title}-${index}`,
+      id: moduleId,
       title,
-      items: 5, // Each module has 5 lessons
+      items: Array.isArray(moduleItem?.lessons) ? moduleItem.lessons.length : 5,
     };
   });
 }
