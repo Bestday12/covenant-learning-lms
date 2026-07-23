@@ -39,6 +39,7 @@ const DEFAULTS = {
   secondaryColor: "#5a1a9a",
   institutionName: "Covenant Learning",
   instructorTitle: "Course Instructor",
+  signatureUrl: null, 
   showInnerBorder: true,
   certificateTitle: "Certificate of Completion",
   innerBorderColor: "#c9960c",
@@ -379,17 +380,43 @@ export default function Certificate() {
             </div>
 
             {/* Instructor */}
-            <div style={{ textAlign: "center" }}>
-              <div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
-                <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
-                  {S.instructorName}
-                </p>
-                <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
-                  {S.instructorTitle}
-                </p>
-              </div>
-            </div>
-          </div>
+<div style={{ textAlign: "center" }}>
+  <div style={{ borderTop: `1px solid ${S.primaryColor}`, paddingTop: 7, minWidth: 160 }}>
+    {S.signatureUrl ? (
+      <img
+        src={S.signatureUrl}
+        alt="Signature"
+        style={{ height: 36, maxWidth: 160, objectFit: "contain", marginBottom: 2, display: "block", margin: "0 auto 2px" }}
+      />
+    ) : (
+      <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
+        {S.signatureUrl ? (
+  <>
+    <img
+      src={S.signatureUrl}
+      alt="Signature"
+      style={{ height: 36, maxWidth: 160, objectFit: "contain", display: "block", margin: "0 auto 2px" }}
+    />
+    <p style={{ fontSize: 10, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", fontWeight: 600 }}>
+      {S.instructorName}
+    </p>
+  </>
+) : (
+  <p style={{ fontSize: 12, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", wordSpacing: "0.1em", fontWeight: 600 }}>
+    {S.instructorName}
+  </p>
+)}
+    )}
+    <p style={{ fontSize: 8, color: S.textMid, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: S.bodyFont }}>
+      {S.instructorTitle}
+    </p>
+    {S.signatureUrl && (
+      <p style={{ fontSize: 9, color: S.primaryColor, fontFamily: S.bodyFont, letterSpacing: "0.04em", marginTop: 1 }}>
+        {S.instructorName}
+      </p>
+    )}
+  </div>
+</div>
 
           {/* QR Code */}
           {qrDataUrl && certRecord?.certificate_number && (
