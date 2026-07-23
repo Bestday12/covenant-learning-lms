@@ -71,7 +71,7 @@ export async function fetchRecentEnrollments(limit = 8) {
 
   const { data, error } = await supabase
     .from("enrollments")
-    .select("id, enrolled_at, course_id, user_id, courses(title), profiles(full_name, email)")
+    .select("id, enrolled_at, course_id, user_id, courses(title), profiles!enrollments_user_id_fkey(full_name, email)")
     .order("enrolled_at", { ascending: false })
     .limit(limit);
 
