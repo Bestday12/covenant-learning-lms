@@ -15,12 +15,12 @@ export default function App() {
       <AuthProvider>
         <ToastProvider>
           <Suspense fallback={<LoadingScreen />}>
+		   <CaptureReferral />
             <AppRoutes />
           </Suspense>
         </ToastProvider>
       </AuthProvider>
     </ErrorBoundary>
-	</captureReferral>
   );
 }
 
