@@ -23,44 +23,43 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
 
   useEffect(() => {
     async function loadRecommendations() {
-      try {
-        // Get next course IDs for this course
-        const nextIds = NEXT_COURSE_MAP[completedCourseId] || [];
+  try {
+    const nextIds = NEXT_COURSE_MAP[completedCourseId] || [];
+    
+    let query = supabase
+      .from("courses")
+      .select("id, title, description, price");
 
-        // Get all courses if no specific recommendations
-        const courseIds = nextIds.length > 0 ? nextIds : [];
-
-        // Fetch course details
-        let query = supabase.from("courses").select("id, title, description, price");
-if (courseIds.length > 0) {
-  query = query.in("id", courseIds);
-} else if (completedCourseId) {
-  query = query.neq("id", completedCourseId).limit(2);
-} else {
-  query = query.limit(2);
-}
-
-        const { data: courses } = await query;
-
-        // Filter out already enrolled courses
-        if (userId && courses?.length) {
-          const { data: enrollments } = await supabase
-            .from("enrollments")
-            .select("course_id")
-            .eq("user_id", userId);
-
-          const enrolledIds = new Set((enrollments || []).map((e) => e.course_id));
-          const filtered = (courses || []).filter((c) => !enrolledIds.has(c.id)).slice(0, 2);
-          setRecommendations(filtered);
-        } else {
-          setRecommendations((courses || []).slice(0, 2));
-        }
-      } catch (err) {
-        console.error("Failed to load recommendations:", err);
-      } finally {
-        setLoading(false);
-      }
+    if (nextIds.length > 0) {
+      query = query.in("id", nextIds);
+    } else if (completedCourseId) {
+      query = query.neq("id", completedCourseId).limit(2);
+    } else {
+      query = query.limit(2);
     }
+
+    const { data: courses } = await query;
+
+    if (!courses?.length) { setLoading(false); return; }
+
+    // Only filter enrollments if user is logged in
+    if (userId) {
+      const { data: enrollments } = await supabase
+        .from("enrollments")
+        .select("course_id")
+        .eq("user_id", userId);
+      const enrolledIds = new Set((enrollments || []).map((e) => e.course_id));
+      setRecommendations(courses.filter((c) => !enrolledIds.has(c.id)).slice(0, 2));
+    } else {
+      // Not logged in — show all recommendations
+      setRecommendations(courses.slice(0, 2));
+    }
+  } catch (err) {
+    console.error("Failed to load recommendations:", err);
+  } finally {
+    setLoading(false);
+  }
+}
     if (completedCourseId) loadRecommendations();
   }, [completedCourseId, userId]);
 
