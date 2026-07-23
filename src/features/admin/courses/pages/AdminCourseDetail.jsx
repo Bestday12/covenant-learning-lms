@@ -448,12 +448,12 @@ export default function AdminCourseDetail() {
                       </p>
                     </div>
 
-                    <button
-                      type="button"
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
-                    >
-                      Open
-                    </button>
+                    <Link
+  to={`/admin/courses/${courseId}/modules/${mod.moduleId}/lessons`}
+  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
+>
+  Open
+</Link>
                   </div>
                 ))
               ) : (
