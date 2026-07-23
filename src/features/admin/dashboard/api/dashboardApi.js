@@ -79,7 +79,7 @@ export async function fetchRecentEnrollments(limit = 8) {
   if (error) throw error;
   if (!data?.length) return [];
 
-  // Fetch profiles separately for each user
+  // Fetch profiles separately for each user.
   const userIds = [...new Set(data.map((e) => e.user_id))];
   const { data: profiles } = await supabase
     .from("profiles")
