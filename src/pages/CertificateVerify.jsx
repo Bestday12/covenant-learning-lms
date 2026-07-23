@@ -80,7 +80,7 @@ export default function CertificateVerify() {
               <div style={{ space: "y-4" }}>
                 {[
                   { icon: User, label: "Awarded To", value: data.profiles?.full_name || data.profiles?.email || "Student" },
-				  { icon: BookOpen, label: "Course Completed", value: data?.course_id?.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()) || "" },
+				  { icon: BookOpen, label: "Course Completed", value: data?.course_id ? data.course_id.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "" },
                   { icon: Calendar, label: "Date of Issue", value: issuedDate },
                   { icon: Award, label: "Issued By", value: "Covenant Learning · Covenant Marriage Help Limited" },
                 ].map((item, i) => (
