@@ -141,7 +141,9 @@ export default function MainLayout() {
                 <li><a href="https://covenantmarriagehelp.com/course-parenting-as-a-team.html" className="text-brand-500 hover:text-accent-600">Parenting as a Team</a></li>
                 <li><a href="https://covenantmarriagehelp.com/course-blended-family-foundations.html" className="text-brand-500 hover:text-accent-600">Blended Family Foundations</a></li>
                 <li><a href="https://covenantmarriagehelp.com/course-communication-that-builds-marriage.html" className="text-brand-500 hover:text-accent-600">Communication That Builds Marriage</a></li>
-              </ul>
+				<li><a href="https://covenantmarriagehelp.com/course-newlywed-navigation.html" className="text-brand-400 hover:text-white transition-colors text-sm">The Newlywed Navigation</a></li>
+				<li><a href="https://covenantmarriagehelp.com/course-sacred-purpose.html" className="text-brand-400 hover:text-white transition-colors text-sm">Sacred Purpose</a></li>
+			 </ul>
             </div>
             <div>
               <h4 className="font-semibold text-sm text-brand-700 mb-3">Company</h4>
