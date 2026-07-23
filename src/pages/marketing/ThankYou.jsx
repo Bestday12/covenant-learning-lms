@@ -11,7 +11,7 @@ export default function ThankYou() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { user } = useAuth();
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(20);
 
   // Auto-redirect to dashboard after 10 seconds
   useEffect(() => {
@@ -64,12 +64,6 @@ useEffect(() => {
               {user ? "" : " If this is your first purchase, your login credentials are in that email."}
             </p>
 			
-			<CourseUpsell
-  completedCourseId={null}
-  userId={user?.id}
-  variant="thankyou"
-/>
-
             {/* What happens next */}
             <div style={{ background: "#faf6ef", border: "1px solid rgba(201,150,12,0.2)", borderRadius: "12px", padding: "24px", marginBottom: "28px" }}>
               <p style={{ margin: "0 0 16px", fontSize: "13px", fontWeight: "700", color: "#c9960c", textTransform: "uppercase", letterSpacing: "1px" }}>
@@ -130,12 +124,19 @@ useEffect(() => {
 
         </div>
 
-        {/* Footer note */}
+       {/* Footer note */}
         <p style={{ margin: "20px 0 0", textAlign: "center", fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>
           Questions? Email <a href="mailto:support@covenantmarriagehelp.com" style={{ color: "#f5d060", textDecoration: "none" }}>support@covenantmarriagehelp.com</a>
         </p>
-
       </div>
+
+      {/* Upsell — shown below the main card */}
+      <CourseUpsell
+        completedCourseId={null}
+        userId={user?.id}
+        variant="thankyou"
+      />
+
     </div>
   );
 }
