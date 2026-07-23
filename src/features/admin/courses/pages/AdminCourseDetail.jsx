@@ -12,7 +12,7 @@ import {
   Layers3,
   PencilLine,
   Tag,
-  Video,
+  VideoIcon, 
 } from "lucide-react";
 import { supabase } from "@/lib/supabase.js";
 
