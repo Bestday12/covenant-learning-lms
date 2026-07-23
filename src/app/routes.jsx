@@ -55,6 +55,7 @@ export default function AppRoutes() {
         <Route path="/signup" element={<Signup />} />
 		<Route path="/update-password" element={<UpdatePassword />} />
 		<Route path="/verify/:certificateNumber" element={<CertificateVerify />} />
+		<Route path="/verify" element={<Navigate to="/" replace />} />
 
       </Route>
 
