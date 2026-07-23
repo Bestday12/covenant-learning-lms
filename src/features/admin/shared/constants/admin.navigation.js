@@ -4,4 +4,5 @@
   { key: "courses", label: "Courses", path: "/admin/courses" },
   { key: "partners", label: "Partners", path: "/admin/partners" },
   { key: "settings", label: "Settings", path: "/admin/settings" },
+  { key: "certificates", label: "Certificates", path: "/admin/certificates", icon: "Award" },
 ];
