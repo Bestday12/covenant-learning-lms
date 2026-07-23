@@ -146,7 +146,7 @@ export default function CourseUpsell({ completedCourseId, userId, variant = "cer
   // Thank You page variant
   if (variant === "thankyou") {
     return (
-      <div className="mt-6 max-w-2xl mx-auto px-6">
+      <div className="mt-2 w-full px-4">
         <div className="rounded-[24px] border-2 border-accent-200 bg-gradient-to-br from-accent-50 to-white p-6">
           <div className="text-center mb-6">
             <span className="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1.5 rounded-full mb-3">
