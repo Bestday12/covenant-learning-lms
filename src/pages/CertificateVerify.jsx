@@ -17,10 +17,10 @@ export default function CertificateVerify() {
       if (!certificateNumber) { setStatus("invalid"); return; }
       try {
         const { data: cert, error } = await supabase
-          .from("certificates")
-          .select("certificate_number, issued_at, course_id, courses(title), profiles(full_name, email)")
-          .eq("certificate_number", certificateNumber.toUpperCase())
-          .maybeSingle();
+  .from("certificates")
+  .select("certificate_number, issued_at, course_id")
+  .eq("certificate_number", certificateNumber.toUpperCase())
+  .maybeSingle();
 
         if (error || !cert) {
           setStatus("invalid");
@@ -80,6 +80,7 @@ export default function CertificateVerify() {
               <div style={{ space: "y-4" }}>
                 {[
                   { icon: User, label: "Awarded To", value: data.profiles?.full_name || data.profiles?.email || "Student" },
+				  { icon: BookOpen, label: "Course Completed", value: cert?.course_id?.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()) || data.course_id },
                   { icon: BookOpen, label: "Course Completed", value: data.courses?.title || data.course_id },
                   { icon: Calendar, label: "Date of Issue", value: issuedDate },
                   { icon: Award, label: "Issued By", value: "Covenant Learning · Covenant Marriage Help Limited" },
