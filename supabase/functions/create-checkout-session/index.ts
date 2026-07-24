@@ -68,7 +68,7 @@ serve(async (req: Request) => {
   }
 
   try {
-    const { courseId, userId, email, fullName, successUrl, cancelUrl } = await req.json();
+    const { courseId, userId, email, fullName, successUrl, cancelUrl, referralCode } = await req.json();
 
     const course = COURSES[courseId];
     if (!course) {
@@ -109,11 +109,11 @@ serve(async (req: Request) => {
 
       // Critical — these are what the webhook reads to enroll the user
       metadata: {
-        course_id: courseId,
-        user_id: userId,
-        customer_email: email,
-        customer_name: fullName || "",
-      },
+  course_id: courseId,
+  user_id: userId,
+  customer_email: customerEmail,
+  referral_code: referralCode || "",
+},
 
       customer_email: email,
       billing_address_collection: "required",
