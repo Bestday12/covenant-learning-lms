@@ -145,14 +145,14 @@ export default function AdminAnalytics() {
           const date = new Date(e.enrolled_at);
           const key = date.toLocaleDateString("en-GB", { month: "short", year: "2-digit" });
           if (!monthMap[key]) monthMap[key] = { revenue: 0, enrollments: 0 };
-          monthMap[key].revenue += (e.courses as any)?.price || 0;
+          monthMap[key].revenue += e.courses?.price || 0;
           monthMap[key].enrollments += 1;
         }
         const monthData = Object.entries(monthMap).map(([month, data]) => ({ month, ...data }));
         setRevenueData(monthData);
 
         // Total revenue and enrollments
-        const totalRevenue = (enrollments || []).reduce((s, e) => s + ((e.courses as any)?.price || 0), 0);
+        const totalRevenue = (enrollments || []).reduce((s, e) => s + (e.courses?.price || 0), 0);
         const totalEnrollments = (enrollments || []).length;
 
         // Completion rates by course
@@ -173,7 +173,7 @@ export default function AdminAnalytics() {
         const enrollMap = {};
         for (const e of enrollments || []) {
           if (!enrollMap[e.course_id]) enrollMap[e.course_id] = new Set();
-          enrollMap[e.course_id].add((e as any).user_id || "");
+          enrollMap[e.course_id].add(e.user_id || "");
         }
 
         const completionStats = (courses || []).map((course) => {
@@ -189,7 +189,7 @@ export default function AdminAnalytics() {
         const courseRevMap: Record<string, { title: string; revenue: number; enrollments: number }> = {};
         for (const e of enrollments || []) {
           const id = e.course_id;
-          const price = (e.courses as any)?.price || 0;
+          const price = e.courses?.price || 0;
           const course = (courses || []).find((c) => c.id === id);
           if (!courseRevMap[id]) courseRevMap[id] = { title: course?.title || id, revenue: 0, enrollments: 0 };
           courseRevMap[id].revenue += price;
