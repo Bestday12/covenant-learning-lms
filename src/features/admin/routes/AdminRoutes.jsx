@@ -14,6 +14,8 @@ import AdminModuleBuilder from "@/features/admin/courses/pages/AdminModuleBuilde
 import AdminLessonBuilder from "@/features/admin/courses/pages/AdminLessonBuilder.jsx";
 import AdminCertificateBuilder from "@/features/admin/certificates/pages/AdminCertificateBuilder.jsx";
 import AdminAffiliates from "@/features/admin/affiliates/pages/AdminAffiliates.jsx";
+import AdminAnalytics from "@/features/admin/analytics/pages/AdminAnalytics.jsx";
+
 
 
 export function AdminGuard() {
@@ -92,6 +94,10 @@ export const adminChildren = [
   element: <AdminAffiliates /> 
  
  },
+ {
+  path: "analytics",
+  element: <AdminAnalytics />,
+},
  
   {
     path: "*",

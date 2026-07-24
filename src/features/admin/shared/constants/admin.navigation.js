@@ -6,4 +6,5 @@
   { key: "settings", label: "Settings", path: "/admin/settings" },
   { key: "certificates", label: "Certificates", path: "/admin/certificates", icon: "Award" },
   { key: "affiliates", label: "Affiliates", path: "/admin/affiliates" },
+  { key: "analytics", label: "Analytics", path: "/admin/analytics" },
 ];
