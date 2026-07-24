@@ -186,7 +186,7 @@ export default function AdminAnalytics() {
         setCompletionData(completionStats);
 
         // Top courses by revenue
-        const courseRevMap: Record<string, { title: string; revenue: number; enrollments: number }> = {};
+        const courseRevMap = {};
         for (const e of enrollments || []) {
           const id = e.course_id;
           const price = e.courses?.price || 0;
