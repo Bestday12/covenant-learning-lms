@@ -140,7 +140,7 @@ export default function AdminAnalytics() {
           .select("enrolled_at, course_id, courses(price)");
 
         // Group by month
-        const monthMap: Record<string, { revenue: number; enrollments: number }> = {};
+        const monthMap = {};
         for (const e of enrollments || []) {
           const date = new Date(e.enrolled_at);
           const key = date.toLocaleDateString("en-GB", { month: "short", year: "2-digit" });
@@ -164,13 +164,13 @@ export default function AdminAnalytics() {
           .from("certificates")
           .select("user_id, course_id");
 
-        const certMap: Record<string, Set<string>> = {};
+        const certMap = {};
         for (const c of certs || []) {
           if (!certMap[c.course_id]) certMap[c.course_id] = new Set();
           certMap[c.course_id].add(c.user_id);
         }
 
-        const enrollMap: Record<string, Set<string>> = {};
+        const enrollMap = {};
         for (const e of enrollments || []) {
           if (!enrollMap[e.course_id]) enrollMap[e.course_id] = new Set();
           enrollMap[e.course_id].add((e as any).user_id || "");
